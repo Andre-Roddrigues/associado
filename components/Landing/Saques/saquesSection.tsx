@@ -254,7 +254,6 @@ export function SaqueSection() {
     </div>
   </div>
 </div>
-
       {/* Modal-like Detailed View */}
       <AnimatePresence>
         {selectedFeature !== null && (
