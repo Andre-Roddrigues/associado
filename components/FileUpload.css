@@ -1,0 +1,113 @@
+/* .file-btn {
+    width: 330px;
+    height: 150px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: #1799d3;
+    background-color: #fff;
+    border: 1.5px dashed #1799d3;;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  } */
+  
+  .file-btn:hover {
+    color: #1799d3;
+    background-color: #f0f0f0ad;
+  }
+  
+  .file-btn span {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    background-color: #1799d3;
+  }
+  
+  /* .file-card {
+    width: 320px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #1797d3b7;
+    border-radius: 6px;
+    padding: 8px 15px;
+  }
+   */
+  .file-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .file-info h6 {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  
+  .progress-bg {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(0, 0, 0, 0.076);
+    border-radius: 8px;
+   
+  }
+  
+  .progress {
+    width: 0%;
+    height: 5px;
+    background-color: #1799d3;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+  }
+  
+  .icon {
+    font-size: 30px;
+    color: #1799d3;
+  }
+  
+  .close-icon {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .file-info button,
+  .check-circle {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    padding: 5px;
+    color: #1799d3;
+    background-color: #f1efff;
+    border: none;
+    border-radius: 100%;
+  }
+  
+  .upload-btn {
+    width: 330px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #1799d3;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+  }
