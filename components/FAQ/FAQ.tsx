@@ -58,7 +58,7 @@ export function FAQ() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-500 mb-4">
             Dúvidas de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Associados</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -97,7 +97,7 @@ export function FAQ() {
               >
                 <AccordionItem 
                   value={item.id} 
-                  className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
+                  className="border border-gray-200 rounded-xl text-gray-500 overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <AccordionTrigger className="px-6 py-4 hover:no-underline group">
                     <div className="flex items-center justify-between w-full">
@@ -106,7 +106,7 @@ export function FAQ() {
                           <Plus className="w-4 h-4 text-blue-600 group-data-[state=open]:hidden" />
                           <ChevronDown className="w-4 h-4 text-blue-600 hidden group-data-[state=open]:block" />
                         </span>
-                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg font-semibold text-gray-500 group-hover:text-blue-600 transition-colors">
                           {item.question}
                         </h3>
                       </div>

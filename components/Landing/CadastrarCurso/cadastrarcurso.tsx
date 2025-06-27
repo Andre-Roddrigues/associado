@@ -15,37 +15,39 @@ export function CoursesSection() {
     {
       icon: <PencilRuler size={28} className="text-white" />,
       title: "Cadastre seu Curso",
-      description: "Compartilhe seu conhecimento com milhares de alunos criando seu próprio curso.",
+      description:
+        "Compartilhe seu conhecimento com milhares de alunos criando seu próprio curso. Escolha a modalidade, defina os conteúdos e comece a ensinar de forma profissional.",
       buttonText: "Cadastrar Curso",
       gradient: "from-blue-600 to-cyan-500",
-      href: "/adicionar-curso" 
+      href: "/adicionar-curso",
     },
     {
       icon: <MessageCircleMore size={28} className="text-white" />,
       title: "Cadastre sua Mentoria",
-      description: "Ofereça mentorias individuais por chamada de vídeo e monetize sua experiência.",
+      description:
+        "Ofereça mentorias individuais por chamada de vídeo. Direcione seus aprendizados para quem busca orientação direta e transforme sua experiência em valor real.",
       buttonText: "Cadastrar Mentoria",
       gradient: "from-emerald-600 to-teal-500",
-      href: "/adicionar-mentoria" 
+      href: "/adicionar-mentoria",
     },
     {
       icon: <FilePlus size={28} className="text-white" />,
       title: "Cadastre seu Ebook",
-      description: "Publique ebooks informativos, didáticos ou técnicos para o seu público.",
+      description:
+        "Publique ebooks informativos, técnicos ou motivacionais. Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade.",
       buttonText: "Cadastrar Ebook",
       gradient: "from-blue-600 to-cyan-500",
-      href: "/adicionar-ebooks" 
+      href: "/adicionar-ebooks",
     },
     {
       icon: <Video size={28} className="text-white" />,
       title: "Venda um Livro Usado",
-      description: "Não jogue fora! O seu livro usado pode ser novo para outra pessoa.",
+      description:
+        "Agora os seus livros usados tem VALOR! Seu livro usado pode ser novo para outra pessoa. Contribua com a educação de quem precisa e ainda ganhe com isso.",
       buttonText: "Adicionar Vídeos",
       gradient: "from-emerald-600 to-teal-500",
-      href: "/adicionar-livro" 
-
-    }
-    
+      href: "/adicionar-livro",
+    },
   ];
 
   return (
@@ -85,7 +87,7 @@ export function CoursesSection() {
                   {card.icon}
                 </div>
                 
-                <h4 className="text-xl font-semibold text-gray-900 mb-3">{card.title}</h4>
+                <h4 className="text-xl font-semibold text-gray-500 mb-3">{card.title}</h4>
                 <p className="text-gray-600 text-sm leading-relaxed">{card.description}</p>
                 
                 <Link href={card.href} passHref className="mt-6">

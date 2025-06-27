@@ -32,10 +32,9 @@ export function SaqueSection() {
       title: "Saque flexível",
       shortDescription: "Receba seus ganhos na sua carteira móvel, banco ou outros métodos disponíveis.",
       fullDescription: [
-        "Múltiplas opções de saque: M-Pesa, bancos locais e transferências internacionais.",
+        "Múltiplas opções de saque: Contas Móveis e bancos.",
         "Taxas competitivas e transparentes para cada método.",
         "Limites de saque ajustáveis conforme sua necessidade.",
-        "Programação de saques recorrentes automáticos."
       ],
       gradient: "from-emerald-500 to-teal-400"
     },
@@ -43,11 +42,10 @@ export function SaqueSection() {
       id: 3,
       icon: <Clock3 size={28} className="text-white" />,
       title: "Transferência rápida",
-      shortDescription: "Solicite seu saque e receba em até 24 horas úteis, sem complicações.",
+      shortDescription: "Solicite seu saque e receba em até 48 horas úteis, sem complicações.",
       fullDescription: [
-        "Processamento acelerado para saques urgentes (disponível para alguns métodos).",
+        "Processamento acelerado para saques.",
         "Status de transferência acompanhável em cada etapa.",
-        "Horário de corte para processamento no mesmo dia: 15h (horário local).",
         "Receba notificações quando o dinheiro chegar na sua conta."
       ],
       gradient: "from-amber-500 to-yellow-400"
@@ -86,12 +84,12 @@ export function SaqueSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-to-br from-blue-50 to-gray-50 relative"
+      className="py-24 px-6 bg-gradient-to-br text-gray-500 from-blue-50 to-gray-50 relative"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h3 className="text-4xl font-bold text-gray-900 mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Ganhos</span> e Saque
+          <h3 className="text-4xl font-bold text-gray-500 mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Ganhos e</span><span className="text-gray-500"> Saque</span>
           </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Acompanhe seus ganhos em tempo real, tudo de forma simples, segura e rápida. 
@@ -117,7 +115,7 @@ export function SaqueSection() {
                   {feature.icon}
                 </div>
                 
-                <h4 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h4>
+                <h4 className="text-xl font-semibold text-gray-500 mb-3">{feature.title}</h4>
                 <p className="text-gray-600 text-sm leading-relaxed">{feature.shortDescription}</p>
                 
                 <button 
@@ -139,7 +137,7 @@ export function SaqueSection() {
   <div className="p-8 md:p-10">
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
       <div>
-        <h4 className="text-3xl font-bold text-gray-900 mb-2">
+        <h4 className="text-3xl font-bold text-gray-500 mb-2">
           Otimize sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Estratégia Financeira</span>
         </h4>
         <p className="text-lg text-gray-600 max-w-2xl">
@@ -151,7 +149,7 @@ export function SaqueSection() {
       </div>
     </div>
 
-    <div className="grid md:grid-cols-3 gap-8">
+    <div className="grid md:grid-cols-3 gap-8 text-gray-500">
       {/* Monetization Tips */}
       <motion.div 
         whileHover={{ y: -5 }}
@@ -163,7 +161,7 @@ export function SaqueSection() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
           </div>
-          <h5 className="font-semibold text-lg text-gray-800">Dicas de Monetização</h5>
+          <h5 className="font-semibold text-lg text-gray-500">Dicas de Monetização</h5>
         </div>
         <ul className="space-y-3">
           {[
@@ -193,18 +191,18 @@ export function SaqueSection() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <h5 className="font-semibold text-lg text-gray-800">Taxas Transparentes</h5>
+          <h5 className="font-semibold text-lg text-gray-500">Taxas Transparentes</h5>
         </div>
         <div className="space-y-4">
           {[
-            { label: "Vendas de cursos", value: "5%", highlight: false },
-            { label: "Mentorias individuais", value: "10%", highlight: false },
-            { label: "Pacotes premium", value: "7%", highlight: true },
-            { label: "Taxa de saque", value: "1%", highlight: false }
+            { label: "Vendas de cursos",  highlight: false },
+            { label: "Mentorias individuais",  highlight: false },
+            { label: "Pacotes premium", highlight: true },
+            { label: "Taxa de saque",  highlight: false }
           ].map((fee, i) => (
             <div key={i} className={`flex justify-between items-center p-3 rounded-lg ${fee.highlight ? "bg-blue-50 border border-blue-100" : "bg-gray-50"}`}>
               <span className="text-gray-700">{fee.label}</span>
-              <span className={`font-medium ${fee.highlight ? "text-blue-600" : "text-gray-800"}`}>{fee.value}</span>
+              <span className={`font-medium ${fee.highlight ? "text-blue-600" : "text-gray-500"}`}></span>
             </div>
           ))}
         </div>
@@ -221,13 +219,13 @@ export function SaqueSection() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
           </div>
-          <h5 className="font-semibold text-lg text-gray-800">Suporte Dedicado</h5>
+          <h5 className="font-semibold text-lg text-gray-500">Suporte Dedicado</h5>
         </div>
         <div className="space-y-4">
           {[
             {
               icon: <Clock3 className="text-cyan-600" size={18} />,
-              title: "Atendimento 24/7",
+              title: "Atendimento",
               description: "Equipe especializada disponível a qualquer momento"
             },
             {
@@ -244,7 +242,7 @@ export function SaqueSection() {
             <div key={i} className="flex items-start gap-3">
               <div className="mt-0.5">{item.icon}</div>
               <div>
-                <h6 className="font-medium text-gray-800">{item.title}</h6>
+                <h6 className="font-medium text-gray-500">{item.title}</h6>
                 <p className="text-sm text-gray-600">{item.description}</p>
               </div>
             </div>
@@ -284,7 +282,7 @@ export function SaqueSection() {
                   {features[selectedFeature].icon}
                 </div>
                 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{features[selectedFeature].title}</h3>
+                <h3 className="text-2xl font-bold text-gray-500 mb-4">{features[selectedFeature].title}</h3>
                 
                 <div className="space-y-4 mb-6">
                   {features[selectedFeature].fullDescription.map((item, i) => (
@@ -299,7 +297,7 @@ export function SaqueSection() {
                   <h4 className="font-medium text-blue-800 mb-2">Como funciona na prática:</h4>
                   <p className="text-blue-600 text-sm">
                     {selectedFeature === 0 && "Seu saldo é atualizado instantaneamente após cada transação aprovada."}
-                    {selectedFeature === 1 && "Configure seus métodos preferidos e faça saques com apenas 2 cliques."}
+                    {selectedFeature === 1 && "Configure seus métodos preferidos e faça saques com alguns cliques."}
                     {selectedFeature === 2 && "Solicitações feitas até as 15h são processadas no mesmo dia útil."}
                     {selectedFeature === 3 && "Todos os dados financeiros são armazenados com criptografia bancária."}
                   </p>
