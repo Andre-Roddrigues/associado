@@ -189,7 +189,7 @@ export function InstrutorForm() {
                   Modalidade:
                 </label>
                 <select
-                  className="w-full mt-1 p-2 border rounded-md text-sm"
+                  className="w-full mt-1 p-2 border text-muted-foreground rounded-md text-sm"
                   {...register("modalidade", { onChange: handleModalidadeChange })}
                 >
                   <option value="">Selecione</option>
@@ -203,7 +203,7 @@ export function InstrutorForm() {
                   Duração:
                 </label>
                 <select
-                  className="w-full mt-1 p-2 border rounded-md text-sm"
+                  className="w-full mt-1 p-2 border text-muted-foreground rounded-md text-sm"
                   {...register("duracao")}
                 >
                   <option value="">Selecione</option>
