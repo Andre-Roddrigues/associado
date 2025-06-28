@@ -1,171 +1,207 @@
 "use client";
+import logo from "@/public/images/icon.ico";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { BookOpen, Award, Users, LockKeyhole, MailCheck, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { InputFieldS } from "@/components/ui/inputFieldSenha";
+import { login } from "./auth-actions";
+import ModalTermos from "./ModalTermis";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
-import { authenticate } from '@/lib/auth-actions';
-
-export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState<string>("");
+  const [senha, setSenha] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const toggleConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
+  const [newPassword, setNewPassword] = useState("");
+  const toggleNewPassword = () => setShowNewPassword(!showNewPassword);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!email || !senha) {
+      toast.error("Por favor, preencha todos os campos.");
+      return;
+    }
+
     setLoading(true);
-    setError('');
+    const redirectUrl =
+      new URL(window.location.href).searchParams.get("redirect") || "/formador/painel";
 
     try {
-      const response = await authenticate(email, password);
-      
-      if (response.success) {
-        router.push('/dashboard');
-      } else {
-        setError(response.message || 'Credenciais inválidas');
+      const response = await login(email, senha);
+      console.log(response);
+      console.log("resposta status: ", response?.status);
+      if (!response?.sucess) {
+        if (response?.status === 400 || response?.status === 401) {
+          toast.error(
+            "Credenciais inválidas. Por favor, verifique seu e-mail ou senha."
+          );
+        }
+        if (response?.status === 429) {
+          toast.error(
+            "Você excedeu o limite de tentativas de login. Por favor, tente novamente mais tarde(Após 5 Minutos)."
+          );
+        } else {
+          toast.error(
+            "Ocorreu um erro. Por favor, tente novamente mais tarde."
+          );
+        }
+        return;
       }
-    } catch (err) {
-      setError('Ocorreu um erro durante o login. Tente novamente.');
+
+      // Captura o parâmetro de redirecionamento
+
+      console.log("Redirecionando para: ", redirectUrl);
+
+      toast.success("Bem vindo!");
+      router.push(redirectUrl);
+      window.location.reload();
+    } catch (error) {
+      console.log("Erro ", error);
     } finally {
       setLoading(false);
     }
+    router.push(redirectUrl);
+    window.location.reload();
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden border border-white/20">
-          <div className="p-10">
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Lock className="text-white" size={32} />
+    <>
+      <div className="min-h-screen flex bg-white">
+  {/* Seção da Imagem */}
+  <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-600 to-cyan-500 relative overflow-hidden">
+    <div className="absolute inset-0 bg-[url('/images/HeroImageCurso.webp')] bg-cover bg-center opacity-20"></div>
+    <div className="relative z-10 flex flex-col justify-center items-center h-full p-12 text-white">
+      <h1 className="text-4xl font-bold mb-6 text-center">Bem-vindo Sócio!</h1>
+      <p className="text-xl text-center mb-8 max-w-lg">
+      Compartilhe seu conhecimento, ensine o que ama e transforme vidas enquanto monetiza seu conteúdo.
+      </p>
+      <div className="flex items-center space-x-4">
+        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+          <BookOpen className="w-6 h-6" />
+        </div>
+        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+          <Award className="w-6 h-6" />
+        </div>
+        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+          <Users className="w-6 h-6" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Seção do Formulário */}
+  <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+    <section className="w-full max-w-md  overflow-hidden ">
+      <div className="p-8">
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg">
+              <LockKeyhole className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-500">
+            É bom ter você de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">volta</span>
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Introduza o seu email e senha e comece já a ganhar connosco!
+          </p>
+        </div>
+
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-4">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MailCheck className="h-5 w-5 text-gray-400" />
               </div>
-              <h1 className="text-3xl font-bold text-white mb-2">Acesso Premium</h1>
-              <p className="text-white/80">Entre na sua conta de associado</p>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full pl-10 pr-3 shadow-lg py-3 text-muted-foreground border border-gray-300 rounded-lg bg-white placeholder:text-zinc-400 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:border-none disabled:cursor-not-allowed disabled:opacity- disabled:border-none disabled:bg-transparent disabled:text-zinc-600 disabled:tracking-wide transition-all duration-300"
+                placeholder="unitec@unitec.ac.mz"
+                required
+              />
             </div>
 
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-red-500/20 text-red-200 p-3 rounded-lg mb-6 text-sm border border-red-500/30"
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <LockKeyhole className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                type={showNewPassword ? "text" : "password"}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                className="block w-full pl-10 text-muted-foreground pr-10 py-3 border shadow-lg border-gray-300 rounded-lg bg-white focus:ring-2 placeholder:text-zinc-400 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:border-none disabled:cursor-not-allowed disabled:opacity- disabled:border-none disabled:bg-transparent disabled:text-zinc-600 disabled:tracking-wide transition-all duration-300"
+                placeholder="********"
+                required
+              />
+              <button
+                type="button"
+                onClick={toggleNewPassword}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
-                {error}
-              </motion.div>
+                {showNewPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Link
+              href="/recuperar-senha"
+              className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors duration-300"
+            >
+              Esqueceu a senha?
+            </Link>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                Carregando...
+              </>
+            ) : (
+              "Entrar"
             )}
+          </button>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-2">
-                  Email
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="text-white/50" size={18} />
-                  </div>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white/5 border border-white/10 text-white w-full py-3 pl-10 pr-4 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-white/80 mb-2">
-                  Senha
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="text-white/50" size={18} />
-                  </div>
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    autoComplete="current-password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="bg-white/5 border border-white/10 text-white w-full py-3 pl-10 pr-10 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-white/50 hover:text-white/80 transition-colors"
-                  >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 bg-white/5 border-white/10 rounded focus:ring-blue-500 text-blue-600"
-                  />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-white/80">
-                    Lembrar-me
-                  </label>
-                </div>
-
-                <div className="text-sm">
-                  <a href="#" className="font-medium text-blue-400 hover:text-blue-300 transition-colors">
-                    Esqueceu a senha?
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
-                >
-                  {loading ? (
-                    <span className="flex items-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Carregando...
-                    </span>
-                  ) : (
-                    'Entrar'
-                  )}
-                </button>
-              </div>
-            </form>
+          <div className="text-center text-sm text-gray-500">
+            Ao continuar, você concorda com os{" "}
+            <button
+              type="button"
+              onClick={() => setOpenModal(true)}
+              className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-300"
+            >
+              Termos e Condições de Uso
+            </button>
           </div>
 
-          <div className="px-6 py-4 bg-white/5 text-center">
-            <p className="text-white/70 text-sm">
-              Novo associado?{' '}
-              <a href="#" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
-                Solicite seu acesso
-              </a>
-            </p>
-          </div>
-        </div>
-      </motion.div>
-    </div>
+          <ModalTermos isOpen={openModal} onClose={() => setOpenModal(false)} />
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+    </>
   );
-}
+};
+
+export default Login;

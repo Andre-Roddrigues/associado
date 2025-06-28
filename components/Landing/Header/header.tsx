@@ -16,7 +16,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 bottom-0 z-50 w-full bg-gradient-to-br from-blue-900 to-blue-700 shadow-lg backdrop-blur-sm bg-opacity-90 border-b border-blue-800">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-br from-blue-900 to-blue-700 shadow-lg backdrop-blur-sm bg-opacity-90 border-b border-blue-800">
       <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-white">Associados</h1>
         
