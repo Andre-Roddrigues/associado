@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Se o usuário não estiver autenticado e tentar acessar rotas protegidas
-  if ((pathname.startsWith('/formador')) && !session) {
+  if ((pathname.startsWith('/meu')) && !session) {
     const loginUrl = new URL('/login', req.url);
     loginUrl.searchParams.set('redirect', pathname + req.nextUrl.search); // Salva a URL atual para redirecionamento
     console.log('Definindo redirect:', loginUrl.toString());
@@ -28,5 +28,5 @@ export async function middleware(req: NextRequest) {
 
 // Configuração do middleware
 export const config = {
-  matcher: [ '/formador/:path*', '/login'],
+  matcher: [ /* '/formador/:path*' */ '/login'],
 };
