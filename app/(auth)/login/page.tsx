@@ -131,14 +131,14 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                 <Link
                   href="/recuperar-senha"
                   className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors duration-300"
                 >
                   Esqueceu a senha?
                 </Link>
-              </div>
+              </div> */}
 
               <button
                 type="submit"

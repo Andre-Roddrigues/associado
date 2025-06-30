@@ -13,29 +13,22 @@ export const authenticate = async (email: string, password: string) => {
     });
 
     const data = await response.json();
-    console.log("== RESPOSTA COMPLETA DO BACKEND ==", data);
+    console.log("== token ==", data);
 
-    // A API retorna o token como string simples
     const token = typeof data === 'string' ? data : data.token;
 
-    if (!token) {
-      return {
-        success: false,
-        message: 'Token não retornado pela API',
-      };
-    }
 
     cookies().set("auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24 * 7, // 1 semana
+      maxAge: 60 * 60 * 24 * 7, 
       path: '/',
     });
 
     return {
       success: true,
       token,
-      user: null, // não veio nenhum dado extra, então deixamos como null
+      user: null, 
     };
 
   } catch (error) {
