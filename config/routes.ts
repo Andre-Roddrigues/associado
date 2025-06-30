@@ -1,18 +1,17 @@
-// config/routes.ts
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 const LOCAL_SERVER = "http://192.168.43.177:5000";
 const REQUISITOS_URL = process.env.NEXT_PUBLIC_API_REQUISITOS || "";
 const API_MPESA = process.env.NEXT_PUBLIC_API_MPESA || "";
 const API_MOODLE = process.env.NEXT_PUBLIC_API_MOODLE || "";
 
-//842529183
-//847766462
 export const routes = {
   //route for login autentication
   backend_url: `${API_BASE_URL}`,
   cuponAssociacion: `${API_BASE_URL}/cupomAssociantion`,
   gravarAlunoMoodle: `${API_BASE_URL}/gravaralunomoodle`,
   login: `${API_BASE_URL}/logininstrutor`,
+  logininstrutor: `${API_BASE_URL}/logininstrutor`,
   register_student: `${API_BASE_URL}/registaraluno`,
   listCourses: `${API_BASE_URL}/vercursos`,
   curosRegistados: `${API_BASE_URL}/cursoregistado`,
@@ -40,4 +39,5 @@ export const routes = {
   carregarComprovativo: `${API_BASE_URL}/primeiropagamentoaluno`,
   pagamentosRejeitados: `${API_BASE_URL}/listarpagementosrejeitados`,
   registarcursoinstrutor: `${API_BASE_URL}/registarcursoinstrutor`,
+  addcourse: `${API_BASE_URL}/addcourse`,
 };

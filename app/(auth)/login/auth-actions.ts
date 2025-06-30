@@ -12,11 +12,11 @@ import { UserSession } from "@/components/types/types";
 
 
 
-export async function login(email: string, password: string) {
+export async function login(email: string, senha: string) {
     let user : UserSession;
     let accessToken;
     try{
-        const response = await axios.post(routes.login, { email: email, senha: password});   
+        const response = await axios.post(routes.login, { email: email, senha: senha});   
       
         if(response.status === 200) {
             accessToken = response.data.token;

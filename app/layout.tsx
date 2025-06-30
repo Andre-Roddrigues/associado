@@ -6,7 +6,7 @@ import ReactQueryClientProvider from "@/ReactQuery/QueryClientProvider";
 import { getUser } from "./(auth)/login/auth-actions";
 import { Header } from "@/components/Landing/Header/header";
 // import Header from "@/components/Landing/Header/header";
-
+import { isAuthenticated } from '@/lib/auth-utils';
 const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
@@ -47,7 +47,7 @@ export  default async function RootLayout({
       <body className={`h-full bg-gradient-to-br from-blue-900 to-blue-500 text-white ${nunito.className} ${montserrat.variable}`}>
           <ReactQueryClientProvider>
             {/* <Navbar user={user}/> */}
-             <Header /> 
+            <HeaderWrapper />
             <div className="h-full flex flex-col bg-secondary  ">
               <div className="flex-1">
                 {children}
@@ -60,4 +60,8 @@ export  default async function RootLayout({
       </body>
     </html>
   );
+}
+async function HeaderWrapper() {
+  const userIsAuthenticated = await isAuthenticated();
+  return <Header isAuthenticated={userIsAuthenticated} />;
 }

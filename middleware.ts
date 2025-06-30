@@ -28,5 +28,5 @@ export async function middleware(req: NextRequest) {
 
 // Configuração do middleware
 export const config = {
-  matcher: [ /* '/formador/:path*' */ '/login'],
+  matcher: [/*  '/formador/:path*',  */'/login'],
 };

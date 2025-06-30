@@ -1,49 +1,48 @@
 'use server';
 
-interface AuthResponse {
-  success: boolean;
-  message?: string;
-  token?: string;
-  user?: any;
-}
+import { routes } from '@/config/routes';
+import { cookies } from 'next/headers';
 
-export const authenticate = async (email: string, password: string): Promise<AuthResponse> => {
+export const authenticate = async (email: string, password: string) => {
   try {
-    const response = await fetch('https://backend.unitec.ac.mz/loginintrutor', {
+    const response = await fetch(routes.logininstrutor, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        senha: password // Note que o backend espera "senha" e não "password"
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha: password }),
       cache: 'no-store'
     });
 
     const data = await response.json();
+    console.log("== RESPOSTA COMPLETA DO BACKEND ==", data);
 
-    if (!response.ok) {
+    // A API retorna o token como string simples
+    const token = typeof data === 'string' ? data : data.token;
+
+    if (!token) {
       return {
         success: false,
-        message: data.message || 'Credenciais inválidas'
+        message: 'Token não retornado pela API',
       };
     }
 
-    // Aqui você pode armazenar o token e os dados do usuário
-    // Exemplo: cookies().set('authToken', data.token);
-    
+    cookies().set("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 24 * 7, // 1 semana
+      path: '/',
+    });
+
     return {
       success: true,
-      token: data.token,
-      user: data.user
+      token,
+      user: null, // não veio nenhum dado extra, então deixamos como null
     };
 
   } catch (error) {
-    console.error('Authentication error:', error);
+    console.error("Erro de autenticação:", error);
     return {
       success: false,
-      message: 'Erro de conexão com o servidor'
+      message: 'Erro de conexão com o servidor',
     };
   }
 };
