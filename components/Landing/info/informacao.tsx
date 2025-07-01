@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { CheckCircleIcon, MessageCircleQuestion, PhoneIcon, ChevronsUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { FAQ } from "@/components/FAQ/FAQ";
-
+import {CartoesInfo} from "./suporteCard"
 export function PremiumPlatformSection() {
   return (
     <div className="bg-white py-12 sm:py-20">
@@ -156,16 +156,9 @@ export function PremiumPlatformSection() {
           <h3 className="text-xl font-bold text-gray-500 mb-3">Dúvidas?</h3>
         </div>
          <FAQ/>
-          {/* <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#" className="text-blue-600 hover:text-blue-800 flex items-center justify-center text-sm">
-              <MessageCircleQuestion className="w-4 h-4 mr-1" />
-              Perguntas Frequentes
-            </a>
-            <a href="#" className="text-blue-600 hover:text-blue-800 flex items-center justify-center text-sm">
-              <PhoneIcon className="w-4 h-4 mr-1" />
-              Suporte
-            </a>
-          </div> */}
+          <div className="flex flex-col sm:flex-row justify-center py-4 gap-4">
+            <CartoesInfo />
+          </div> 
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast"
 import ReactQueryClientProvider from "@/ReactQuery/QueryClientProvider";
 import { getUser } from "./(auth)/login/auth-actions";
 import { Header } from "@/components/Landing/Header/header";
-// import Header from "@/components/Landing/Header/header";
+import Footer from "@/components/Landing/Footer/footer";
 import { isAuthenticated } from '@/lib/auth-utils';
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -52,8 +52,8 @@ export  default async function RootLayout({
               <div className="flex-1">
                 {children}
               </div>
-             {/* <ContactFormButton />
-              <Footer/> */}
+             {/* <ContactFormButton /> */}
+              <Footer/> 
             </div>
             </ReactQueryClientProvider> 
         <Toaster containerClassName="mt-[7vh] " position="top-center" />
