@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, Eye, EyeOff, Award, BookOpen, Users, Loader2, LockKeyhole, MailCheck } from "lucide-react";
 import { authenticate } from "@/lib/auth-actions";
-import ModalTermos from "./ModalTermis";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import ModalTermos from "./ModalTermis";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
