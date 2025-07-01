@@ -1,7 +1,15 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Wallet2, Banknote, Clock3, ShieldCheck, X, FileText, Users } from "lucide-react";
+import {
+  Percent,
+  CheckCircle2,
+  Eye,
+  Wrench,
+  Layout,
+  CreditCard,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 const fadeIn = {
@@ -15,68 +23,107 @@ export function SaqueSection() {
   const features = [
     {
       id: 1,
-      icon: <Wallet2 size={28} className="text-white" />,
-      title: "Ganhos em tempo real",
-      shortDescription: "Visualize o crescimento da sua receita à medida que suas vendas acontecem.",
+      icon: <Percent size={28} className="text-white" />,
+      title: "Comissões atrativas",
+      shortDescription:
+        "Fique com a maior fatia da receita e taxas sempre transparentes.",
       fullDescription: [
-        "Acompanhe cada transação em tempo real com nosso painel detalhado.",
-        "Gráficos interativos mostram seu crescimento financeiro dia a dia.",
-        "Notificações instantâneas para cada nova venda ou assinatura.",
-        "Histórico completo de todas as suas transações."
+        "Até 80 % de comissão em vendas diretas.",
+        "Taxas fixas e sem surpresas na hora do saque.",
+        "Relatórios detalhados para acompanhar cada centavo.",
       ],
-      gradient: "from-blue-500 to-cyan-400"
+      practiceTip:
+        "Combine ofertas relâmpago com cupons para aumentar ainda mais seu ticket médio.",
+      gradient: "from-emerald-500 to-green-400",
     },
     {
       id: 2,
-      icon: <Banknote size={28} className="text-white" />,
-      title: "Saque flexível",
-      shortDescription: "Receba seus ganhos na sua carteira móvel, banco ou outros métodos disponíveis.",
+      icon: <CheckCircle2 size={28} className="text-white" />,
+      title: "Aprovação rápida",
+      shortDescription:
+        "Suba seu conteúdo e, em poucas horas, já pode começar a vender.",
       fullDescription: [
-        "Múltiplas opções de saque: Contas Móveis e bancos.",
-        "Taxas competitivas e transparentes para cada método.",
-        "Limites de saque ajustáveis conforme sua necessidade.",
+        "Time de curadoria 24/7 para agilizar a revisão.",
+        "Checklist inteligente aponta ajustes antes de enviar.",
+        "Notificação em tempo real assim que seu curso é liberado.",
       ],
-      gradient: "from-emerald-500 to-teal-400"
+      practiceTip:
+        "Use nossas boas‑práticas de formatação para reduzir retrabalho e acelerar ainda mais.",
+      gradient: "from-blue-500 to-cyan-400",
     },
     {
       id: 3,
-      icon: <Clock3 size={28} className="text-white" />,
-      title: "Transferência rápida",
-      shortDescription: "Solicite seu saque e receba em até 48 horas úteis, sem complicações.",
+      icon: <Eye size={28} className="text-white" />,
+      title: "Ampla visibilidade",
+      shortDescription:
+        "Alcance milhares de alunos com SEO otimizado e promoções internas.",
       fullDescription: [
-        "Processamento acelerado para saques.",
-        "Status de transferência acompanhável em cada etapa.",
-        "Receba notificações quando o dinheiro chegar na sua conta."
+        "Página do produto indexada automaticamente no Google.",
+        "Participação em campanhas sazonais da plataforma.",
+        "Ferramentas de afiliados para multiplicar seu alcance.",
       ],
-      gradient: "from-amber-500 to-yellow-400"
+      practiceTip:
+        "Ative cupons de afiliados e aproveite o algoritmo de recomendação para ganhar tráfego extra.",
+      gradient: "from-indigo-500 to-purple-400",
     },
     {
       id: 4,
-      icon: <ShieldCheck size={28} className="text-white" />,
-      title: "Sistema seguro",
-      shortDescription: "Seus dados e transações são protegidos com tecnologia de ponta.",
+      icon: <Wrench size={28} className="text-white" />,
+      title: "Suporte técnico e ferramentas úteis",
+      shortDescription:
+        "Você tem ajuda quando precisar e ferramentas que facilitam o dia a dia.",
       fullDescription: [
-        "Criptografia de ponta a ponta em todas as transações.",
-        "Autenticação de dois fatores para operações sensíveis.",
-        "Monitoramento 24/7 contra atividades suspeitas.",
-        "Seguro contra fraudes e garantia de devolução em casos comprovados."
+        "Acompanhe suas vendas e acessos com gráficos simples e claros.",
+        "Tenha uma visão completa do que está funcionando e onde pode melhorar.",
+        "Se tiver dúvidas ou problemas, nosso suporte técnico responde rápido, geralmente em até 2 horas úteis.",
       ],
-      gradient: "from-purple-500 to-violet-400"
-    }
+      practiceTip:
+        "Sempre que precisar de ajuda com sua conta ou conteúdo, é só chamar o suporte.",
+      gradient: "from-indigo-500 to-violet-400",
+    },    
+    {
+      id: 5,
+      icon: <Layout size={28} className="text-white" />,
+      title: "Presença profissional personalizada",
+      shortDescription:
+        "Tenha uma página exclusiva com um e‑mail profissional para reforçar sua marca.",
+      fullDescription: [
+        "Construa sua identidade digital com uma página dedicada ao seu conteúdo.",
+        "Utilize um e‑mail personalizado com domínio @unitec.academy para transmitir mais credibilidade.",
+        "Compartilhe seu link único com alunos e parceiros para se destacar no mercado.",
+      ],
+      practiceTip:
+        "Use seu e‑mail personalizado em redes sociais e propostas comerciais para reforçar sua autoridade como instrutor.",
+      gradient: "from-pink-500 to-rose-400",
+    },    
+    {
+      id: 6,
+      icon: <CreditCard size={28} className="text-white" />,
+      title: "Formas de pagamento",
+      shortDescription:
+        "Cartões, M‑Pesa, PayPal, MB Way e muito mais — receba como quiser.",
+      fullDescription: [
+        "16 gateways integrados cobrindo África, Europa e Américas.",
+        "Conversão automática de moeda para facilitar vendas globais.",
+        "Proteção contra chargeback e fraudes incluída.",
+      ],
+      practiceTip:
+        "Ative pagamento recorrente para mentorias e garanta receita mensal previsível.",
+      gradient: "from-purple-500 to-violet-400",
+    },
   ];
 
   const handleLearnMore = (index: number) => {
     setSelectedFeature(index);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const handleCloseModal = () => {
     setSelectedFeature(null);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
   };
 
   return (
-    
     <motion.section
       id="saque"
       initial="hidden"
@@ -89,15 +136,20 @@ export function SaqueSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold text-gray-500 mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Ganhos e</span><span className="text-gray-500"> Saque</span>
+            <span className="">Benefícios</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              Exclusivos
+            </span>{" "}
+            da Unitec PRO
           </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Acompanhe seus ganhos em tempo real, tudo de forma simples, segura e rápida. 
-            Comece a monetizar agora mesmo e tenha controle total sobre seus recursos financeiros.
+            Descubra como transformar seu conhecimento em renda de forma
+            escalável, segura e transparente
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* GRID – 3 colunas em desktop, 2 no tablet, 1 no mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}
@@ -109,16 +161,22 @@ export function SaqueSection() {
               layoutId={`feature-${feature.id}`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg transform group-hover:scale-[1.02] transition-all duration-300 opacity-0 group-hover:opacity-100 border border-gray-100" />
-              
+
               <div className="relative h-full bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-transparent flex flex-col">
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-6 shadow-lg`}>
+                <div
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-6 shadow-lg`}
+                >
                   {feature.icon}
                 </div>
-                
-                <h4 className="text-xl font-semibold text-gray-500 mb-3">{feature.title}</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.shortDescription}</p>
-                
-                <button 
+
+                <h4 className="text-xl font-semibold text-gray-500 mb-3">
+                  {feature.title}
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {feature.shortDescription}
+                </p>
+
+                <button
                   onClick={() => handleLearnMore(index)}
                   className="mt-6 pt-4 border-t border-gray-100 group-hover:border-transparent transition-colors text-left"
                 >
@@ -130,139 +188,19 @@ export function SaqueSection() {
             </motion.div>
           ))}
         </div>
-        </div>
-
-        {/* Additional Info Section */}
-        <div className="mt-20 bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-  <div className="p-8 md:p-10">
-    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-      <div>
-        <h4 className="text-3xl font-bold text-gray-500 mb-2">
-          Otimize sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Estratégia Financeira</span>
-        </h4>
-        <p className="text-lg text-gray-600 max-w-2xl">
-          Descubra como maximizar seus rendimentos e aproveitar ao máximo nossa plataforma
-        </p>
       </div>
-      <div className="w-14 h-14 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg">
-        <Banknote className="text-white" size={28} />
-      </div>
-    </div>
 
-    <div className="grid md:grid-cols-3 gap-8 text-gray-500">
-      {/* Monetization Tips */}
-      <motion.div 
-        whileHover={{ y: -5 }}
-        className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-      >
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
-            <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-          </div>
-          <h5 className="font-semibold text-lg text-gray-500">Dicas de Monetização</h5>
-        </div>
-        <ul className="space-y-3">
-          {[
-            "Lance novos conteúdos semanalmente",
-            "Crie pacotes com cursos complementares",
-            "Ofereça mentorias em grupo (mais econômicas)",
-            "Promova temporadas de descontos estratégicos"
-          ].map((item, i) => (
-            <li key={i} className="flex items-start">
-              <div className="flex-shrink-0 mt-1">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              </div>
-              <span className="ml-3 text-gray-600">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
-
-      {/* Transparent Fees */}
-      <motion.div 
-        whileHover={{ y: -5 }}
-        className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-      >
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center">
-            <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h5 className="font-semibold text-lg text-gray-500">Taxas Transparentes</h5>
-        </div>
-        <div className="space-y-4">
-          {[
-            { label: "Vendas de cursos",  highlight: false },
-            { label: "Mentorias individuais",  highlight: false },
-            { label: "Pacotes premium", highlight: true },
-            { label: "Taxa de saque",  highlight: false }
-          ].map((fee, i) => (
-            <div key={i} className={`flex justify-between items-center p-3 rounded-lg ${fee.highlight ? "bg-blue-50 border border-blue-100" : "bg-gray-50"}`}>
-              <span className="text-gray-700">{fee.label}</span>
-              <span className={`font-medium ${fee.highlight ? "text-blue-600" : "text-gray-500"}`}></span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Dedicated Support */}
-      <motion.div 
-        whileHover={{ y: -5 }}
-        className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-      >
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
-            <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </div>
-          <h5 className="font-semibold text-lg text-gray-500">Suporte Dedicado</h5>
-        </div>
-        <div className="space-y-4">
-          {[
-            {
-              icon: <Clock3 className="text-cyan-600" size={18} />,
-              title: "Atendimento",
-              description: "Equipe especializada disponível a qualquer momento"
-            },
-            {
-              icon: <FileText className="text-blue-600" size={18} />,
-              title: "Relatórios Mensais",
-              description: "Análises detalhadas do seu desempenho financeiro"
-            },
-            {
-              icon: <Users className="text-purple-600" size={18} />,
-              title: "Consultoria Premium",
-              description: "Estratégias personalizadas para aumentar seus ganhos"
-            }
-          ].map((item, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="mt-0.5">{item.icon}</div>
-              <div>
-                <h6 className="font-medium text-gray-500">{item.title}</h6>
-                <p className="text-sm text-gray-600">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  </div>
-</div>
-      {/* Modal-like Detailed View */}
+      {/* MODAL */}
       <AnimatePresence>
         {selectedFeature !== null && (
-          <motion.div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+          <motion.div
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleCloseModal}
           >
-            <motion.div 
+            <motion.div
               className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
               layoutId={`feature-${features[selectedFeature].id}`}
               initial={{ scale: 0.9 }}
@@ -270,7 +208,7 @@ export function SaqueSection() {
               exit={{ scale: 0.9 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
+              <button
                 onClick={handleCloseModal}
                 className="absolute top-4 right-4 p-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
               >
@@ -278,32 +216,38 @@ export function SaqueSection() {
               </button>
 
               <div className="p-8">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${features[selectedFeature].gradient} flex items-center justify-center mb-6 shadow-lg`}>
+                <div
+                  className={`w-16 h-16 rounded-xl bg-gradient-to-r ${features[selectedFeature].gradient} flex items-center justify-center mb-6 shadow-lg`}
+                >
                   {features[selectedFeature].icon}
                 </div>
-                
-                <h3 className="text-2xl font-bold text-gray-500 mb-4">{features[selectedFeature].title}</h3>
-                
+
+                <h3 className="text-2xl font-bold text-gray-500 mb-4">
+                  {features[selectedFeature].title}
+                </h3>
+
                 <div className="space-y-4 mb-6">
                   {features[selectedFeature].fullDescription.map((item, i) => (
-                    <p key={i} className="text-gray-600 flex items-start">
-                      <span className="inline-block w-1 h-1 rounded-full bg-gray-400 mt-2 mr-2"></span>
+                    <p
+                      key={i}
+                      className="text-gray-600 flex items-start leading-relaxed"
+                    >
+                      <span className="inline-block w-1 h-1 rounded-full bg-gray-400 mt-2 mr-2" />
                       {item}
                     </p>
                   ))}
                 </div>
 
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
-                  <h4 className="font-medium text-blue-800 mb-2">Como funciona na prática:</h4>
+                  <h4 className="font-medium text-blue-800 mb-2">
+                    Como funciona na prática:
+                  </h4>
                   <p className="text-blue-600 text-sm">
-                    {selectedFeature === 0 && "Seu saldo é atualizado instantaneamente após cada transação aprovada."}
-                    {selectedFeature === 1 && "Configure seus métodos preferidos e faça saques com alguns cliques."}
-                    {selectedFeature === 2 && "Solicitações feitas até as 15h são processadas no mesmo dia útil."}
-                    {selectedFeature === 3 && "Todos os dados financeiros são armazenados com criptografia bancária."}
+                    {features[selectedFeature].practiceTip}
                   </p>
                 </div>
 
-                <button 
+                <button
                   onClick={handleCloseModal}
                   className="mt-6 px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-lg hover:from-blue-700 hover:to-cyan-600 transition-all"
                 >
@@ -315,6 +259,5 @@ export function SaqueSection() {
         )}
       </AnimatePresence>
     </motion.section>
-  
   );
 }

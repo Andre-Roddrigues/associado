@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Video, PencilRuler, MessageCircleMore, FilePlus } from "lucide-react";
+import { BookOpen, Video, PencilRuler, MessageCircleMore, FilePlus, TicketCheckIcon } from "lucide-react";
 import Link from "next/link";
 
 const fadeIn = {
@@ -14,7 +14,7 @@ export function CoursesSection() {
   const cards = [
     {
       icon: <PencilRuler size={28} className="text-white" />,
-      title: "Cadastre seu Curso",
+      title: "Curso",
       description:
         "Compartilhe seu conhecimento com milhares de alunos criando seu próprio curso. Escolha a modalidade, defina os conteúdos e comece a ensinar de forma profissional.",
       buttonText: "Cadastrar Curso",
@@ -23,7 +23,7 @@ export function CoursesSection() {
     },
     {
       icon: <MessageCircleMore size={28} className="text-white" />,
-      title: "Cadastre sua Mentoria",
+      title: "Mentoria",
       description:
         "Ofereça mentorias individuais por chamada de vídeo. Direcione seus aprendizados para quem busca orientação direta e transforme sua experiência em valor real.",
       buttonText: "Cadastrar Mentoria",
@@ -32,21 +32,30 @@ export function CoursesSection() {
     },
     {
       icon: <FilePlus size={28} className="text-white" />,
-      title: "Cadastre seu Ebook",
+      title: "Ebook",
       description:
         "Publique ebooks informativos, técnicos ou motivacionais. Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade.",
       buttonText: "Cadastrar Ebook",
       gradient: "from-blue-600 to-cyan-500",
-      href: "/adicionar-ebooks",
+      href: "/adicionar-ebook",
     },
     {
-      icon: <Video size={28} className="text-white" />,
-      title: "Venda um Livro Usado",
+      icon: <BookOpen size={28} className="text-white" />,
+      title: "Usado",
       description:
         "Agora os seus livros usados tem VALOR! Seu livro usado pode ser novo para outra pessoa. Contribua com a educação de quem precisa e ainda ganhe com isso.",
       buttonText: "Adicionar Vídeos",
       gradient: "from-emerald-600 to-teal-500",
       href: "/adicionar-livro",
+    },
+    {
+      icon: <TicketCheckIcon size={28} className="text-white" />,
+      title: "Evento",
+      description:
+        "Crie eventos online ou presenciais para compartilhar conhecimento, realizar workshops ou palestras. Venda ingressos e gerencie participantes de forma simples.",
+      buttonText: "Adicionar Vídeos",
+      gradient: "from-emerald-600 to-teal-500",
+      href: "/adicionar-evento",
     },
   ];
 

@@ -19,6 +19,8 @@ import { HeroSection } from '@/components/Landing/Hero/heroPage';
 import { Header } from '@/components/Landing/Header/header';
 import { SaqueSection } from '@/components/Landing/Saques/saquesSection';
 import { CoursesSection } from '@/components/Landing/CadastrarCurso/cadastrarcurso';
+import { FAQ } from '@/components/FAQ/FAQ';
+import {PremiumPlatformSection} from '@/components/Landing/info/informacao';
 
 const Cards: React.FC = () => {
   return (
@@ -26,8 +28,10 @@ const Cards: React.FC = () => {
       {/* <Header /> */}
       <HeroSection />
       <StepsSection />
-      <CoursesSection />
       <SaqueSection />
+      <PremiumPlatformSection />
+      <CoursesSection />
+      <FAQ/>
     </div>
   );
 };

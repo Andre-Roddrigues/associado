@@ -145,7 +145,7 @@ export default function TabelaCursos() {
               key: "preco",
               label: "Preço",
               render: (item) => (
-                <span className="font-semibold px-3 py-1 rounded-full text-xs sm:text-sm bg-green-100 text-green-700">
+                <span className="font-semibold px-3 py-1 rounded-full text-sm sm:text-sm bg-green-100 text-green-700">
                   {formatarMetical(item.preco)}
                 </span>
               ),

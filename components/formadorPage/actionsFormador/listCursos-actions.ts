@@ -38,7 +38,8 @@ export interface Curso {
 export async function getCursosDoInstrutor(): Promise<Curso[] | null> {
   try {
     // Obtém o token do cookie
-    const token = cookies().get('auth_token')?.value;
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3VuaXRlYy5hYy5teiIsImF1ZCI6IlVuaXRlYyBBY2FkZW15IEludHJ1dG9yIiwic3ViIjoxMCwiaWRJbnN0cnVjdG9yIjoxMiwiZW1haWwiOiJsYXJpb3R5bGVyNkBnbWFpbC5jb20iLCJpYXQiOjE3NTEyODI2MzV9.I9ZmlB4VWwon7DSVn-RK_10nvft3GkWQVChbMGBUZrk"
+
     
     if (!token) {
       throw new Error('Token de autenticação não encontrado');

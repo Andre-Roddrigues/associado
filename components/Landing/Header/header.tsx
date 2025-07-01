@@ -19,17 +19,16 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
     login: "Entrar",
     logout: "Sair",
     faq: "FAQ",
+    painel: "Painel",
   };
 
   const handleLogout = async () => {
     try {
-      // Chama a API route para fazer logout
       const response = await fetch('/api/auth/logout', {
         method: 'POST',
       });
       
       if (response.ok) {
-        // Recarrega a página para atualizar o estado
         window.location.reload();
       }
     } catch (error) {
@@ -70,7 +69,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             {nav.withdraw}
           </Link>
           <Link
-            href="/faq" 
+            href="#faq" 
             className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
           >
             {nav.faq}
@@ -83,6 +82,18 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
           >
             {nav.home}
+          </Link>
+             <Link 
+            href="/formador/painel" 
+            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+          >
+            {nav.painel}
+          </Link>
+          <Link
+            href="#faq" 
+            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+          >
+            {nav.faq}
           </Link>
           </>
         )
@@ -100,7 +111,9 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
               </Button>
             </Link>
           ) : (
-           <></>
+           <>
+            
+           </>
           )}
         </div>
       </div>
