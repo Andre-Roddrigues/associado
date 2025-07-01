@@ -14,7 +14,7 @@ export default function Footer() {
             </p>
             <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
           <div>
-            © {new Date().getFullYear()} Unitec Cursos. Todos direitos reservados.
+            © {new Date().getFullYear()} UnitecPRO. Todos direitos reservados.
           </div>
           
         </div>
