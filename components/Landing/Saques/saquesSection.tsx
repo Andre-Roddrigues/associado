@@ -149,7 +149,7 @@ export function SaqueSection() {
         </div>
 
         {/* GRID – 3 colunas em desktop, 2 no tablet, 1 no mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}

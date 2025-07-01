@@ -25,13 +25,11 @@ import {PremiumPlatformSection} from '@/components/Landing/info/informacao';
 const Cards: React.FC = () => {
   return (
     <div className='overflow-hidden transition-all bg-gradient-to-br from-blue-900 to-blue-500 text-white min-h-screen scroll-smooth'>
-      {/* <Header /> */}
       <HeroSection />
       <StepsSection />
       <SaqueSection />
-      <PremiumPlatformSection />
       <CoursesSection />
-      <FAQ/>
+      <PremiumPlatformSection />
     </div>
   );
 };

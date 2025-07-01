@@ -2,7 +2,14 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Video, PencilRuler, MessageCircleMore, FilePlus, TicketCheckIcon } from "lucide-react";
+import {
+  BookOpen,
+  Video,
+  PencilRuler,
+  MessageCircleMore,
+  FilePlus,
+  TicketCheckIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 const fadeIn = {
@@ -16,7 +23,7 @@ export function CoursesSection() {
       icon: <PencilRuler size={28} className="text-white" />,
       title: "Curso",
       description:
-        "Compartilhe seu conhecimento com milhares de alunos criando seu próprio curso. Escolha a modalidade, defina os conteúdos e comece a ensinar de forma profissional.",
+        "Compartilhe conhecimento criando seu próprio curso, defina conteúdos e comece a ensinar.",
       buttonText: "Cadastrar Curso",
       gradient: "from-blue-600 to-cyan-500",
       href: "/adicionar-curso",
@@ -25,26 +32,26 @@ export function CoursesSection() {
       icon: <MessageCircleMore size={28} className="text-white" />,
       title: "Mentoria",
       description:
-        "Ofereça mentorias individuais por chamada de vídeo. Direcione seus aprendizados para quem busca orientação direta e transforme sua experiência em valor real.",
+        "Ofereça mentorias individuais por vídeo e transforme sua experiência em valor real.",
       buttonText: "Cadastrar Mentoria",
       gradient: "from-emerald-600 to-teal-500",
       href: "/adicionar-mentoria",
     },
     {
       icon: <FilePlus size={28} className="text-white" />,
-      title: "Ebook",
+      title: "E‑book",
       description:
-        "Publique ebooks informativos, técnicos ou motivacionais. Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade.",
+        "Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade",
       buttonText: "Cadastrar Ebook",
       gradient: "from-blue-600 to-cyan-500",
       href: "/adicionar-ebook",
     },
     {
       icon: <BookOpen size={28} className="text-white" />,
-      title: "Usado",
+      title: "Livro",
       description:
-        "Agora os seus livros usados tem VALOR! Seu livro usado pode ser novo para outra pessoa. Contribua com a educação de quem precisa e ainda ganhe com isso.",
-      buttonText: "Adicionar Vídeos",
+        "Publique livros físicos, novos ou usados, e contribua com conhecimento.",
+      buttonText: "Cadastrar Livro",
       gradient: "from-emerald-600 to-teal-500",
       href: "/adicionar-livro",
     },
@@ -52,9 +59,9 @@ export function CoursesSection() {
       icon: <TicketCheckIcon size={28} className="text-white" />,
       title: "Evento",
       description:
-        "Crie eventos online ou presenciais para compartilhar conhecimento, realizar workshops ou palestras. Venda ingressos e gerencie participantes de forma simples.",
-      buttonText: "Adicionar Vídeos",
-      gradient: "from-emerald-600 to-teal-500",
+        "Crie eventos online ou presenciais, venda ingressos e gerencie participantes.",
+      buttonText: "Cadastrar Evento",
+      gradient: "from-blue-600 to-cyan-500",
       href: "/adicionar-evento",
     },
   ];
@@ -70,43 +77,59 @@ export function CoursesSection() {
       className="py-24 px-6 bg-gradient-to-br from-blue-50 to-white"
     >
       <div className="max-w-7xl mx-auto">
+        {/* Título + subtítulo */}
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold text-gray-500 mb-4">
-            Cursos e <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Ebooks</span>
+            Cursos e{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              E‑books
+            </span>
           </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Cadastre o seu conteúdo, adicione videoaulas, e transforme conhecimento em renda agora mesmo!
+            Cadastre seu conteúdo, adicione videoaulas e transforme conhecimento
+            em renda!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {cards.map((card, index) => (
+        {/* Grid responsivo: 1 → 2 → 3 → 4 → 5 colunas */}
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {cards.map((card, i) => (
             <motion.div
-              key={index}
+              key={card.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
-              className="group relative h-full"
+              className="flex"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg transform group-hover:scale-[1.02] transition-all duration-300 opacity-0 group-hover:opacity-100 border border-gray-100" />
-              
-              <div className="relative h-full bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-transparent flex flex-col">
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${card.gradient} flex items-center justify-center mb-6 shadow-lg`}>
+              <article className="relative flex flex-col flex-1 bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
+                {/* Borda/flutuante atrás do card */}
+                <span className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-white to-gray-50 opacity-0 group-hover:opacity-100 scale-[1.02] transition-all duration-300"></span>
+
+                {/* Ícone */}
+                <div
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-r ${card.gradient} flex items-center justify-center mb-6 shadow-lg`}
+                >
                   {card.icon}
                 </div>
-                
-                <h4 className="text-xl font-semibold text-gray-500 mb-3">{card.title}</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">{card.description}</p>
-                
-                <Link href={card.href} passHref className="mt-6">
-                  <Button 
-                    className={`w-full bg-gradient-to-r ${card.gradient} hover:opacity-90 transition-opacity`}
+
+                {/* Conteúdo */}
+                <h4 className="text-xl font-semibold text-gray-500 mb-3">
+                  {card.title}
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed flex-1">
+                  {card.description}
+                </p>
+
+                {/* Botão */}
+                <Link href={card.href} className="mt-6 block">
+                  <Button
+                    className={`w-full bg-gradient-to-r ${card.gradient} hover:opacity-90`}
                   >
                     {card.buttonText}
                   </Button>
                 </Link>
-              </div>
+              </article>
             </motion.div>
           ))}
         </div>

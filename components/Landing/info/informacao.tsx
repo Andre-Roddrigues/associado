@@ -1,9 +1,10 @@
 // components/PremiumPlatformSection.tsx
 'use client';
-
+import Link from "next/link"
 import Image from 'next/image';
-import { CheckCircleIcon, MessageCircleQuestion, PhoneIcon, ChevronsDown } from 'lucide-react';
+import { CheckCircleIcon, MessageCircleQuestion, PhoneIcon, ChevronsUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { FAQ } from "@/components/FAQ/FAQ";
 
 export function PremiumPlatformSection() {
   return (
@@ -23,8 +24,8 @@ export function PremiumPlatformSection() {
           </div>
           <div className="md:w-1/2">
             <h2 className="text-xl font-bold text-gray-500  mb-4">
-              <span className="block">FERRAMENTAS EXCLUSIVAS</span>
-              <span className="block text-blue-600">PARA SUAS VENDAS</span>
+              <span className="block">EXPLORE RECURSOS DISPONIVEIS PARA</span>
+              <span className="block text-blue-600">POTENCIALIZAR AS SUAS VENDAS</span>
             </h2>
             <ul className="space-y-3 text-base text-gray-600">
               {[
@@ -133,16 +134,19 @@ export function PremiumPlatformSection() {
           </p>
           
           <motion.button
-            className=" text-white font-bold py-3 px-6 rounded-full text-base hover:bg-blue-500 transition flex items-center mx-auto"
+            className=" text-blue-500 bg-white font-bold py-3 px-6 rounded-full text-base hover:bg-blue-500 hover:text-white transition flex items-center mx-auto"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
+          > 
+          <Link href="#cursos">
+          Cadastre o seu Conteúdo
+          </Link>
             <motion.span
               className="ml-2"
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
-            <ChevronsDown />
+            <ChevronsUp />
             </motion.span>
           </motion.button>
         </div>
@@ -150,7 +154,9 @@ export function PremiumPlatformSection() {
         {/* FAQ */}
         <div className="text-center">
           <h3 className="text-xl font-bold text-gray-500 mb-3">Dúvidas?</h3>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+        </div>
+         <FAQ/>
+          {/* <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="#" className="text-blue-600 hover:text-blue-800 flex items-center justify-center text-sm">
               <MessageCircleQuestion className="w-4 h-4 mr-1" />
               Perguntas Frequentes
@@ -159,8 +165,7 @@ export function PremiumPlatformSection() {
               <PhoneIcon className="w-4 h-4 mr-1" />
               Suporte
             </a>
-          </div>
-        </div>
+          </div> */}
       </div>
     </div>
   );

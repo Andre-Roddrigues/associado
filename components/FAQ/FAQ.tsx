@@ -49,22 +49,8 @@ export function FAQ() {
   ];
 
   return (
-    <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white">
+    <section className="w-full px-4 sm:px-6 lg:px-8 bg-transparent">
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-500 mb-4">
-            Dúvidas de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Associados</span>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tudo sobre criação de conteúdo, pagamentos e gestão na plataforma
-          </p>
-        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
