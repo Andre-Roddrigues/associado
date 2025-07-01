@@ -1,3 +1,4 @@
+"use client"
 import { ChangeEvent, useState } from 'react';
 import { Calendar, MapPin, Users, Tag, User, ChevronDown, BookOpen, Monitor, Globe, PhoneCall, AlignLeft, Signal, Send, Image, CheckCircle, X } from 'lucide-react';
 
