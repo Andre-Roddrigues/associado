@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast"
 import ReactQueryClientProvider from "@/ReactQuery/QueryClientProvider";
 import { getUser } from "./(auth)/login/auth-actions";
 import { Header } from "@/components/Landing/Header/header";
-import Footer from "@/components/Landing/Footer/footer";
+import Footer from "@/components/Landing/footer/footer";
 import { isAuthenticated } from '@/lib/auth-utils';
 const montserrat = Montserrat({
   subsets: ['latin'],
