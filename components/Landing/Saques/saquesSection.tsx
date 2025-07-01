@@ -101,7 +101,7 @@ export function SaqueSection() {
       icon: <CreditCard size={28} className="text-white" />,
       title: "Formas de pagamento",
       shortDescription:
-        "Cartões, M‑Pesa, PayPal, MB Way e muito mais — receba como quiser.",
+        "Receba como quiser! Use Contas móveis e ou o seus bancos.",
       fullDescription: [
         "16 gateways integrados cobrindo África, Europa e Américas.",
         "Conversão automática de moeda para facilitar vendas globais.",
@@ -111,6 +111,37 @@ export function SaqueSection() {
         "Ative pagamento recorrente para mentorias e garanta receita mensal previsível.",
       gradient: "from-purple-500 to-violet-400",
     },
+      {
+        id: 7,
+        icon: <CreditCard size={28} className="text-white" />,
+        title: "Saques em Tempo Real",
+        shortDescription:
+          "Receba seu dinheiro instantaneamente após a venda, sem burocracia.",
+        fullDescription: [
+          "Solicitações de saque processadas automaticamente 24/7.",
+          "Integração com carteiras digitais e bancos nacionais.",
+          "Sem tempo de espera: o dinheiro é seu na hora que você quiser.",
+        ],
+        practiceTip:
+          "Programe saques automáticos diários ou semanais para maior comodidade.",
+        gradient: "from-green-500 to-emerald-400",
+      },
+      {
+        id: 8,
+        icon: <Wrench size={28} className="text-white" />,
+        title: "Sistema Seguro",
+        shortDescription:
+          "Seus dados, conteúdos e pagamentos protegidos com tecnologia de ponta.",
+        fullDescription: [
+          "Criptografia de ponta a ponta em todas as transações.",
+          "Autenticação de dois fatores para acesso administrativo.",
+          "Monitoramento contínuo para prevenir acessos indevidos e fraudes.",
+        ],
+        practiceTip:
+          "Ative a verificação por e‑mail e SMS para aumentar ainda mais a segurança da sua conta.",
+        gradient: "from-red-500 to-rose-400",
+      },
+    
   ];
 
   const handleLearnMore = (index: number) => {

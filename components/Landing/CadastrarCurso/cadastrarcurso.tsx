@@ -80,9 +80,9 @@ export function CoursesSection() {
         {/* Título + subtítulo */}
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold text-gray-500 mb-4">
-            Cursos e{" "}
+            Soluções de{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-              E‑books
+              Ponta {"a"} Ponta
             </span>
           </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">

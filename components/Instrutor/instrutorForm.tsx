@@ -121,9 +121,9 @@ export function InstrutorForm() {
             Na Unitec Academy, você não é só mais um instrutor, é nosso parceiro! Junte-se agora e mostre seu talento para o mundo enquanto aumenta seus ganhos.
           </p>
         </div>
-        <div className="px-8">
+        {/* <div className="px-8">
           <SectionCardsCourse />
-        </div>
+        </div> */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 overflow-hidden py-10 px-8">
           <div className="flex flex-col text-center justify-center">
             <Image alt="instrutor" src={business} className="mx-auto" />
