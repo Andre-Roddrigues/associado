@@ -6,7 +6,7 @@ import { Lock, Mail, Eye, EyeOff, Award, BookOpen, Users, Loader2, LockKeyhole, 
 import { authenticate } from "@/lib/auth-actions";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
-// import ModalTermos from "./ModalTermis";
+import ModalTermos from "./ModalTermis";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -166,7 +166,7 @@ export default function LoginPage() {
                 </div>
               </form>
 
-              {/* <ModalTermos isOpen={openModal} onClose={() => setOpenModal(false)} /> */}
+              <ModalTermos isOpen={openModal} onClose={() => setOpenModal(false)} />
             </div>
           </section>
         </div>
