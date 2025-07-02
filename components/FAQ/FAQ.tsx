@@ -83,7 +83,7 @@ export function FAQ() {
               >
                 <AccordionItem 
                   value={item.id} 
-                  className="border border-gray-200 rounded-xl text-gray-500 overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
+                  className="border border-gray-200 rounded-xl text-white overflow-hidden bg-[#273E66] shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <AccordionTrigger className="px-6 py-4 hover:no-underline group">
                     <div className="flex items-center justify-between w-full">
@@ -92,13 +92,13 @@ export function FAQ() {
                           <Plus className="w-4 h-4 text-blue-600 group-data-[state=open]:hidden" />
                           <ChevronDown className="w-4 h-4 text-blue-600 hidden group-data-[state=open]:block" />
                         </span>
-                        <h3 className="text-lg font-semibold text-gray-500 group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg font-semibold text-white group-hover:text-blue-600 transition-colors">
                           {item.question}
                         </h3>
                       </div>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4 pt-0 text-gray-600">
+                  <AccordionContent className="px-6 pb-4 pt-0 text-white">
                     <div className="pl-12 pr-4">
                       <p>{item.answer}</p>
                     </div>

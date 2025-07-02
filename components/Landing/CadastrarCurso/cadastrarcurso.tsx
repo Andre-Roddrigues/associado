@@ -25,7 +25,7 @@ export function CoursesSection() {
       description:
         "Compartilhe conhecimento criando seu próprio curso, defina conteúdos e comece a ensinar.",
       buttonText: "Cadastrar Curso",
-      gradient: "from-blue-600 to-cyan-500",
+      gradient: "from-[#4a7eff] to-[#6bd6ff]",
       href: "/adicionar-curso",
     },
     {
@@ -34,7 +34,7 @@ export function CoursesSection() {
       description:
         "Ofereça mentorias individuais por vídeo e transforme sua experiência em valor real.",
       buttonText: "Cadastrar Mentoria",
-      gradient: "from-emerald-600 to-teal-500",
+      gradient: "from-[#4a7eff] to-[#8a7eff]",
       href: "/adicionar-mentoria",
     },
     {
@@ -43,7 +43,7 @@ export function CoursesSection() {
       description:
         "Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade",
       buttonText: "Cadastrar Ebook",
-      gradient: "from-blue-600 to-cyan-500",
+      gradient: "from-[#4a7eff] to-[#6bd6ff]",
       href: "/adicionar-ebook",
     },
     {
@@ -52,7 +52,7 @@ export function CoursesSection() {
       description:
         "Publique livros físicos, novos ou usados, e contribua com conhecimento.",
       buttonText: "Cadastrar Livro",
-      gradient: "from-emerald-600 to-teal-500",
+      gradient: "from-[#4a7eff] to-[#8a7eff]",
       href: "/adicionar-livro",
     },
     {
@@ -61,7 +61,7 @@ export function CoursesSection() {
       description:
         "Crie eventos online ou presenciais, venda ingressos e gerencie participantes.",
       buttonText: "Cadastrar Evento",
-      gradient: "from-blue-600 to-cyan-500",
+      gradient: "from-[#4a7eff] to-[#6bd6ff]",
       href: "/adicionar-evento",
     },
   ];
@@ -74,24 +74,24 @@ export function CoursesSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-to-br from-blue-50 to-white"
+      className="py-24 px-6 bg-gradient-to-b from-[#152238] via-[#152257] to-[#17253D]"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Título + subtítulo */}
+        {/* Título + subtítulo */}
         <div className="text-center mb-16">
-          <h3 className="text-4xl font-bold text-gray-500 mb-4">
+          <h3 className="text-4xl font-bold text-gray-100 mb-4">
             Soluções de{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-              Ponta {"a"} Ponta
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7eff] to-[#6bd6ff]">
+              Ponta a Ponta
             </span>
           </h3>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
             Cadastre seu conteúdo, adicione videoaulas e transforme conhecimento
             em renda!
           </p>
         </div>
 
-        {/* Grid responsivo: 1 → 2 → 3 → 4 → 5 colunas */}
+        {/* Grid responsivo */}
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {cards.map((card, i) => (
             <motion.div
@@ -100,11 +100,11 @@ export function CoursesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
-              className="flex"
+              className="flex group"
             >
-              <article className="relative flex flex-col flex-1 bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
-                {/* Borda/flutuante atrás do card */}
-                <span className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-white to-gray-50 opacity-0 group-hover:opacity-100 scale-[1.02] transition-all duration-300"></span>
+              <article className="relative flex flex-col flex-1 bg-[#1c2e4a] p-8 rounded-xl border border-[#23395d] shadow-lg hover:shadow-xl transition-all duration-300 hover:border-[#4a7eff]/30">
+                {/* Efeito de overlay gradiente no hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#23395d] to-[#1c2e4a] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
 
                 {/* Ícone */}
                 <div
@@ -114,17 +114,17 @@ export function CoursesSection() {
                 </div>
 
                 {/* Conteúdo */}
-                <h4 className="text-xl font-semibold text-gray-500 mb-3">
+                <h4 className="text-xl font-semibold text-gray-100 mb-3">
                   {card.title}
                 </h4>
-                <p className="text-gray-600 text-sm leading-relaxed flex-1">
+                <p className="text-gray-300 text-sm leading-relaxed flex-1">
                   {card.description}
                 </p>
 
                 {/* Botão */}
                 <Link href={card.href} className="mt-6 block">
                   <Button
-                    className={`w-full bg-gradient-to-r ${card.gradient} hover:opacity-90`}
+                    className={`w-full bg-gradient-to-r ${card.gradient} hover:opacity-90 text-white font-medium shadow-md hover:shadow-[#4a7eff]/40 transition-all`}
                   >
                     {card.buttonText}
                   </Button>

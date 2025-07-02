@@ -2,32 +2,42 @@
 'use client';
 import Link from "next/link"
 import Image from 'next/image';
-import { CheckCircleIcon, MessageCircleQuestion, PhoneIcon, ChevronsUp } from 'lucide-react';
+import { CheckCircleIcon, ChevronsUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { FAQ } from "@/components/FAQ/FAQ";
-import {CartoesInfo} from "./suporteCard"
+import { CartoesInfo } from "./suporteCard";
+
 export function PremiumPlatformSection() {
+  // Gradient definitions for consistent reuse
+  const bgGradient = "bg-gradient-to-br from-[#152238] via-[#192841] to-[#1c2e4a]";
+  const cardGradient = "bg-gradient-to-br from-[#1c2e4a] to-[#203354]";
+  const accentGradient = "bg-gradient-to-r from-[#4a7eff] to-[#6bd6ff]";
+  const hoverGradient = "bg-gradient-to-r from-[#5a8eff] to-[#7be6ff]";
+
   return (
-    <div className="bg-white py-12 sm:py-20">
+    <div className={`${bgGradient} py-12 sm:py-20`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Seção 1 - Ferramentas Exclusivas */}
+        {/* First Feature Block */}
         <div className="flex flex-col md:flex-row items-center gap-8 mb-20">
-          <div className="md:w-1/2 relative h-80 rounded-lg overflow-hidden ">
+          <div className={`md:w-1/2 relative rounded-xl shadow-2xl h-80 ${cardGradient} overflow-hidden border border-[#23395d]/50`}>
             <Image
-              src="/images/comece.png"
+              src="/images/ganhos.jpg"
               alt="Painel de controle"
               fill
-              className="object-contain"
+              className="object-cover opacity-90"
               priority
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#152238]/90 to-transparent" />
           </div>
           <div className="md:w-1/2">
-            <h2 className="text-xl font-bold text-gray-500  mb-4">
-              <span className="block">EXPLORE RECURSOS DISPONIVEIS PARA</span>
-              <span className="block text-blue-600">POTENCIALIZAR AS SUAS VENDAS</span>
+            <h2 className="text-xl font-bold text-gray-300 mb-4">
+              <span className="block">EXPLORE RECURSOS DISPONÍVEIS PARA</span>
+              <span className={`block text-transparent bg-clip-text ${accentGradient}`}>
+                POTENCIALIZAR AS SUAS VENDAS
+              </span>
             </h2>
-            <ul className="space-y-3 text-base text-gray-600">
+            <ul className="space-y-3 text-base text-gray-300">
               {[
                 "Estatísticas e controle de visibilidade",
                 "Histórico de pagamentos",
@@ -36,7 +46,9 @@ export function PremiumPlatformSection() {
                 "Criação de ingressos para eventos"
               ].map((item, index) => (
                 <li key={index} className="flex items-start">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                  <div className={`${accentGradient} p-1 rounded-full mr-2 mt-0.5`}>
+                    <CheckCircleIcon className="h-4 w-4 text-white" />
+                  </div>
                   {item}
                 </li>
               ))}
@@ -44,24 +56,27 @@ export function PremiumPlatformSection() {
           </div>
         </div>
 
-        {/* Seção 2 - Maximizar Rendimentos */}
+        {/* Second Feature Block */}
         <div className="flex flex-col md:flex-row-reverse items-center gap-8 mb-20">
-          <div className="md:w-1/2 relative h-80 rounded-lg overflow-hidden ">
+          <div className={`md:w-1/2 ${cardGradient} relative h-80 overflow-hidden rounded-xl border border-[#23395d]/50 shadow-2xl`}>
             <Image
-              src="/images/vendas.png"
+              src="/images/growing.jpg"
               alt="Gráficos de crescimento"
               fill
-              className="object-contain"
+              className="object-cover"
               priority
             />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#23395d]/40 to-[#1c2e4a]/30" />
           </div>
           <div className="md:w-1/2">
-            <h2 className="text-xl font-bold text-gray-500  mb-4">
+            <h2 className="text-xl font-bold text-gray-300 mb-4">
               <span className="block">MAXIMIZE SEUS</span>
-              <span className="block text-blue-600">RENDIMENTOS</span>
+              <span className={`block text-transparent bg-clip-text ${accentGradient}`}>
+                RENDIMENTOS
+              </span>
             </h2>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <ul className="space-y-3 text-base text-gray-600">
+            <div className={`${cardGradient}/80 p-6 rounded-xl border border-[#23395d]/50 backdrop-blur-sm`}>
+              <ul className="space-y-3 text-base text-gray-300">
                 {[
                   "Conteúdos semanais",
                   "Pacotes de cursos",
@@ -69,7 +84,7 @@ export function PremiumPlatformSection() {
                   "Descontos estratégicos"
                 ].map((item, index) => (
                   <li key={index} className="flex items-start">
-                    <div className="bg-blue-100 text-blue-800 font-bold rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-xs">
+                    <div className={`${accentGradient} text-white font-bold rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-xs`}>
                       {index + 1}
                     </div>
                     {item}
@@ -80,85 +95,85 @@ export function PremiumPlatformSection() {
           </div>
         </div>
 
-        {/* Seção 3 - Vantagens */}
+        {/* Third Feature Block */}
         <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
-          <div className="md:w-1/2 relative h-80 rounded-lg overflow-hidden ">
-            <Image
-              src="/images/entre.png"
-              alt="Equipe trabalhando"
-              fill
-              className="object-contain"
-              priority
-            />
+          <div className="md:w-1/2 relative justify-center">
+            <h2 className="text-3xl font-bold text-left text-gray-300 mb-4">
+              <span className="block">COMECE AGORA</span>
+              <span className={`block text-transparent bg-clip-text ${accentGradient}`}>
+                SEM COMPLICAÇÕES
+              </span>
+            </h2>
           </div>
           <div className="md:w-1/2">
-            <h2 className="text-xl font-bold text-gray-500  mb-4">
-              <span className="block">COMECE AGORA</span>
-              <span className="block text-blue-600">SEM COMPLICAÇÕES</span>
-            </h2>
-            
             <div className="space-y-4">
               {[
                 {
                   title: "Sem custo inicial",
                   description: "Pague apenas quando vender - risco zero",
-                  borderColor: "border-l-blue-500"
+                  borderColor: "border-l-[#4a7eff]"
                 },
                 {
                   title: "Tudo em um só lugar",
                   description: "Cursos, ebooks e eventos integrados",
-                  borderColor: "border-l-green-500"
+                  borderColor: "border-l-[#6bd6ff]"
                 },
                 {
                   title: "Logística simples",
                   description: "Entrega facilitada pela Unitec",
-                  borderColor: "border-l-purple-500"
+                  borderColor: "border-l-[#8a7eff]"
                 }
               ].map((item, index) => (
-                <div key={index} className={`bg-white p-4 rounded shadow border-l-4 ${item.borderColor}`}>
-                  <h3 className="font-bold text-gray-500 mb-1">{item.title}</h3>
-                  <p className="text-gray-600 text-sm">{item.description}</p>
-                </div>
+                <motion.div 
+                  key={index}
+                  whileHover={{ y: -3 }}
+                  className={`${cardGradient} p-4 rounded-lg shadow-lg border-l-4 ${item.borderColor} border-t border-t-[#23395d]/50 hover:shadow-[#4a7eff]/20 transition-all`}
+                >
+                  <h3 className="font-bold text-gray-100 mb-1">{item.title}</h3>
+                  <p className="text-gray-300 text-sm">{item.description}</p>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* CTA Final */}
-        <div className="text-center bg-blue-600 rounded-xl p-8 shadow-lg mb-12">
+        {/* CTA Section */}
+        <div className={`text-center ${cardGradient} rounded-xl p-8 shadow-2xl mb-12 border border-[#4a7eff]/30`}>
           <h2 className="text-lg font-bold text-white mb-3">
             Comece a vender hoje mesmo!
           </h2>
-          <p className="text-blue-100 mb-6">
+          <p className="text-[#a8c6ff] mb-6">
             Junte-se a criadores que transformam conhecimento em renda.
           </p>
           
           <motion.button
-            className=" text-blue-500 bg-white font-bold py-3 px-6 rounded-full text-base hover:bg-blue-500 hover:text-white transition flex items-center mx-auto"
+            className={`${accentGradient} text-[#152238] font-bold py-3 px-6 rounded-full text-base hover:${hoverGradient} transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           > 
-          <Link href="#cursos">
-          Cadastre o seu Conteúdo
-          </Link>
+            <Link href="#cursos">
+              Cadastre o seu Conteúdo
+            </Link>
             <motion.span
               className="ml-2"
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
-            <ChevronsUp />
+              <ChevronsUp className="text-[#152238]" />
             </motion.span>
           </motion.button>
         </div>
 
-        {/* FAQ */}
+        {/* FAQ Section */}
         <div className="text-center">
-          <h3 className="text-xl font-bold text-gray-500 mb-3">Dúvidas?</h3>
+          <h3 className="text-xl font-bold text-gray-300 mb-3">Ficou om alguma dúvida? Nós temos as respostas!</h3>
         </div>
-         <FAQ/>
-          <div className="flex flex-col sm:flex-row justify-center py-4 gap-4">
-            <CartoesInfo />
-          </div> 
+        <FAQ />
+        
+        {/* Support Cards */}
+        <div className="flex flex-col sm:flex-row justify-center py-4 gap-4">
+          <CartoesInfo />
+        </div> 
       </div>
     </div>
   );

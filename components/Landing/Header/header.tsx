@@ -35,9 +35,8 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
       console.error('Erro ao fazer logout:', error);
     }
   };
-
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-br from-blue-900 to-blue-700 shadow-lg backdrop-blur-sm bg-opacity-90 border-b border-blue-800">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#283E66] to-[#152136] shadow-2xl ">
       <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-white">Unitec PRO</h1>
         
@@ -46,31 +45,31 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
           <>
           <Link 
             href="#como-funciona" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.how}
           </Link>
           <Link 
             href="#cursos" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.courses}
           </Link>
           <Link 
             href="#mentorias" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.mentorships}
           </Link>
           <Link 
             href="#saque" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.withdraw}
           </Link>
           <Link
             href="#faq" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.faq}
           </Link>
@@ -79,19 +78,19 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
           <>
              <Link 
             href="/" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.home}
           </Link>
              <Link 
             href="/formador/painel" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.painel}
           </Link>
           <Link
             href="#faq" 
-            className="text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+            className="text-white hover:text-blue-100 transition-colors duration-200 font-medium"
           >
             {nav.faq}
           </Link>

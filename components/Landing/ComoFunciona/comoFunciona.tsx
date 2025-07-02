@@ -28,7 +28,7 @@ export function StepsSection() {
     {
       title: "Receba o seu VALOR",
       icon: DollarSign,
-      description: "Receba seus pagamentos de forma rápida e segura em até 48h. Nossa plataforma garante que você faça o saque do seu VALOR de forma simples e eficiente.",
+      description: "Receba seus pagamentos de forma rápida e segura em até 48h. Faça o saque do seu VALOR de forma simples e eficiente.",
     },
   ];
 
@@ -40,43 +40,43 @@ export function StepsSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-to-br from-blue-200 to-white"
+      className="py-24 px-6 bg-gradient-to-b from-[#152238] via-[#182740] to-[#203354]"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h3 className="text-4xl font-bold text-gray-500 mb-4">
-            Como <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Funciona</span>
+          <h3 className="text-4xl font-bold text-gray-100 mb-4">
+            Como <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Funciona</span>
           </h3>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Transforme seu conhecimento em oportunidades de renda com nossa plataforma completa
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Transforme seu conhecimento em oportunidades de renda com nossa plataforma exclusiva
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
-  {steps.map(({ title, icon: Icon, description }, index) => (
-    <motion.div
-      key={title}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true, margin: "-50px" }}
-      className="group relative"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-white rounded-xl shadow-lg transform group-hover:scale-105 transition-all duration-300 opacity-0 group-hover:opacity-100" />
-      
-      <div className="relative h-full bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-transparent">
-        <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center mb-6 shadow-lg">
-          <Icon size={24} className="text-white" />
+          {steps.map(({ title, icon: Icon, description }, index) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="group relative"
+            >
+              <div className="absolute inset-0 bg-[gradient-to-br from-gray-800 to-gray-700] rounded-xl shadow-2xl transform group-hover:scale-105 transition-all duration-300 opacity-0 group-hover:opacity-100 border border-gray-700" />
+              
+              <div className="relative h-full bg-[#273E66] p-6 rounded-xl border border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-cyan-400/30">
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center mb-6 shadow-lg">
+                  <Icon size={24} className="text-white" />
+                </div>
+                <h4 className="text-xl font-semibold text-gray-100 mb-3">{title}</h4>
+                <p className="text-gray-300 text-sm leading-relaxed">{description}</p>
+                <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-xs font-medium text-cyan-400">0{index + 1}</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-        <h4 className="text-xl font-semibold text-gray-600 mb-3">{title}</h4>
-        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
-        <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="text-xs font-medium text-blue-600">0{index + 1}</span>
-        </div>
-      </div>
-    </motion.div>
-  ))}
-</div>
       </div>
     </motion.section>
   );
