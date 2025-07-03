@@ -8,7 +8,6 @@ import { FAQ } from "@/components/FAQ/FAQ";
 import { CartoesInfo } from "./suporteCard";
 
 export function PremiumPlatformSection() {
-  // Gradient definitions for consistent reuse
   const bgGradient = "bg-gradient-blue-tr";
   const cardGradient = "bg-gradient-to-br from-[#1c2e4a] to-[#203354]";
   const accentGradient = "bg-gradient-to-r from-[#4a7eff] to-[#6bd6ff]";
@@ -75,7 +74,7 @@ export function PremiumPlatformSection() {
                 RENDIMENTOS
               </span>
             </h2>
-            <div className={`${cardGradient}/80 p-6 rounded-xl border border-[#23395d]/50 backdrop-blur-sm`}>
+            <div className={` p-6 rounded-xl border border-[#23395d]/50 backdrop-blur-sm`}>
               <ul className="space-y-3 text-base text-gray-300">
                 {[
                   "Conteúdos semanais",
@@ -127,9 +126,9 @@ export function PremiumPlatformSection() {
                 <motion.div 
                   key={index}
                   whileHover={{ y: -3 }}
-                  className={`${cardGradient} p-4 rounded-lg shadow-lg border-l-4 ${item.borderColor} border-t border-t-[#23395d]/50 hover:shadow-[#4a7eff]/20 transition-all`}
+                  className={` p-4 rounded-lg shadow-lg border-l-4 ${item.borderColor} border-t border-t-[#23395d]/50 hover:shadow-[#4a7eff]/20 transition-all`}
                 >
-                  <h3 className="font-bold text-gray-100 mb-1">{item.title}</h3>
+                  <h3 className="font-extralight text-gray-100 mb-1">{item.title}</h3>
                   <p className="text-gray-300 text-sm">{item.description}</p>
                 </motion.div>
               ))}
