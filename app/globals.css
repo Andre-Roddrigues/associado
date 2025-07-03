@@ -2,97 +2,193 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --gradienteB:linear-gradient(-90deg, rgba(40, 161, 218, 0.9176470588), #04289e),
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    /* --primary: 221.2 83.2% 53.3%; */
+    --color-gradient-from:rgb(0, 0, 0);
+    --color-gradient-to: #040e8a;
+    --darkblue: #040e8a;
+    --color-gradient-stops: var(--color-gradient-from), var(--color-gradient-to);
+    --blue-light: #3b82f6;
+    --blue-cyan: #06b6d4;
+    --blue-emerald: #10b981;
+    --blue-violet: #6366f1;
+    --blue-pink: #ec4899;
+    --blue-gray: #64748b;
 
-    /* #1799d3 */
-    --primary: 198.71 80% 46%;  
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    /* --muted-foreground:   215.4 16.3% 46.9%; */
-    --muted-foreground: 200, 4%, 46%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 198.71 80% 46%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 198.71 80% 46%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --soft-white: #f1f5f9;
+    --soft-gray: #cbd5e1;
+    --midnight: #1e293b;
+    --indigo: #4f46e5;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 198.71 80% 46%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    /* You can adjust these for dark mode if needed */
+    --color-gradient-from: #030b72;
+    --color-gradient-to: #050aa1;
+    --color-gradient-stops: var(--color-gradient-from), var(--color-gradient-to);
   }
-}
-@layer utilities {
-  .custom-img-size {
-    width: 100px; /* Define a largura desejada */
-    height: auto; /* Ajusta a altura automaticamente mantendo a proporção */
-  }
-}
-h1,h2 {  
- font-family: var(--font-montserrat);
-}
-/* Para Chrome, Safari, Edge */
-input[type="time"]::-webkit-inner-spin-button,
-input[type="time"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
 }
 
-/* Para Firefox */
-input[type="time"]::-moz-focus-outer {
-  border: 0;
-}
-input:focus {
-  transform: scale(1);
+/* Then you can use these variables in your classes */
+@layer utilities {
+  .bg-gradient-blue {
+    background-image: linear-gradient(to right, var(--color-gradient-stops));
+  }
+  
+  /* Optional: Add direction variants */
+  .bg-gradient-blue-t {
+    background-image: linear-gradient(to top, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-tr {
+    background-image: linear-gradient(to top right, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-r {
+    background-image: linear-gradient(to right, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-br {
+    background-image: linear-gradient(to bottom right, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-b {
+    background-image: linear-gradient(to bottom, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-bl {
+    background-image: linear-gradient(to bottom left, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-l {
+    background-image: linear-gradient(to left, var(--color-gradient-stops));
+  }
+  .bg-gradient-blue-tl {
+    background-image: linear-gradient(to top left, var(--color-gradient-stops));
+  }
+  .bg-darkBlue {
+    background-image: var(--darkBlue);
+  }
+    /* Azul + Ciano */
+    .bg-gradient-blue-cyan {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--blue-cyan));
+    }
+  
+    /* Azul + Verde Esmeralda */
+    .bg-gradient-blue-emerald {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--blue-emerald));
+    }
+  
+    /* Azul + Roxo */
+    .bg-gradient-blue-violet {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--blue-violet));
+    }
+  
+    /* Azul + Rosa */
+    .bg-gradient-blue-pink {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--blue-pink));
+    }
+  
+    /* Azul + Indigo */
+    .bg-gradient-blue-indigo {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--indigo));
+    }
+  
+    /* Azul + Azul Claro */
+    .bg-gradient-blue-light {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--blue-light));
+    }
+  
+    /* Azul + Cinza Azulado */
+    .bg-gradient-blue-gray {
+      background-image: linear-gradient(to right, var(--color-gradient-from), var(--blue-gray));
+    }
+  
+    /* Azul com fundo escuro tipo "midnight" */
+    .bg-gradient-blue-midnight {
+      background-image: linear-gradient(to right, var(--midnight), var(--color-gradient-to));
+    }
+  
+    /* Azul com branco suave */
+    .bg-gradient-blue-soft {
+      background-image: linear-gradient(to right, var(--soft-white), var(--color-gradient-to));
+    }
+  
+    /* Azul com cinza suave */
+    .bg-gradient-blue-gray-soft {
+      background-image: linear-gradient(to right, var(--soft-gray), var(--color-gradient-to));
+    }
+  .bg-gradient-blue-soft {
+    background-image: linear-gradient(to right, var(--soft-white), var(--color-gradient-to));
+  }  
+    /* Gradiente Dark Blue + Light Blue */
+    .bg-gradient-darkblue-light {
+      background-image: linear-gradient(to right, var(--darkblue), var(--blue-light));
+    }
+  
+    /* Gradiente Dark Blue + Cyan */
+    .bg-gradient-darkblue-cyan {
+      background-image: linear-gradient(to right, var(--darkblue), var(--blue-cyan));
+    }
+  
+    /* Gradiente Dark Blue + Emerald */
+    .bg-gradient-darkblue-emerald {
+      background-image: linear-gradient(to right, var(--darkblue), var(--blue-emerald));
+    }
+  
+    /* Gradiente Dark Blue + Violet */
+    .bg-gradient-darkblue-violet {
+      background-image: linear-gradient(to right, var(--darkblue), var(--blue-violet));
+    }
+  
+    /* Gradiente Dark Blue + Pink */
+    .bg-gradient-darkblue-pink {
+      background-image: linear-gradient(to right, var(--darkblue), var(--blue-pink));
+    }
+  
+    /* Gradiente Dark Blue + Indigo */
+    .bg-gradient-darkblue-indigo {
+      background-image: linear-gradient(to right, var(--darkblue), var(--indigo));
+    }
+  
+    /* Gradiente Dark Blue + Soft White */
+    .bg-gradient-darkblue-soft {
+      background-image: linear-gradient(to right, var(--darkblue), var(--soft-white));
+    }
+  
+    /* Gradiente Dark Blue + Soft Gray */
+    .bg-gradient-darkblue-gray-soft {
+      background-image: linear-gradient(to right, var(--darkblue), var(--soft-gray));
+    }
+  
+    /* Gradiente Dark Blue + Midnight */
+    .bg-gradient-darkblue-midnight {
+      background-image: linear-gradient(to right, var(--darkblue), var(--midnight));
+    }
+  
+    /* Gradiente Dark Blue para mais escuro */
+    .bg-gradient-darkblue-darker {
+      background-image: linear-gradient(to right, var(--darkblue), #02073a);
+    }
+  
+    /* Gradiente Dark Blue para preto */
+    .bg-gradient-darkblue-black {
+      background-image: linear-gradient(to right, var(--darkblue), #000000);
+    }
+  
+    /* Gradiente Dark Blue para branco */
+    .bg-gradient-darkblue-white {
+      background-image: linear-gradient(to right, var(--darkblue), #ffffff);
+    }
+  
+    /* Gradiente Dark Blue em diferentes direções */
+    .bg-gradient-darkblue-t {
+      background-image: linear-gradient(to top, var(--darkblue), var(--blue-light));
+    }
+    
+    .bg-gradient-darkblue-tr {
+      background-image: linear-gradient(to top right, var(--darkblue), var(--blue-violet));
+    }
+    
+    .bg-gradient-darkblue-br {
+      background-image: linear-gradient(to bottom right, var(--darkblue), var(--blue-cyan));
+    }
+    
+    .bg-gradient-darkblue-radial {
+      background-image: radial-gradient(circle, var(--darkblue), var(--blue-indigo));
+    }
 }

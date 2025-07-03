@@ -161,7 +161,7 @@ export function SaqueSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-to-br from-gray-900 to-gray-800 relative"
+      className="py-24 px-6 bg-gradient-blue-bl relative"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
@@ -170,7 +170,7 @@ export function SaqueSection() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
               Exclusivos
             </span>{" "}
-            da Unitec PRO
+            da Unitec PRO
           </h3>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
             Descubra como transformar seu conhecimento em renda de forma
@@ -178,7 +178,6 @@ export function SaqueSection() {
           </p>
         </div>
 
-        {/* GRID – 4 colunas em desktop, 2 no tablet, 1 no mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
@@ -220,7 +219,6 @@ export function SaqueSection() {
         </div>
       </div>
 
-      {/* MODAL */}
       <AnimatePresence>
         {selectedFeature !== null && (
           <motion.div

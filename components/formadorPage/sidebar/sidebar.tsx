@@ -14,7 +14,7 @@ import SidebarFormador from "./SidebarFormador";
 
 const Sidebar = () => {
   return (
-    <div className="hidden lg:flex lg:w-72 bg-primary shadow-lg border-r border-gray-200 p-6 flex-col justify-between min-h-screen">
+    <div className="hidden lg:flex lg:w-72 bg-gradient-to-r from-[#283E66] to-[#152136] shadow-lg border-r border-gray-200 p-6 flex-col justify-between min-h-screen">
       <div>
         <ul className="space-y-2">
           <SidebarFormador href="/formador/painel" label="Dashboard" Icon={LayoutDashboard} />

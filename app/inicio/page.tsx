@@ -7,10 +7,13 @@ import { CoursesSection } from '@/components/Landing/CadastrarCurso/cadastrarcur
 import { FAQ } from '@/components/FAQ/FAQ';
 import {PremiumPlatformSection} from '@/components/Landing/info/informacao';
 import {AutoresSection} from '@/components/Home/intrutor/SectionAutores';
+import { isAuthenticated } from '@/lib/auth-utils';
 
 const Cards: React.FC = () => {
   return (
-    <div className='overflow-hidden transition-all bg-gradient-to-br from-blue-900 to-blue-500 text-white min-h-screen scroll-smooth'>
+    <div className='overflow-hidden transition-all  text-white min-h-screen scroll-smooth'>
+                  {/* <HeaderWrapper /> */}
+
       <HeroSection />
       <StepsSection />
       <AutoresSection />
@@ -22,3 +25,7 @@ const Cards: React.FC = () => {
 };
 
 export default Cards;
+async function HeaderWrapper() {
+  const userIsAuthenticated = await isAuthenticated();
+  return <Header isAuthenticated={userIsAuthenticated} />;
+}

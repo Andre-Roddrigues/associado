@@ -44,15 +44,13 @@ export  default async function RootLayout({
             }}
           />
         </head>
-      <body className={`h-full bg-gradient-to-br from-blue-900 to-blue-500 text-white ${nunito.className} ${montserrat.variable}`}>
+      <body className={`h-full text-white ${nunito.className} ${montserrat.variable}`}>
           <ReactQueryClientProvider>
-            {/* <Navbar user={user}/> */}
             <HeaderWrapper />
-            <div className="h-full flex flex-col bg-secondary  ">
+            <div className="h-full flex flex-col  ">
               <div className="flex-1">
                 {children}
               </div>
-             {/* <ContactFormButton /> */}
               <Footer/> 
             </div>
             </ReactQueryClientProvider> 

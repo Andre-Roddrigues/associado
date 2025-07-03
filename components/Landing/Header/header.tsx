@@ -36,7 +36,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
     }
   };
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#283E66] to-[#152136] shadow-2xl ">
+    <header className="sticky top-0 z-50 w-full bg-dark-blue-darker shadow-2xl ">
       <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-white">Unitec PRO</h1>
         

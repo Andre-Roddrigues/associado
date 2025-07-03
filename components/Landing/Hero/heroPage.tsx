@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect } from "react";
 import { BookText, GraduationCap, MessageSquare, BookOpen } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image"; // Importe o componente Image
+import Image from "next/image";
 
 export function HeroSection() {
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  
   const fadeIn = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
@@ -36,33 +37,33 @@ export function HeroSection() {
 
   const options = [
     {
-      icon: <GraduationCap className="text-blue-600" size={20} />,
+      icon: <GraduationCap className="text-icon-blue" size={20} />,
       label: "Cadastrar Curso",
       description: "Aulas online",
       href: "/adicionar-curso"
     },
     {
-      icon: <BookText className="text-purple-600" size={20} />,
+      icon: <BookText className="text-icon-purple" size={20} />,
       label: "Cadastrar Ebook",
       description: "Material digital",
       href: "/adicionar-ebook"
     },
     {
-      icon: <MessageSquare className="text-green-600" size={20} />,
+      icon: <MessageSquare className="text-icon-green" size={20} />,
       label: "Oferecer Mentoria",
       description: "Conexão direta",
       href: "/adicionar-mentoria"
     },
     {
-      icon: <BookOpen className="text-amber-600" size={20} />,
+      icon: <BookOpen className="text-icon-amber" size={20} />,
       label: "Publicar Livro",
       description: "Obras físicas",
-      href: "/adcionar-livro"
+      href: "/adicionar-livro"
     },
     {
-      icon: <BookOpen className="text-amber-600" size={20} />,
+      icon: <BookOpen className="text-icon-amber" size={20} />,
       label: "Publicar Evento",
-      description: "",
+      description: "Presencial ou Online",
       href: "/adicionar-evento"
     }
   ];
@@ -76,17 +77,16 @@ export function HeroSection() {
       viewport={{ once: true }}
       className="text-center h-screen flex flex-col justify-center items-center py-24 px-6 relative overflow-hidden"
     >
-      {/* Imagem de fundo com blur */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/home.png" // Substitua pelo caminho da sua imagem
+          src="/images/home.png" 
           alt="Background"
           fill
           className="object-cover"
           quality={100}
           priority
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black opacity-70 backdrop-blur-sm"></div>
       </div>
 
       {/* Conteúdo */}
@@ -94,7 +94,7 @@ export function HeroSection() {
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 max-w-4xl mx-auto text-white">
           Transforme seu conhecimento em renda com a Unitec
         </h2>
-        <p className="text-lg max-w-3xl mx-auto mb-6 text-blue-100">
+        <p className="text-lg max-w-3xl mx-auto mb-6 text-white">
           Crie conteúdos, venda cursos e ebooks, ofereça mentorias e saque seus ganhos diretamente na plataforma.
         </p>
         
@@ -102,7 +102,7 @@ export function HeroSection() {
           <div className="inline-block">
             <Button 
               ref={buttonRef}
-              className="bg-white text-blue-700 font-semibold hover:bg-blue-200 transition-all relative z-20"
+              className="bg-white text-dark-blue-lighter font-semibold hover:bg-hover-blue transition-all relative z-20"
               onClick={() => setShowTooltip(!showTooltip)}
             >
               Quero me tornar um associado
@@ -126,14 +126,14 @@ export function HeroSection() {
                         <Link 
                           key={index}
                           href={option.href}
-                          className="text-center p-3 hover:bg-gray-50 transition-colors flex flex-col sm:flex-col items-center gap-2 rounded-lg min-w-[120px]"
+                          className="text-center p-3 hover:bg-hover-gray transition-colors flex flex-col sm:flex-col items-center gap-2 rounded-lg min-w-[120px]"
                           onClick={() => setShowTooltip(false)}
                         >
-                          <div className="p-2 bg-white rounded-full shadow-sm border border-gray-100">
+                          <div className="p-2 bg-gradient-darkblue-darker rounded-full shadow-sm border border-gray-100">
                             {option.icon}
                           </div>
                           <div>
-                            <p className="font-medium text-gray-900 text-sm">{option.label}</p>
+                            <p className="font-medium text-navy text-sm">{option.label}</p>
                             <p className="text-xs text-gray-500">{option.description}</p>
                           </div>
                         </Link>

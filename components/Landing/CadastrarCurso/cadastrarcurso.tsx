@@ -74,7 +74,7 @@ export function CoursesSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-to-b from-[#152238] via-[#152257] to-[#17253D]"
+      className="py-24 px-6 bg-gradient-darkblue-darker"
     >
       <div className="max-w-7xl mx-auto">
         {/* Título + subtítulo */}

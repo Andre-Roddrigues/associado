@@ -9,7 +9,7 @@ import { CartoesInfo } from "./suporteCard";
 
 export function PremiumPlatformSection() {
   // Gradient definitions for consistent reuse
-  const bgGradient = "bg-gradient-to-br from-[#152238] via-[#192841] to-[#1c2e4a]";
+  const bgGradient = "bg-gradient-blue-tr";
   const cardGradient = "bg-gradient-to-br from-[#1c2e4a] to-[#203354]";
   const accentGradient = "bg-gradient-to-r from-[#4a7eff] to-[#6bd6ff]";
   const hoverGradient = "bg-gradient-to-r from-[#5a8eff] to-[#7be6ff]";
