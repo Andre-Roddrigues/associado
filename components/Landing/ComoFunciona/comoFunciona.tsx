@@ -11,7 +11,7 @@ export function StepsSection() {
 
   const steps = [
     {
-      title: "Unitec PRO",
+      title: "Criar conta Unitec PRO",
       icon: UserCircle,
       description: "Crie sua conta PRO e tenha acesso a todas as ferramentas necessárias para começar a ganhar com o seu conhecimento.",
       gradient: "from-blue-400 to-cyan-400",

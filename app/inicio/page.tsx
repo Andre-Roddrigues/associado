@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { StepsSection } from '@/components/Landing/ComoFunciona/comoFunciona';
 import { HeroSection } from '@/components/Landing/Hero/heroPage';

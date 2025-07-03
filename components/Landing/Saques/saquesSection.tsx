@@ -35,6 +35,7 @@ export function SaqueSection() {
       practiceTip:
         "Combine ofertas relâmpago com cupons para aumentar ainda mais seu ticket médio.",
       gradient: "from-emerald-500 to-teal-400",
+      glassColor: "rgba(16, 185, 129, 0.15)",
     },
     {
       id: 2,
@@ -50,6 +51,7 @@ export function SaqueSection() {
       practiceTip:
         "Use nossas boas‑práticas de formatação para reduzir retrabalho e acelerar ainda mais.",
       gradient: "from-blue-500 to-indigo-400",
+      glassColor: "rgba(59, 130, 246, 0.15)",
     },
     {
       id: 3,
@@ -65,6 +67,7 @@ export function SaqueSection() {
       practiceTip:
         "Ative cupons de afiliados e aproveite o algoritmo de recomendação para ganhar tráfego extra.",
       gradient: "from-indigo-500 to-violet-400",
+      glassColor: "rgba(99, 102, 241, 0.15)",
     },
     {
       id: 4,
@@ -80,6 +83,7 @@ export function SaqueSection() {
       practiceTip:
         "Sempre que precisar de ajuda com sua conta ou conteúdo, é só chamar o suporte.",
       gradient: "from-violet-500 to-purple-400",
+      glassColor: "rgba(139, 92, 246, 0.15)",
     },    
     {
       id: 5,
@@ -95,6 +99,7 @@ export function SaqueSection() {
       practiceTip:
         "Use seu e‑mail personalizado em redes sociais e propostas comerciais para reforçar sua autoridade como instrutor.",
       gradient: "from-fuchsia-500 to-pink-400",
+      glassColor: "rgba(217, 70, 239, 0.15)",
     },    
     {
       id: 6,
@@ -110,6 +115,7 @@ export function SaqueSection() {
       practiceTip:
         "Ative pagamento recorrente para mentorias e garanta receita mensal previsível.",
       gradient: "from-purple-500 to-indigo-400",
+      glassColor: "rgba(168, 85, 247, 0.15)",
     },
     {
       id: 7,
@@ -125,6 +131,7 @@ export function SaqueSection() {
       practiceTip:
         "Programe saques automáticos diários ou semanais para maior comodidade.",
       gradient: "from-teal-500 to-emerald-400",
+      glassColor: "rgba(20, 184, 166, 0.15)",
     },
     {
       id: 8,
@@ -140,6 +147,7 @@ export function SaqueSection() {
       practiceTip:
         "Ative a verificação por e‑mail e SMS para aumentar ainda mais a segurança da sua conta.",
       gradient: "from-rose-500 to-pink-400",
+      glassColor: "rgba(244, 63, 94, 0.15)",
     },
   ];
 
@@ -167,7 +175,7 @@ export function SaqueSection() {
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold text-gray-100 mb-4">
             <span className="text-gray-300">Benefícios</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+            <span className="text-white">
               Exclusivos
             </span>{" "}
             da Unitec PRO
@@ -189,16 +197,22 @@ export function SaqueSection() {
               className="group relative h-full"
               layoutId={`feature-${feature.id}`}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl shadow-xl transform group-hover:scale-[1.02] transition-all duration-300 opacity-0 group-hover:opacity-100 border border-gray-700" />
+              <div 
+                className="absolute inset-0 rounded-xl shadow-xl transform group-hover:scale-[1.02] transition-all duration-300 opacity-0 group-hover:opacity-100 border border-white/10 backdrop-blur-sm"
+                style={{ backgroundColor: feature.glassColor }}
+              />
 
-              <div className="relative h-full bg-gray-800 p-8 rounded-xl border border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-indigo-400/30 flex flex-col">
+              <div 
+                className="relative h-full p-8 rounded-xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-white/20 flex flex-col backdrop-blur-sm"
+                style={{ backgroundColor: feature.glassColor }}
+              >
                 <div
                   className={`w-14 h-14 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-6 shadow-lg`}
                 >
                   {feature.icon}
                 </div>
 
-                <h4 className="text-xl font-semibold text-gray-100 mb-3">
+                <h4 className="text-xl font-extralight text-gray-100 mb-3">
                   {feature.title}
                 </h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
@@ -207,9 +221,9 @@ export function SaqueSection() {
 
                 <button
                   onClick={() => handleLearnMore(index)}
-                  className="mt-6 pt-4 border-t border-gray-700 group-hover:border-transparent transition-colors text-left"
+                  className="mt-6 pt-4 border-t border-white/10 group-hover:border-transparent transition-colors text-left"
                 >
-                  <span className="text-xs font-medium text-gray-400 group-hover:text-blue-400 transition-colors">
+                  <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors">
                     Saiba mais →
                   </span>
                 </button>
@@ -229,7 +243,8 @@ export function SaqueSection() {
             onClick={handleCloseModal}
           >
             <motion.div
-              className="bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative border border-gray-700"
+              className="rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative border border-white/20 backdrop-blur-lg"
+              style={{ backgroundColor: features[selectedFeature].glassColor }}
               layoutId={`feature-${features[selectedFeature].id}`}
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
@@ -238,9 +253,9 @@ export function SaqueSection() {
             >
               <button
                 onClick={handleCloseModal}
-                className="absolute top-4 right-4 p-1 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
+                className="absolute top-4 right-4 p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
               >
-                <X size={20} className="text-gray-300" />
+                <X size={20} className="text-white" />
               </button>
 
               <div className="p-8">
@@ -250,7 +265,7 @@ export function SaqueSection() {
                   {features[selectedFeature].icon}
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-100 mb-4">
+                <h3 className="text-2xl font-bold text-white mb-4">
                   {features[selectedFeature].title}
                 </h3>
 
@@ -258,19 +273,19 @@ export function SaqueSection() {
                   {features[selectedFeature].fullDescription.map((item, i) => (
                     <p
                       key={i}
-                      className="text-gray-300 flex items-start leading-relaxed"
+                      className="text-gray-100 flex items-start leading-relaxed"
                     >
-                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 mr-2" />
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-white mt-2 mr-2" />
                       {item}
                     </p>
                   ))}
                 </div>
 
-                <div className="bg-indigo-900/30 rounded-lg p-4 border border-indigo-800">
-                  <h4 className="font-medium text-indigo-200 mb-2">
+                <div className="bg-white/10 rounded-lg p-4 border border-white/10">
+                  <h4 className="font-medium text-white mb-2">
                     Como funciona na prática:
                   </h4>
-                  <p className="text-indigo-100 text-sm">
+                  <p className="text-gray-100 text-sm">
                     {features[selectedFeature].practiceTip}
                   </p>
                 </div>
