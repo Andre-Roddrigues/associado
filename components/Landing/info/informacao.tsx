@@ -146,7 +146,7 @@ export function PremiumPlatformSection() {
           </p>
           
           <motion.button
-            className={` text-white font-bold py-3 px-6 rounded-full text-base bg-dark-blue transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
+            className={` text-white font-bold py-3 px-6 rounded-full text-base bg-emerald-500 transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           > 
@@ -165,7 +165,7 @@ export function PremiumPlatformSection() {
 
         {/* FAQ Section */}
         <div className="text-center">
-          <h3 className="text-xl font-bold text-gray-300 mb-3">Ficou om alguma dúvida? Nós temos as respostas!</h3>
+          <h3 className="text-xl font-bold text-gray-300 mb-3">Ficou com alguma dúvida? Nós temos as respostas!</h3>
         </div>
         <FAQ />
         

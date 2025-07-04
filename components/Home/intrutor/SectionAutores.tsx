@@ -105,7 +105,7 @@ export function AutoresSection() {
                 style={{
                   background: 'rgba(255, 255, 255, 0.1)',
                   backdropFilter: 'blur(12px)',
-                  border: '4px solid bg-white',
+                  border: '8px solid bg-white',
                   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
                 }}
               >

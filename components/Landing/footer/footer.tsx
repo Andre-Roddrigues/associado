@@ -6,24 +6,23 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-gray-300 to-gray-100 text-slate-700 py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center items-center justify-center">
+
+          {/* Coluna 1 - Sobre */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-blue-400">UniPro</h3>
-            <p className=" mb-4">
+            <h3 className="text-xl text-left font-bold mb-4 text-blue-400">UniPro</h3>
+            <p className="mb-4 text-left">
               Transformando vidas através da educação de qualidade e formação profissional.
             </p>
-            <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <div>
-            © {new Date().getFullYear()} UnitecPRO. Todos direitos reservados.
-          </div>
-          
-        </div>
+            <div className="text-sm hidden md:block text-gray-400 text">
+              © {new Date().getFullYear()} UnitecPRO. Todos direitos reservados.
+            </div>
           </div>
 
+          {/* Coluna 2 - Redes Sociais */}
           <div>
-        <div className="mt-6">
-            <h4 className="text-sm font-semibold  mb-3">REDES SOCIAIS</h4>
-            <div className="flex space-x-4">
+            <h4 className="text-sm font-semibold mb-3">REDES SOCIAIS</h4>
+            <div className="flex justify-center space-x-4 mb-6">
             <a href="#" className=" hover:text-blue-400 transition-colors">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
@@ -50,32 +49,35 @@ export default function Footer() {
                 </svg>
             </a>
             </div>
-            <div className="flex space-x-6 text-gray-400 py-6 md:mt-0">
-            <Link href="/politica-de-privacidade" className="hover:text-blue-400 transition-colors">
-              Política de Privacidade
-            </Link>
-            <Link href="/termos-de-servico" className="hover:text-blue-400 transition-colors">
-              Termos de Serviço
-            </Link>
-          </div>
-        </div>
-        </div>
 
-          {/* Contact Info */}
-          <div className="mt-6">
-            <h3 className="text-sm font-semibold  mb-3">CONTACTOS</h3>
+            <div className="flex justify-center flex-wrap gap-4 text-sm text-gray-400">
+              <Link href="/politica-de-privacidade" className="hover:text-blue-400 transition-colors">
+                Política de Privacidade
+              </Link>
+              <Link href="/termos-de-servico" className="hover:text-blue-400 transition-colors">
+                Termos de Serviço
+              </Link>
+            </div>
+          </div>
+
+          {/* Coluna 3 - Contactos */}
+          <div>
+            <h3 className="text-sm font-semibold mb-3">CONTACTOS</h3>
             <ul className="space-y-3">
-              <li className="flex items-start">
-                <Phone className="flex-shrink-0 text-blue-400 mt-1 mr-3" size={18} />
-                <span className="">+258 84 123 4567</span>
+              <li className="flex items-center justify-center space-x-3">
+                <Phone className="text-blue-400" size={18} />
+                <span>+258 84 123 4567</span>
               </li>
-              <li className="flex items-start">
-                <Mail className="flex-shrink-0 text-blue-400 mt-1 mr-3" size={18} />
-                <span className="">info@unitec.cursos</span>
+              <li className="flex items-center justify-center space-x-3">
+                <Mail className="text-blue-400" size={18} />
+                <span>info@unitec.cursos</span>
               </li>
+              <div className="sm:block md:hidden text-sm text-gray-400 text">
+              © {new Date().getFullYear()} UnitecPRO. Todos direitos reservados.
+            </div>
             </ul>
           </div>
-        </div>        
+        </div>
       </div>
     </footer>
   );
