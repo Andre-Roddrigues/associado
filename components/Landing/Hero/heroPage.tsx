@@ -102,7 +102,7 @@ export function HeroSection() {
           <div className="inline-block">
             <Button 
               ref={buttonRef}
-              className="bg-white text-dark-blue-lighter font-semibold hover:bg-hover-blue transition-all relative z-20"
+              className="bg-white text-dark-blue font-semibold hover:bg-hover-blue transition-all relative z-20"
               onClick={() => setShowTooltip(!showTooltip)}
             >
               Quero me tornar um associado
