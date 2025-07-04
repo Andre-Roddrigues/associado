@@ -146,7 +146,7 @@ export function PremiumPlatformSection() {
           </p>
           
           <motion.button
-            className={` text-white font-bold py-3 px-6 rounded-full text-base bg-emerald-500 transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
+            className={` text-dark-blue font-bold py-3 px-6 rounded-full text-base bg-white transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           > 
@@ -158,7 +158,7 @@ export function PremiumPlatformSection() {
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
-              <ChevronsUp className="text-white" />
+              <ChevronsUp className="text-dark-blue" />
             </motion.span>
           </motion.button>
         </div>
