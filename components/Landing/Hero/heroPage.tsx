@@ -117,7 +117,7 @@ export function HeroSection() {
                   exit="hidden"
                   variants={tooltipVariants}
                   transition={{ duration: 0.2 }}
-                  className="absolute z-9999 right-[2%] md:right-[17%] transform -translate-x-1/2 mt-2 w-full sm:w-auto"
+                  className="absolute z-[9999] right-[2%] md:right-[17%] transform -translate-x-1/2 mt-2 w-full sm:w-auto"
                 >
                   <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100 relative mx-4 sm:mx-0">
                     <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45 border-t border-l border-gray-100"></div>

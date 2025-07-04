@@ -70,7 +70,6 @@ const autores = [
     image: "/images/avatar1.jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
-  // ... (mantenha os outros autores da mesma forma)
 ];
 
 export function AutoresSection() {
@@ -94,19 +93,19 @@ export function AutoresSection() {
     <section className="py-12 px-4 bg-gradient-darkblue-light">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-8 text-white">
-          <span className="text-transparent bg-clip-text bg-dark-blue">PRO</span>dutores de conteúdo que geram
-          <span className="text-transparent bg-clip-text bg-dark-blue"> Valor</span>
+          <span className="text-transparent bg-clip-text bg-cyan-500">PRO</span>dutores de conteúdo que geram
+          <span className="text-transparent bg-clip-text bg-cyan-500"> Valor</span>
         </h2>
 
         <Slider {...settings} className="px-2">
           {autores.map((autor) => (
             <div key={autor.id} className="px-2 py-2">
               <div 
-                className="rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group"
+                className="rounded-xl overflow-hidden border-[1px] border-gray-100 hover:shadow-lg transition-all duration-300 group"
                 style={{
                   background: 'rgba(255, 255, 255, 0.1)',
                   backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  border: '4px solid bg-white',
                   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
                 }}
               >

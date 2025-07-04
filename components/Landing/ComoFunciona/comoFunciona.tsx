@@ -48,7 +48,7 @@ export function StepsSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6  bg-gradient-darkblue-light"
+      className="py-24 px-6 z-0 bg-gradient-darkblue-light"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">

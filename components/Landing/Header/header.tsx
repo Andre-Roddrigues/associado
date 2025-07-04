@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Menu, X } from "lucide-react";
 import Link from 'next/link';
 import Image from "next/image";
-import icon from "/public/images/HeaderLogo.png"
+import icon from "/public/images/unitecpro.png"
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -60,9 +60,8 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
           ? "bg-dark-blue-darker/20 backdrop-blur-2xl shadow-xl"
           : "bg-dark-blue-darker shadow-4xl"
       }`}>
-        <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
-          <div className="flex items-center gap-4">
-            {/* Botão do menu mobile */}
+        <div className="flex justify-between items-center p-4 max-w-full mx-auto">
+          <div className="flex justify-evenly items-center gap-4">
             <button 
               className="md:hidden text-white focus:outline-none"
               onClick={() => setMobileMenuOpen(true)}
@@ -70,8 +69,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             >
               <Menu className="h-6 w-6" />
             </button>
-            
-            <Image height={45} width={45} src={icon} alt="Unitec PRO" className="bg-white rounded-full" />
+            <Image height={45} width={45} src={icon} alt="Unitec PRO" />
           </div>
           
           <nav className="hidden md:flex items-center space-x-8 text-sm">

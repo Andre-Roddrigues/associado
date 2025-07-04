@@ -9,7 +9,7 @@ import { CartoesInfo } from "./suporteCard";
 
 export function PremiumPlatformSection() {
   const bgGradient = "bg-gradient-darkblue-lesslight";
-  const cardGradient = "bg-[#1f35ffe3]";
+  const cardGradient = "bg-gradient-to-br from-blue-600 to-cyan-500";
   const accentGradient = "bg-gradient-to-r from-[#4a7eff] to-[#6bd6ff]";
   const hoverGradient = "bg-gradient-to-r from-[#5a8eff] to-[#7be6ff]";
 
@@ -146,7 +146,7 @@ export function PremiumPlatformSection() {
           </p>
           
           <motion.button
-            className={`${accentGradient} text-[#152238] font-bold py-3 px-6 rounded-full text-base hover:${hoverGradient} transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
+            className={` text-white font-bold py-3 px-6 rounded-full text-base bg-dark-blue transition flex items-center mx-auto shadow-lg hover:shadow-[#4a7eff]/30`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           > 
