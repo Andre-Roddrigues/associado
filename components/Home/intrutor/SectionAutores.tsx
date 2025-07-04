@@ -70,6 +70,7 @@ const autores = [
     image: "/images/avatar1.jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
+  // ... (mantenha os outros autores da mesma forma)
 ];
 
 export function AutoresSection() {
@@ -101,24 +102,36 @@ export function AutoresSection() {
           {autores.map((autor) => (
             <div key={autor.id} className="px-2 py-2">
               <div 
-                className="rounded-lg overflow-hidden hover:shadow-md transition-all duration-200 group backdrop-blur-sm border border-gray-200 bg-[#1f35ffe3]"
+                className="rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+                }}
               >
-                <div className="p-4 flex flex-col items-center">
+                <div className="p-6 flex flex-col items-center">
                   <div className="relative mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#4b6bb779] to-[#6b8dd6] rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm -z-10"></div>
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-md -z-10"
+                      style={{ zIndex: -1 }}
+                    ></div>
                     <img
                       src={autor.image}
-                      className="w-24 h-24 object-cover rounded-full border-2 border-gray-200 shadow-sm group-hover:border-[#4b6cb7] transition-all duration-200"
+                      className="w-24 h-24 object-cover rounded-full border-2 border-gray-200/30 shadow-lg group-hover:border-blue-300/50 transition-all duration-300"
                       alt={autor.name}
+                      style={{
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+                      }}
                     />
                   </div>
 
                   <div className="text-center">
-                    <h3 className="text-lg text-gray-100 group-hover:text-[#5181f1] transition-colors">
+                    <h3 className="text-lg font-medium text-white group-hover:text-blue-200 transition-colors duration-300">
                       {autor.name}
                     </h3>
-                    <p className="text-gray-100 text-sm font-medium mb-1">{autor.role}</p>
-                    <div className="flex items-center justify-center text-gray-50 text-xs mb-2">
+                    <p className="text-gray-200 text-sm font-medium mb-1">{autor.role}</p>
+                    <div className="flex items-center justify-center text-gray-300 text-xs mb-2">
                       <Mail className="w-3 h-3 mr-1" />
                       <span className="truncate max-w-[160px]">{autor.email}</span>
                     </div>

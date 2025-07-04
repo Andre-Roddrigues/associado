@@ -75,7 +75,7 @@ export function HeroSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="text-center h-screen flex flex-col justify-center items-center py-24 px-6 relative overflow-hidden"
+      className="text-center h-[97vh] flex flex-col justify-center items-center py-24 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 z-0">
         <Image

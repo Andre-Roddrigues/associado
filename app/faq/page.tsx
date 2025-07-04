@@ -16,7 +16,7 @@ export default function AuthPanel() {
     email: "",
     password: ""
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,19 +46,18 @@ export default function AuthPanel() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 p-4">
       <div className={`relative bg-white rounded-xl shadow-2xl w-full max-w-[768px] min-h-[520px] overflow-hidden ${activePanel === "signup" ? "right-panel-active" : ""}`}>
         
-        {/* Sign In Form (Left Side by Default) */}
         <div className={`absolute top-0 left-0 h-full w-1/2 transition-all duration-500 ease-in-out ${activePanel === "signup" ? "translate-x-full opacity-0" : "opacity-100"}`}>
           <form onSubmit={handleSubmit} className="h-full flex flex-col items-center justify-center px-12 py-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <LogIn className="text-blue-500" size={28} />
-              <h1 className="text-2xl font-bold">Entrar</h1>
+              <h1 className="text-2xl text-blue-500 font-bold">Entrar</h1>
             </div>
             
             <InputField
               type="email"
               name="email"
               placeholder="Email"
-              icon={<Mail className="text-gray-400" size={18} />}
+              icon={<Mail className="text-gray-600" size={18} />}
               value={formData.email}
               onChange={handleInputChange}
               requiblue
@@ -67,7 +66,7 @@ export default function AuthPanel() {
               type="password"
               name="password"
               placeholder="Senha"
-              icon={<Lock className="text-gray-400" size={18} />}
+              icon={<Lock className="text-gray-600" size={18} />}
               value={formData.password}
               onChange={handleInputChange}
               requiblue
@@ -91,14 +90,14 @@ export default function AuthPanel() {
           <form onSubmit={handleSubmit} className="h-full flex flex-col items-center justify-center px-12 py-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <UserPlus className="text-blue-500" size={28} />
-              <h1 className="text-2xl font-bold">Registrar</h1>
+              <h1 className="text-2xl text-blue-500 font-bold">UnitecPRO</h1>
             </div>
             
             <InputField
               type="text"
               name="name"
               placeholder="Nome"
-              icon={<User className="text-gray-400" size={18} />}
+              icon={<User className="text-blue-400" size={18} />}
               value={formData.name}
               onChange={handleInputChange}
               requiblue
@@ -107,7 +106,7 @@ export default function AuthPanel() {
               type="email"
               name="email"
               placeholder="Email"
-              icon={<Mail className="text-gray-400" size={18} />}
+              icon={<Mail className="text-blue-400" size={18} />}
               value={formData.email}
               onChange={handleInputChange}
               requiblue
@@ -116,7 +115,7 @@ export default function AuthPanel() {
               type="password"
               name="password"
               placeholder="Senha"
-              icon={<Lock className="text-gray-400" size={18} />}
+              icon={<Lock className="text-blue-400" size={18} />}
               value={formData.password}
               onChange={handleInputChange}
               requiblue
@@ -146,8 +145,8 @@ export default function AuthPanel() {
             
             {/* Sign Up Overlay */}
             <div className={`absolute top-0 right-0 flex flex-col items-center justify-center h-full w-1/2 px-10 transition-transform duration-500 ease-in-out ${activePanel === "signup" ? "translate-x-1/5" : "translate-x-0"}`}>
-              <h1 className="text-2xl font-bold mb-4">Olá, Amigo!</h1>
-              <p className="text-sm mb-6 text-center">Registre-se para começar sua jornada conosco</p>
+              <h1 className="text-2xl font-bold mb-4">Registre-se na UnitecPRO!</h1>
+              <p className="text-sm mb-6 text-center">Cria sua conta para começar sua jornada conosco</p>
               <OverlayButton 
                 onClick={() => setActivePanel("signup")}
                 label="Registrar"
@@ -180,7 +179,7 @@ const InputField = ({ type, name, placeholder, icon, value, onChange, requiblue 
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="w-full bg-gray-100 border-none rounded-lg p-3 pl-10 text-sm focus:outline-2 focus:outline-blue-500 focus:bg-white transition-all"
+      className="w-full bg-gray-100 border-none text-gray-500 rounded-lg p-3 pl-10 text-sm focus:outline-2 focus:outline-blue-500 focus:bg-white transition-all"
     />
   </div>
 );

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import Link from 'next/link';
 import Image from "next/image";
-import icon from "/public/images/navT.png"
+import icon from "/public/images/HeaderLogo.png"
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -59,7 +59,8 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
     }`}>
       <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
         {/* <h1 className="text-2xl font-bold text-white">Unitec PRO</h1> */}
-        <Image height={45} width={45} src={icon} alt="" />
+        
+        <Image height={45} width={45} src={icon} alt="" className="bg-white rounded-full" />
         <nav className="hidden md:flex items-center space-x-8 text-sm">
           {!isAuthenticated ? (
             <>
