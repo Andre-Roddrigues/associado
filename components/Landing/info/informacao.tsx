@@ -158,7 +158,7 @@ export function PremiumPlatformSection() {
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
-              <ChevronsUp className="text-[#152238]" />
+              <ChevronsUp className="text-white" />
             </motion.span>
           </motion.button>
         </div>
