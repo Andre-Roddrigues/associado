@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Menu, X } from "lucide-react";
 import Link from 'next/link';
 import Image from "next/image";
-import icon from "/public/images/uPro.png"
-
 interface HeaderProps {
   isAuthenticated?: boolean;
 }
@@ -69,7 +67,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             >
               <Menu className="h-6 w-6" />
             </button>
-            <Image height={45} width={45} src={icon} alt="Unitec PRO" />
+            <Image height={45} width={45} src="/images/uPro.PNG" alt="Unitec PRO" />
           </div>
           
           <nav className="hidden md:flex items-center space-x-8 text-sm">
@@ -167,7 +165,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             {/* Cabeçalho do menu */}
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
-                <Image height={40} width={40} src={icon} alt="Unitec PRO" className="bg-white rounded-full" />
+                <Image height={40} width={40} src="/images/uPro.PNG" alt="Unitec PRO" className="bg-white rounded-full" />
                 <span className="text-white font-bold text-lg">Unitec PRO</span>
               </div>
               <button 
