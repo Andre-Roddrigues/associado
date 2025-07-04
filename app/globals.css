@@ -7,8 +7,12 @@
     --color-gradient-from:rgb(0, 0, 0);
     --color-gradient-to: #040e8a;
     --darkblue: #040e8a;
+    --darkbluedarker: #000547;
+    --darkbluedark: #00086d;
     --color-gradient-stops: var(--color-gradient-from), var(--color-gradient-to);
     --blue-light: #3b82f6;
+    --blue-lesslight: #001d4b;
+    --blue-lightless: #02255e;
     --blue-cyan: #06b6d4;
     --blue-emerald: #10b981;
     --blue-violet: #6366f1;
@@ -118,6 +122,12 @@
     /* Gradiente Dark Blue + Light Blue */
     .bg-gradient-darkblue-light {
       background-image: linear-gradient(to right, var(--darkblue), var(--blue-light));
+    }
+    .bg-gradient-darkblue-lightless {
+      background-image: linear-gradient(to left, var(--darkbluedarker), var(--blue-lightless));
+    }
+    .bg-gradient-darkblue-lesslight {
+      background-image: linear-gradient(to top, var(--blue-lesslight), var(--darkbluedark));
     }
   
     /* Gradiente Dark Blue + Cyan */

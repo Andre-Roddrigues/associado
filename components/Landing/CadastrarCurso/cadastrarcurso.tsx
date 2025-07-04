@@ -84,9 +84,9 @@ export function CoursesSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-blue-r"
+      className="py-24 px-6 bg-gradient-darkblue-lesslight"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto bg-gradient-darkblue-lesslight">
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold text-white mb-4">
             Soluções de{" "}

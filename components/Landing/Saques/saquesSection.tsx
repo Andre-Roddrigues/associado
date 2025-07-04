@@ -169,7 +169,7 @@ export function SaqueSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 px-6 bg-gradient-blue-bl relative"
+      className="py-24 px-6 bg-gradient-darkblue-lightless relative"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">

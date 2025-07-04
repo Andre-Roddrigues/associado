@@ -49,7 +49,7 @@ const config: Config = {
         // Directional variants
         'gradient-darkblue-t': 'linear-gradient(to top, #030b72, #040e8a)',
         'gradient-darkblue-tr': 'linear-gradient(to top right, #030b72, #040e8a)',
-        'gradient-darkblue-r': 'linear-gradient(to right, #030B63, #040e8a)',
+        'gradient-darkblue-r': 'linear-gradient(to right, #050aa1, #040e8a)',
         'gradient-darkblue-br': 'linear-gradient(to bottom right, #030b72, #040e8a)',
         'gradient-darkblue-b': 'linear-gradient(to bottom, #030b72, #040e8a)',
         'gradient-darkblue-bl': 'linear-gradient(to bottom left, #030b72, #040e8a)',
