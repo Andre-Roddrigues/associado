@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Menu, X } from "lucide-react";
 import Link from 'next/link';
 import Image from "next/image";
-import icon from "/public/images/unitecpro.png"
+import icon from "/public/images/uPro.png"
 
 interface HeaderProps {
   isAuthenticated?: boolean;
