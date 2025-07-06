@@ -92,7 +92,7 @@ export function HeroSection() {
       {/* Conteúdo */}
       <div className="relative z-10">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 max-w-4xl mx-auto text-white">
-          Transforme seu conhecimento em renda com a Unitec
+          Transforme seu conhecimento em renda com a Unitec<span className="bg-blue-300 text-blue-600 opacity-20">Pro</span>
         </h2>
         <p className="text-lg max-w-3xl mx-auto mb-6 text-white">
           Crie conteúdos, venda cursos e ebooks, ofereça mentorias e saque seus ganhos diretamente na plataforma.

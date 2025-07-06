@@ -10,7 +10,11 @@ export async function POST(req: Request) {
   }
 
   const formData = await req.formData();
-
+  console.log("title:", formData.get("title"));
+  console.log("idCourse:", formData.get("idCourse"));
+  console.log("listNumber:", formData.get("listNumber"));
+  console.log("video:", formData.get("video"));
+  
   try {
     const response = await fetch("https://backend.unitec.ac.mz/addcourse", {
       method: "POST",
@@ -18,6 +22,7 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${token}`,
       },
       body: formData,
+      
     });
 
     if (!response.ok) {

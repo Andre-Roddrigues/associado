@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { UploadCloud, X, Video, Loader2, Plus, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { uploadCourseMaterials } from "../actionsFormador/addmaterial-actions";
 
 interface Props {
   onClose: () => void;
@@ -16,13 +15,14 @@ interface Props {
 interface VideoItem {
   id: number;
   title: string;
+  unit: string; // unidade (listNumber)
   file: File | null;
   isUploading?: boolean;
 }
 
 export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: Props) {
   const [videos, setVideos] = useState<VideoItem[]>([
-    { id: 1, title: "", file: null },
+    { id: 1, title: "", unit: "", file: null },
   ]);
   const [isUploading, setIsUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
@@ -61,10 +61,16 @@ export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: P
     ));
   };
 
+  const handleUnitChange = (id: number, value: string) => {
+    setVideos(videos.map(video => 
+      video.id === id ? { ...video, unit: value } : video
+    ));
+  };
+
   const addVideoField = () => {
     if (videos.length >= 3) return;
     const newId = videos.length > 0 ? Math.max(...videos.map(v => v.id)) + 1 : 1;
-    setVideos([...videos, { id: newId, title: "", file: null }]);
+    setVideos([...videos, { id: newId, title: "", unit: "", file: null }]);
   };
 
   const removeVideoField = (id: number) => {
@@ -73,26 +79,44 @@ export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: P
   };
 
   const handleSubmit = async () => {
-    if (videos.some(v => !v.file || !v.title)) {
-      alert("Por favor preencha todos os campos e selecione os arquivos.");
+    if (videos.some(v => !v.file || !v.title || !v.unit)) {
+      alert("Por favor, preencha todos os campos e selecione os arquivos.");
       return;
     }
-  
+
+    console.log("ID do Curso:", idCurso);
+    console.log("Materiais a enviar:", videos);
+
     setIsUploading(true);
+
     try {
-      const payload = videos.map((v, index) => ({
-        title: v.title,
-        file: v.file!,
-        idCourse: idCurso,
-        listNumber: index + 1,
-      }));
-  
-      const result = await uploadCourseMaterials(payload);
-      onSubmit(result);
+      const results = [];
+
+      for (const video of videos) {
+        const formData = new FormData();
+        formData.append("title", video.title);
+        formData.append("video", video.file!);
+        formData.append("idCourse", String(idCurso?.id || idCurso));
+        formData.append("listNumber", video.unit);
+
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          throw new Error(`Erro ao enviar vídeo: ${video.title}`);
+        }
+
+        const data = await res.json();
+        results.push(data);
+      }
+
+      onSubmit(results);
       onClose();
-    } catch (error) {
-      console.error("Erro ao enviar materiais:", error);
-      alert("Erro ao enviar vídeos. Verifique sua conexão.");
+    } catch (err) {
+      console.error("Erro ao enviar materiais:", err);
+      alert("Erro ao enviar vídeos.");
     } finally {
       setIsUploading(false);
     }
@@ -147,6 +171,18 @@ export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: P
                       value={video.title}
                       onChange={(e) => handleTitleChange(video.id, e.target.value)}
                       placeholder={`Ex: Aula ${index + 1} - Introdução`}
+                      className="border-gray-300 focus:ring-2 px-2 focus:ring-blue-500 text-gray-500 focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Unidade (número ou nome)
+                    </label>
+                    <Input
+                      value={video.unit}
+                      onChange={(e) => handleUnitChange(video.id, e.target.value)}
+                      placeholder={`Ex: 1 ou Unidade 1`}
                       className="border-gray-300 focus:ring-2 px-2 focus:ring-blue-500 text-gray-500 focus:border-blue-500"
                     />
                   </div>
@@ -231,7 +267,7 @@ export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: P
             </Button>
             <Button
               onClick={handleSubmit}
-              disabled={isUploading || videos.some(v => !v.file || !v.title)}
+              disabled={isUploading || videos.some(v => !v.file || !v.title || !v.unit)}
               className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-md hover:shadow-lg transition-all"
             >
               {isUploading ? (

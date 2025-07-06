@@ -19,16 +19,17 @@ export function PremiumPlatformSection() {
         
         {/* First Feature Block */}
         <div className="flex flex-col md:flex-row items-center gap-8 mb-20">
-          <div className={`md:w-1/2 relative rounded-xl shadow-2xl h-80 ${cardGradient} overflow-hidden border border-[#23395d]/50`}>
-            <Image
-              src="/images/ganhos.jpg"
-              alt="Painel de controle"
-              fill
-              className="object-cover opacity-90"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#152238]/90 to-transparent" />
-          </div>
+        <div className={`w-full md:w-1/2 relative rounded-xl shadow-2xl min-h-[300px] md:h-80 ${cardGradient} overflow-hidden border border-[#23395d]/50`}>
+          <Image
+            src="/images/ganhos.jpg"
+            alt="Painel de controle"
+            fill
+            className="object-cover opacity-90"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#152238]/90 to-transparent" />
+        </div>
+
           <div className="md:w-1/2">
             <h2 className="text-xl font-bold text-gray-300 mb-4">
               <span className="block">EXPLORE RECURSOS DISPONÍVEIS PARA</span>
@@ -54,19 +55,19 @@ export function PremiumPlatformSection() {
             </ul>
           </div>
         </div>
-
         {/* Second Feature Block */}
         <div className="flex flex-col md:flex-row-reverse items-center gap-8 mb-20">
-          <div className={`md:w-1/2 ${cardGradient} relative h-80 overflow-hidden rounded-xl border border-[#23395d]/50 shadow-2xl`}>
+          <div className={`w-full md:w-1/2 ${cardGradient} relative min-h-[300px] md:h-80 rounded-xl border border-[#23395d]/50 shadow-2xl`}>
             <Image
               src="/images/growing.jpg"
               alt="Gráficos de crescimento"
               fill
-              className="object-cover"
+              className="object-cover block"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-br from-[#23395d]/40 to-[#1c2e4a]/30" />
           </div>
+
           <div className="md:w-1/2">
             <h2 className="text-xl font-bold text-gray-300 mb-4">
               <span className="block">MAXIMIZE SEUS</span>

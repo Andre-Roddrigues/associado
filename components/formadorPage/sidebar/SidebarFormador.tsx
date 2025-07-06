@@ -20,7 +20,7 @@ export default function SidebarFormador({ href, label, Icon }: SidebarItemProps)
       <li className="hidden md:flex">
         <Link
           href={href}
-          className={`flex items-center gap-4 p-3 rounded-lg transition-colors hover:text-primary hover:px-4
+          className={`flex items-center gap-4 p-3 rounded-lg transition-colors hover:text-blue-400 hover:px-4
             ${isActive ? "bg-white text-primary font-extrabold shadow-xl px-4" : "text-white hover:bg-white"}`}
         >
           <Icon className="w-5 h-5" />
