@@ -1,26 +1,29 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
 
 export async function registerCursoInstrutor(data: any) {
-  const token = cookies().get('auth_token')?.value;
-  if (!token) throw new Error('Token não encontrado.');
+  const token = cookies().get("auth_token")?.value;
 
-  const res = await fetch("https://backend.unitec.ac.mz/api/addnewcourseinstructor", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch("https://backend.unitec.ac.mz/addnewcourseinstructor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-  const result = await res.json();
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Erro na API:", errorText);
+      throw new Error(`Erro ao registrar curso: ${res.status}`);
+    }
 
-  if (!res.ok) {
-    throw new Error(result?.message || "Erro ao registrar curso.");
+    return await res.json();
+  } catch (error) {
+    console.error("Erro no registerCursoInstrutor:", error);
+    throw error;
   }
-
-  return result;
 }

@@ -1,204 +1,46 @@
-"use client";
+'use client';
 
-import { useState, FormEvent } from "react";
-import { LogIn, UserPlus, Mail, Lock, User, HelpCircle } from "lucide-react";
+import { CursoInstrutor, getInstructorCourses } from '@/components/formadorPage/actionsFormador/get-instructor-courses';
+import React, { useEffect, useState } from 'react';
 
-type FormData = {
-  name: string;
-  email: string;
-  password: string;
-};
+const CursosInstrutor = () => {
+  const [cursos, setCursos] = useState<CursoInstrutor[] | null>(null);
+  const [erro, setErro] = useState<string | null>(null);
 
-export default function AuthPanel() {
-  const [activePanel, setActivePanel] = useState<"signin" | "signup">("signin");
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    password: ""
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  useEffect(() => {
+    const fetchCursos = async () => {
+      try {
+        const lista = await getInstructorCourses(); // ← usa token do cookie
+        setCursos(lista);
+      } catch (e: any) {
+        setErro(e.message || 'Falhou ao carregar cursos');
+      }
+    };
+    fetchCursos();
+  }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(activePanel === "signup" ? "Sign Up Data:" : "Sign In Data:", formData);
-      if (activePanel === "signup") setActivePanel("signin"); // Switch to sign in after registration
-    } catch (err) {
-      setError(activePanel === "signup" 
-        ? "Falha no registro. Tente novamente." 
-        : "Email ou senha inválidos");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  if (erro) return <p className="text-red-500 text-center">{erro}</p>;
+  if (!cursos) return <p className="text-gray-500 text-center">Carregando cursos…</p>;
+  if (cursos.length === 0) return <p className="text-gray-500 text-center">Nenhum curso cadastrado.</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 p-4">
-      <div className={`relative bg-white rounded-xl shadow-2xl w-full max-w-[768px] min-h-[520px] overflow-hidden ${activePanel === "signup" ? "right-panel-active" : ""}`}>
-        
-        <div className={`absolute top-0 left-0 h-full w-1/2 transition-all duration-500 ease-in-out ${activePanel === "signup" ? "translate-x-full opacity-0" : "opacity-100"}`}>
-          <form onSubmit={handleSubmit} className="h-full flex flex-col items-center justify-center px-12 py-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <LogIn className="text-blue-500" size={28} />
-              <h1 className="text-2xl text-blue-500 font-bold">Entrar</h1>
-            </div>
-            
-            <InputField
-              type="email"
-              name="email"
-              placeholder="Email"
-              icon={<Mail className="text-gray-600" size={18} />}
-              value={formData.email}
-              onChange={handleInputChange}
-              requiblue
-            />
-            <InputField
-              type="password"
-              name="password"
-              placeholder="Senha"
-              icon={<Lock className="text-gray-600" size={18} />}
-              value={formData.password}
-              onChange={handleInputChange}
-              requiblue
-            />
-            
-            <a href="#" className="flex items-center gap-1 text-xs text-gray-500 my-2 hover:text-blue-500">
-              <HelpCircle size={14} /> Esqueceu sua senha?
-            </a>
-            
-            {error && <p className="text-blue-500 text-sm mt-2">{error}</p>}
-            
-            <SubmitButton 
-              label={isLoading ? "Processando..." : "Entrar"} 
-              disabled={isLoading}
-            />
-          </form>
-        </div>
-
-        {/* Sign Up Form (Right Side) */}
-        <div className={`absolute top-0 left-0 h-full w-1/2 transition-all duration-500 ease-in-out ${activePanel === "signup" ? "translate-x-full opacity-100" : "opacity-0"}`}>
-          <form onSubmit={handleSubmit} className="h-full flex flex-col items-center justify-center px-12 py-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <UserPlus className="text-blue-500" size={28} />
-              <h1 className="text-2xl text-blue-500 font-bold">UnitecPRO</h1>
-            </div>
-            
-            <InputField
-              type="text"
-              name="name"
-              placeholder="Nome"
-              icon={<User className="text-blue-400" size={18} />}
-              value={formData.name}
-              onChange={handleInputChange}
-              requiblue
-            />
-            <InputField
-              type="email"
-              name="email"
-              placeholder="Email"
-              icon={<Mail className="text-blue-400" size={18} />}
-              value={formData.email}
-              onChange={handleInputChange}
-              requiblue
-            />
-            <InputField
-              type="password"
-              name="password"
-              placeholder="Senha"
-              icon={<Lock className="text-blue-400" size={18} />}
-              value={formData.password}
-              onChange={handleInputChange}
-              requiblue
-            />
-            
-            {error && <p className="text-blue-500 text-sm mt-2">{error}</p>}
-            
-            <SubmitButton 
-              label={isLoading ? "Processando..." : "Registrar"} 
-              disabled={isLoading}
-            />
-          </form>
-        </div>
-
-        {/* Overlay Container */}
-        <div className={`absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-500 ease-in-out z-10 ${activePanel === "signup" ? "-translate-x-full" : ""}`}>
-          <div className={`relative h-full w-[200%] bg-gradient-to-r from-blue-500 to-blue-600 text-white ${activePanel === "signup" ? "translate-x-1/2" : ""}`}>
-            {/* Sign In Overlay */}
-            <div className={`absolute top-0 flex flex-col items-center justify-center h-full w-1/2 px-10 transition-transform duration-500 ease-in-out ${activePanel === "signup" ? "translate-x-0" : "-translate-x-1/5"}`}>
-              <h1 className="text-2xl font-bold mb-4">Bem-vindo de volta!</h1>
-              <p className="text-sm mb-6 text-center">Entre com seus dados para acessar sua conta</p>
-              <OverlayButton 
-                onClick={() => setActivePanel("signin")}
-                label="Entrar"
-              />
-            </div>
-            
-            {/* Sign Up Overlay */}
-            <div className={`absolute top-0 right-0 flex flex-col items-center justify-center h-full w-1/2 px-10 transition-transform duration-500 ease-in-out ${activePanel === "signup" ? "translate-x-1/5" : "translate-x-0"}`}>
-              <h1 className="text-2xl font-bold mb-4">Registre-se na UnitecPRO!</h1>
-              <p className="text-sm mb-6 text-center">Cria sua conta para começar sua jornada conosco</p>
-              <OverlayButton 
-                onClick={() => setActivePanel("signup")}
-                label="Registrar"
-              />
-            </div>
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {cursos.map((curso) => (
+        <div key={curso.id} className="bg-white rounded-xl shadow border p-5">
+          <h3 className="text-lg font-bold text-blue-700">{curso.nomeDoCurso}</h3>
+          <p className="text-sm text-gray-600 mb-2">{curso.objectivoDoCurso}</p>
+          <p className="text-gray-800 text-sm">{curso.descricaoDoCurso || 'Sem descrição.'}</p>
+          <div className="mt-4 flex justify-between text-sm text-gray-500">
+            <span>{curso.modalidade}</span>
+            <span>{curso.duracao}</span>
+          </div>
+          <div className="mt-2 text-right font-semibold text-emerald-600">
+            {curso.preco.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
-}
+};
 
-// Reusable Components
-const InputField = ({ type, name, placeholder, icon, value, onChange, requiblue }: { 
-  type: string; 
-  name: string; 
-  placeholder: string; 
-  icon: React.ReactNode; 
-  value: string; 
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
-  requiblue?: boolean;
-}) => (
-  <div className="relative w-full my-3">
-    <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
-      {icon}
-    </span>
-    <input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className="w-full bg-gray-100 border-none text-gray-500 rounded-lg p-3 pl-10 text-sm focus:outline-2 focus:outline-blue-500 focus:bg-white transition-all"
-    />
-  </div>
-);
-
-const SubmitButton = ({ label, disabled }: { label: string; disabled?: boolean }) => (
-  <button
-    type="submit"
-    disabled={disabled}
-    className={`w-full rounded-full bg-blue-500 px-10 py-3 text-sm font-bold uppercase text-white mt-4 hover:bg-blue-600 transition-colors ${disabled ? "opacity-70 cursor-not-allowed" : ""}`}
-  >
-    {label}
-  </button>
-);
-
-const OverlayButton = ({ onClick, label }: { onClick: () => void; label: string }) => (
-  <button
-    onClick={onClick}
-    className="rounded-full border border-white bg-transparent px-10 py-3 text-sm font-bold uppercase text-white hover:bg-white/10 transition-colors"
-  >
-    {label}
-  </button>
-);
+export default CursosInstrutor;

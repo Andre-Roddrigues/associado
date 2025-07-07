@@ -1,5 +1,6 @@
 "use client";
-import { useState, useMemo } from "react";
+
+import { useEffect, useMemo, useState } from "react";
 import CursoItem from "./CursosItem";
 
 interface Curso {
@@ -13,63 +14,34 @@ interface Curso {
   imagem: string;
 }
 
-export default function TabelaCursos() {
-  const [cursos] = useState<Curso[]>([
-    {
-      id: 1,
-      titulo: "Next.js Avançado",
-      descricao: "Curso completo de Next.js com APIs e SSR.",
-      categoria: "Programação",
-      preco: 99.99,
-      alunos: 120,
-      status: "Ativo",
-      imagem: "/images/avatar1.jpg",
-    },
-    {
-      id: 2,
-      titulo: "React Completo",
-      descricao: "Aprenda React do zero ao avançado.",
-      categoria: "Frontend",
-      preco: 89.99,
-      alunos: 200,
-      status: "Ativo",
-      imagem: "/images/bolsa.png",
-    },
-    {
-      id: 3,
-      titulo: "Node.js Master",
-      descricao: "Construa APIs robustas com Node.js.",
-      categoria: "Backend",
-      preco: 119.99,
-      alunos: 0,
-      status: "Pendente",
-      imagem: "/images/ICON-14.png",
-    },
-    {
-      id: 4,
-      titulo: "TypeScript Completo",
-      descricao: "Dominando o TypeScript para projetos modernos.",
-      categoria: "Programação",
-      preco: 79.99,
-      alunos: 180,
-      status: "Ativo",
-      imagem: "https://via.placeholder.com/100",
-    },
-    {
-      id: 5,
-      titulo: "Tailwind CSS do Zero",
-      descricao: "Construa interfaces modernas com Tailwind CSS.",
-      categoria: "Frontend",
-      preco: 59.99,
-      alunos: 90,
-      status: "Ativo",
-      imagem: "https://via.placeholder.com/100",
-    },
-  ]);
-
-  // Paginação
-  const itemsPerPage = 3;
+export default function ListaCursos() {
+  const [cursos, setCursos] = useState<Curso[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  useEffect(() => {
+    async function fetchCursos() {
+      const res = await fetch("/api/cursos");
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        const cursosAdaptados: Curso[] = data.map((cursoApi) => ({
+          id: cursoApi.id,
+          titulo: cursoApi.nomeDoCurso,
+          descricao: cursoApi.descricaoDoCurso || "Sem descrição",
+          categoria: `Categoria #${cursoApi.idCategoria}`,
+          preco: cursoApi.preco,
+          alunos: cursoApi.maxQnt || 0,
+          status: cursoApi.estado ? "Ativo" : "Inativo",
+          imagem: "/images/HeaderLogo.PNG",
+        }));
+        setCursos(cursosAdaptados);
+      }
+    }
+
+    fetchCursos();
+  }, []);
+
   const totalPages = Math.ceil(cursos.length / itemsPerPage);
 
   const paginatedCursos = useMemo(() => {
@@ -103,7 +75,7 @@ export default function TabelaCursos() {
       </div>
 
       {/* Paginação */}
-      {/* <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-between items-center mt-4">
         <span className="text-sm text-gray-500">
           Página {currentPage} de {totalPages}
         </span>
@@ -132,7 +104,7 @@ export default function TabelaCursos() {
             Próximo
           </button>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

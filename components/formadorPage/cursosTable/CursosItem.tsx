@@ -10,6 +10,7 @@ interface Curso {
 }
 interface CursoItemProps {
     curso: Curso;
+    
   }
   
   export default function CursoItem({ curso }: CursoItemProps) {

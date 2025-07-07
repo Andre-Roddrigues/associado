@@ -83,7 +83,7 @@ export default function AuthPanel() {
   const passwordColors = ["bg-red-500", "bg-yellow-500", "bg-green-500"];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 p-4">
+    <div className="min-h-[90vh] flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 p-4">
       <div className="relative w-full max-w-[768px] min-h-[520px] bg-white rounded-xl shadow-2xl overflow-hidden">
         {/* Form Container - Mostra imagem apenas em telas maiores */}
         <div className="absolute top-0 left-0 h-full w-full md:w-1/2">
@@ -191,6 +191,7 @@ export default function AuthPanel() {
               <p className="text-sm mb-6 text-white/90 drop-shadow-md">
                 Crie sua conta para começar sua jornada conosco
               </p>
+              <p className="text-sm mb-6 text-white/90 drop-shadow-md"> A senha deve ter pelo menos: </p>
             </div>
           </div>
         </div>
