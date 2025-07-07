@@ -1,19 +1,12 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { UserPlus, Mail, Lock, User, Phone, Eye, EyeOff } from "lucide-react";
+import { UserPlus, Mail, Lock, User, Phone, Eye, EyeOff, Check } from "lucide-react";
 import Image from "next/image";
 import { registerInstructor } from "../formadorPage/actionsFormador/registar-actions";
-import toast, { Toaster } from "react-hot-toast";
-
-const passwordStrength = (password: string) => {
-  let strength = 0;
-  if (password.length >= 6) strength++;
-  if (/[A-Z]/.test(password)) strength++;
-  if (/[0-9]/.test(password)) strength++;
-  if (/[^A-Za-z0-9]/.test(password)) strength++;
-  return strength;
-};
+import toast from "react-hot-toast";
+import ModalTermos from "@/app/(auth)/login/ModalTermis";
+import { motion } from "framer-motion";
 
 type FormData = {
   nomeCompleto: string;
@@ -32,24 +25,19 @@ export default function AuthPanel() {
     confirmarSenha: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "contacto" && (!/^\d*$/.test(value) || value.length > 9))
-      return;
-
+    if (name === "contacto" && (!/^\d*$/.test(value) || value.length > 9)) return;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     if (formData.senha !== formData.confirmarSenha) {
       toast.error("As senhas não coincidem.");
@@ -64,6 +52,7 @@ export default function AuthPanel() {
         contacto: formData.contacto,
         senha: formData.senha,
       });
+
       toast.success("Cadastro realizado com sucesso!");
       setFormData({
         nomeCompleto: "",
@@ -73,19 +62,37 @@ export default function AuthPanel() {
         confirmarSenha: "",
       });
     } catch (err: any) {
-        toast.error(err.message || "Falha no registro. Tente novamente.");
+      toast.error(err.message || "Erro ao registrar.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const passwordScore = passwordStrength(formData.senha);
+  const password = formData.senha;
+  const passwordScore = [
+    password.length >= 8,
+    /[A-Z]/.test(password),
+    /[a-z]/.test(password),
+    /[0-9]/.test(password),
+    /[^A-Za-z0-9]/.test(password),
+  ].filter(Boolean).length;
+
+  const passwordRequirements = {
+    length: password.length >= 8,
+    upper: /[A-Z]/.test(password),
+    lower: /[a-z]/.test(password),
+    number: /[0-9]/.test(password),
+    special: /[^A-Za-z0-9]/.test(password),
+  };
+
   const passwordColors = ["bg-red-500", "bg-yellow-500", "bg-green-500"];
+  const strengthColor =
+    passwordScore >= 4 ? passwordColors[2] : passwordScore >= 2 ? passwordColors[1] : passwordColors[0];
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 p-4">
       <div className="relative w-full max-w-[768px] min-h-[520px] bg-white rounded-xl shadow-2xl overflow-hidden">
-        {/* Form Container - Mostra imagem apenas em telas maiores */}
+        {/* Formulario */}
         <div className="absolute top-0 left-0 h-full w-full md:w-1/2">
           <form
             onSubmit={handleSubmit}
@@ -142,29 +149,20 @@ export default function AuthPanel() {
               value={formData.confirmarSenha}
               onChange={handleInputChange}
               required
-              toggleIcon={
-                showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />
-              }
+              toggleIcon={showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               onToggle={() => setShowConfirmPassword((prev) => !prev)}
             />
 
             {formData.senha.length > 0 && (
               <div className="w-full mt-2 h-2 bg-gray-200 rounded">
-                <div
-                  className={`h-2 rounded transition-all duration-300 ${
-                    passwordScore >= 4
-                      ? passwordColors[2]
-                      : passwordScore >= 2
-                      ? passwordColors[1]
-                      : passwordColors[0]
-                  }`}
-                  style={{ width: `${(passwordScore / 4) * 100}%` }}
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(passwordScore / 5) * 100}%` }}
+                  transition={{ duration: 0.3 }}
+                  className={`h-2 rounded ${strengthColor}`}
                 />
               </div>
             )}
-
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-            {success && <p className="text-emerald-600 text-sm mt-2">{success}</p>}
 
             <SubmitButton
               label={isLoading ? "Processando..." : "Registrar"}
@@ -173,7 +171,7 @@ export default function AuthPanel() {
           </form>
         </div>
 
-        {/* Image Container - Escondido em telas pequenas */}
+        {/* Lado direito com imagem e requisitos */}
         <div className="hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden">
           <div className="relative h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center">
             <div className="absolute inset-0 bg-blue-500/40 z-10" />
@@ -184,14 +182,38 @@ export default function AuthPanel() {
               className="object-cover opacity-90"
               priority
             />
-            <div className="absolute z-20 flex flex-col items-center px-10 text-center">
-              <h1 className="text-2xl font-bold mb-4 drop-shadow-md">
-                Registre-se na UnitecPRO!
-              </h1>
-              <p className="text-sm mb-6 text-white/90 drop-shadow-md">
-                Crie sua conta para começar sua jornada conosco
-              </p>
-              <p className="text-sm mb-6 text-white/90 drop-shadow-md"> A senha deve ter pelo menos: </p>
+            <div className="absolute z-20 flex flex-col items-start px-10 text-left">
+              <h1 className="text-2xl font-bold mb-2 drop-shadow-md">Registre-se na UnitecPRO!</h1>
+              <p className="text-sm mb-4 text-white/90">Crie sua conta para começar sua jornada conosco</p>
+              <p className="text-sm mb-2 text-white/90">A senha deve conter:</p>
+              <ul className="text-sm text-white space-y-1">
+                <li className={passwordRequirements.length ? "text-green-400" : "text-white/90"}>
+                  {passwordRequirements.length && "✓"}Mínimo de 8 caracteres
+                </li>
+                <li className={passwordRequirements.upper ? "text-green-400" : "text-white/90"}>
+                  {passwordRequirements.upper && "✓"}1 letra maiúscula
+                </li>
+                <li className={passwordRequirements.lower ? "text-green-400" : "text-white/90"}>
+                  {passwordRequirements.lower && "✓"}1 letra minúscula
+                </li>
+                <li className={passwordRequirements.number ? "text-green-400" : "text-white/90"}>
+                  {passwordRequirements.number && "✓"}1 número
+                </li>
+                <li className={passwordRequirements.special ? "text-green-400" : "text-white/90"}>
+                  {passwordRequirements.special && "✓"}1 caractere especial
+                </li>
+              </ul>
+              <div className="text-sm text-white mt-4">
+                <p>Ao continuar, você concorda com os</p>
+                <button
+                  type="button"
+                  onClick={() => setOpenModal(true)}
+                  className="underline hover:text-blue-200"
+                >
+                  Termos e Condições de Uso
+                </button>
+              </div>
+              <ModalTermos isOpen={openModal} onClose={() => setOpenModal(false)} />
             </div>
           </div>
         </div>
@@ -222,9 +244,7 @@ const InputField = ({
   onToggle?: () => void;
 }) => (
   <div className="relative w-full my-3">
-    <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
-      {icon}
-    </span>
+    <span className="absolute left-3 top-1/2 transform -translate-y-1/2">{icon}</span>
     <input
       type={type}
       name={name}

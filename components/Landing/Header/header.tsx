@@ -74,7 +74,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             >
               <Menu className="h-6 w-6" />
             </button>
-            <Image height={45} width={45} src="/images/uPro.PNG" alt="Unitec PRO" />
+           <Link href="/"> <Image height={45} width={45} src="/images/uPro.PNG" alt="Unitec PRO" /></Link>
           </div>
 
           <nav className="hidden md:flex items-center space-x-8 text-sm">
@@ -88,7 +88,6 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
               </>
             ) : (
               <>
-                <Link href="/" className="text-white hover:text-blue-100 font-medium">Inicio</Link>
                 <Link href="/formador/painel" className="text-white hover:text-blue-100 font-medium">Painel</Link>
                 <Link href="#faq" className="text-white hover:text-blue-100 font-medium">FAQ</Link>
               </>
