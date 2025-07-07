@@ -57,7 +57,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
 
     const dataToSend = {
       ...formData,
-      idCategoria: string(formData.idCategoria),
+      idCategoria: Number(formData.idCategoria),
       preco: Number(formData.preco),
       // opcional: remover espaços extras ao redor das vírgulas no programa
       programaDoCurso: formData.programaDoCurso.split(',').map(p => p.trim()).join(', ')
