@@ -4,27 +4,38 @@ import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, UploadCloud, Image as ImageIcon, ArrowRight, ArrowLeft, CheckCircle, X, Plus } from 'lucide-react';
 
-export function EbookUploadForm() {
+export function BookUploadForm() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [format, setFormat] = useState<'ebook' | 'physical' | 'used'>('ebook');
   const [ebookFile, setEbookFile] = useState<File | null>(null);
   const [coverImage, setCoverImage] = useState<string | null>(null);
+  const [extraImages, setExtraImages] = useState<string[]>([]);
   const [newCategory, setNewCategory] = useState('');
   const [showCategoryInput, setShowCategoryInput] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
+    isbn: '',
     author: '',
+    pages: '',
     description: '',
     categories: [] as string[],
     price: '',
+    discountPercentage: '',
+    rating: '',
+    totalReviews: '',
+    quantity: '',
+    bookCondition: '',
+    observation: '',
     language: '',
+    publishDate: '',
     premiumDistribution: false,
     enableDRM: false,
-    publishDate: '',
     acceptPromotions: false
   });
 
   const ebookFileInputRef = useRef<HTMLInputElement>(null);
   const coverImageInputRef = useRef<HTMLInputElement>(null);
+  const extraImagesInputRef = useRef<HTMLInputElement>(null);
   const categoryInputRef = useRef<HTMLInputElement>(null);
 
   const steps = [
@@ -49,6 +60,14 @@ export function EbookUploadForm() {
     { value: 'it', label: 'Italiano' }
   ];
 
+  const conditions = [
+    { value: 'new', label: 'Novo' },
+    { value: 'like_new', label: 'Como novo' },
+    { value: 'good', label: 'Bom estado' },
+    { value: 'fair', label: 'Estado razoável' },
+    { value: 'poor', label: 'Danificado' }
+  ];
+
   const handleEbookFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setEbookFile(e.target.files[0]);
@@ -63,6 +82,32 @@ export function EbookUploadForm() {
       };
       reader.readAsDataURL(e.target.files[0]);
     }
+  };
+
+  const handleExtraImagesChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      if (files.length + extraImages.length > 5) {
+        alert('Você pode adicionar no máximo 5 imagens extras');
+        return;
+      }
+      
+      const newImages: string[] = [];
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          newImages.push(event.target?.result as string);
+          if (newImages.length === files.length) {
+            setExtraImages(prev => [...prev, ...newImages]);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
+  const removeExtraImage = (index: number) => {
+    setExtraImages(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -145,9 +190,19 @@ export function EbookUploadForm() {
   };
 
   const validateStep = (step: number): boolean => {
-    if (step === 1 && !ebookFile) {
-      alert('Por favor, faça upload do arquivo do ebook');
-      return false;
+    if (step === 1) {
+      if (format === 'ebook' && !ebookFile) {
+        alert('Por favor, faça upload do arquivo do ebook');
+        return false;
+      }
+      if (!coverImage) {
+        alert('Por favor, adicione uma imagem de capa');
+        return false;
+      }
+      if (format === 'used' && extraImages.length === 0) {
+        alert('Por favor, adicione pelo menos uma imagem extra para livros usados');
+        return false;
+      }
     }
     
     if (step === 2 && (!formData.title || !formData.author)) {
@@ -172,8 +227,14 @@ export function EbookUploadForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep(currentStep)) {
-      console.log('Formulário enviado:', { ...formData, ebookFile, coverImage });
-      alert('Ebook enviado com sucesso!');
+      console.log('Formulário enviado:', { 
+        ...formData, 
+        format,
+        ebookFile: format === 'ebook' ? ebookFile : null,
+        coverImage,
+        extraImages: format === 'used' ? extraImages : []
+      });
+      alert('Livro enviado com sucesso!');
     }
   };
 
@@ -197,7 +258,7 @@ export function EbookUploadForm() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="text-xl mb-8"
           >
-            Publique seu ebook e alcance milhares de leitores em todo o mundo. Nossa plataforma torna a publicação fácil e recompensadora.
+            Publique seu livro e alcance milhares de leitores em todo o mundo. Nossa plataforma torna a publicação fácil e recompensadora.
           </motion.p>
           
           <motion.div 
@@ -249,7 +310,7 @@ export function EbookUploadForm() {
       </div>
       
       {/* Seção do Formulário */}
-      <div className="lg:w-full p-8 lg:p-12 flex flex-col justify-center">
+      <div className="lg:w-full text-white p-8 lg:p-12 flex flex-col justify-center">
         <div className="max-w-2xl w-full mx-auto">
           <motion.h2 
             initial={{ opacity: 0, y: -10 }}
@@ -257,7 +318,7 @@ export function EbookUploadForm() {
             transition={{ duration: 0.5 }}
             className="text-3xl font-bold text-gray-800 mb-2"
           >
-            Publicar Novo Ebook
+            Publicar Novo Livro
           </motion.h2>
           
           <motion.p
@@ -266,8 +327,47 @@ export function EbookUploadForm() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="text-gray-600 mb-8"
           >
-            Complete todas as etapas para publicar seu ebook
+            Complete todas as etapas para publicar seu livro
           </motion.p>
+          
+          {/* Tabs para selecionar o formato */}
+          <div className="mb-6">
+            <div className="flex border-b border-gray-200">
+              <button
+                type="button"
+                onClick={() => setFormat('ebook')}
+                className={`py-2 px-4 font-medium text-sm focus:outline-none ${
+                  format === 'ebook'
+                    ? 'border-b-2 border-indigo-500 text-indigo-600'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Ebook
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormat('physical')}
+                className={`py-2 px-4 font-medium text-sm focus:outline-none ${
+                  format === 'physical'
+                    ? 'border-b-2 border-indigo-500 text-indigo-600'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Livro Físico
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormat('used')}
+                className={`py-2 px-4 font-medium text-sm focus:outline-none ${
+                  format === 'used'
+                    ? 'border-b-2 border-indigo-500 text-indigo-600'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Livro Usado
+              </button>
+            </div>
+          </div>
           
           {/* Progresso */}
           <motion.div 
@@ -288,9 +388,9 @@ export function EbookUploadForm() {
                   key={index}
                   className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
                     currentStep > index 
-                      ? 'bg-indigo-600 text-white' 
+                      ? 'bg-indigo-600 text-gray-600' 
                       : currentStep === index + 1 
-                        ? 'bg-indigo-600 text-white' 
+                        ? 'bg-indigo-600 text-gray-600' 
                         : 'border-2 border-gray-300 bg-white text-gray-400'
                   }`}
                 >
@@ -308,34 +408,36 @@ export function EbookUploadForm() {
                 initial={currentStep === 1 ? { opacity: 1 } : { opacity: 0 }}
                 animate={currentStep === 1 ? { opacity: 1 } : { opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className={currentStep === 1 ? 'block' : 'hidden'}
+                className={currentStep === 1 ? 'block text-gray-600' : 'hidden'}
               >
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
-                  <UploadCloud className="w-10 h-10 mx-auto text-indigo-500 mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Upload do Arquivo do Ebook</h3>
-                  <p className="text-gray-500 mb-6">Formatos suportados: PDF, EPUB, MOBI (Máx. 50MB)</p>
-                  <input 
-                    type="file" 
-                    ref={ebookFileInputRef}
-                    onChange={handleEbookFileChange}
-                    className="hidden"
-                    accept=".pdf,.epub,.mobi"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => ebookFileInputRef.current?.click()}
-                    className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200"
-                  >
-                    Selecionar Arquivo
-                  </button>
-                  {ebookFile && (
-                    <p className="mt-4 text-sm text-gray-500">
-                      Selecionado: {ebookFile.name}
-                    </p>
-                  )}
-                </div>
+                {format === 'ebook' && (
+                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50 hover:bg-gray-100 transition-colors duration-200 mb-6">
+                    <UploadCloud className="w-10 h-10 mx-auto text-indigo-500 mb-4" />
+                    <h3 className="text-xl font-semibold mb-2">Upload do Arquivo do Ebook</h3>
+                    <p className="text-gray-500 mb-6">Formatos suportados: PDF, EPUB, MOBI (Máx. 50MB)</p>
+                    <input 
+                      type="file" 
+                      ref={ebookFileInputRef}
+                      onChange={handleEbookFileChange}
+                      className="hidden"
+                      accept=".pdf,.epub,.mobi"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => ebookFileInputRef.current?.click()}
+                      className="px-6 py-3 bg-indigo-600 text-dark-blue rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+                    >
+                      Selecionar Arquivo
+                    </button>
+                    {ebookFile && (
+                      <p className="mt-4 text-sm text-gray-500">
+                        Selecionado: {ebookFile.name}
+                      </p>
+                    )}
+                  </div>
+                )}
                 
-                <div className="mt-6">
+                <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Imagem da Capa</label>
                   <div className="flex items-center space-x-4">
                     <div className="w-24 h-32 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
@@ -368,6 +470,51 @@ export function EbookUploadForm() {
                     </div>
                   </div>
                 </div>
+                
+                {format === 'used' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Imagens Extras (Máx. 5)</label>
+                    <div className="flex flex-wrap gap-4 mb-3">
+                      {extraImages.map((image, index) => (
+                        <div key={index} className="relative">
+                          <img 
+                            src={image} 
+                            alt={`Extra ${index + 1}`}
+                            className="w-24 h-32 object-cover rounded"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeExtraImage(index)}
+                            className="absolute -top-2 -right-2 bg-red-500 text-dark-blue rounded-full p-1 hover:bg-red-600"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    <input 
+                      type="file" 
+                      ref={extraImagesInputRef}
+                      onChange={handleExtraImagesChange}
+                      className="hidden"
+                      accept="image/*"
+                      multiple
+                    />
+                    <button
+                      type="button"
+                      onClick={() => extraImagesInputRef.current?.click()}
+                      disabled={extraImages.length >= 5}
+                      className={`px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium ${
+                        extraImages.length >= 5 
+                          ? 'text-gray-400 cursor-not-allowed' 
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      Adicionar Imagens ({extraImages.length}/5)
+                    </button>
+                    <p className="text-xs text-gray-500 mt-1">Mostre o estado atual do livro</p>
+                  </div>
+                )}
               </motion.div>
               
               {/* Passo 2: Detalhes */}
@@ -378,7 +525,7 @@ export function EbookUploadForm() {
                 className={currentStep === 2 ? 'block space-y-6' : 'hidden'}
               >
                 <div>
-                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Título do Ebook*</label>
+                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Título do Livro*</label>
                   <input
                     type="text"
                     id="title"
@@ -386,7 +533,7 @@ export function EbookUploadForm() {
                     value={formData.title}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                    placeholder="Digite o título do ebook"
+                    placeholder="Digite o título do livro"
                     required
                   />
                 </div>
@@ -406,6 +553,68 @@ export function EbookUploadForm() {
                 </div>
                 
                 <div>
+                  <label htmlFor="isbn" className="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
+                  <input
+                    type="text"
+                    id="isbn"
+                    name="isbn"
+                    value={formData.isbn}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                    placeholder="Digite o ISBN (opcional)"
+                  />
+                </div>
+                
+                {format !== 'ebook' && (
+                  <div>
+                    <label htmlFor="pages" className="block text-sm font-medium text-gray-700 mb-1">Número de Páginas</label>
+                    <input
+                      type="number"
+                      id="pages"
+                      name="pages"
+                      value={formData.pages}
+                      onChange={handleInputChange}
+                      min="0"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                      placeholder="Digite o número de páginas"
+                    />
+                  </div>
+                )}
+                
+                {format === 'used' && (
+                  <div>
+                    <label htmlFor="bookCondition" className="block text-sm font-medium text-gray-700 mb-1">Estado do Livro</label>
+                    <select
+                      id="bookCondition"
+                      name="bookCondition"
+                      value={formData.bookCondition}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                    >
+                      <option value="">Selecione o estado</option>
+                      {conditions.map(condition => (
+                        <option key={condition.value} value={condition.value}>{condition.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                
+                {format === 'used' && (
+                  <div>
+                    <label htmlFor="observation" className="block text-sm font-medium text-gray-700 mb-1">Observações</label>
+                    <textarea
+                      id="observation"
+                      name="observation"
+                      value={formData.observation}
+                      onChange={handleInputChange}
+                      rows={3}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                      placeholder="Descreva quaisquer danos ou particularidades do livro"
+                    />
+                  </div>
+                )}
+                
+                <div>
                   <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
                   <textarea
                     id="description"
@@ -414,7 +623,7 @@ export function EbookUploadForm() {
                     onChange={handleInputChange}
                     rows={5}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                    placeholder="Escreva uma descrição atraente para seu ebook"
+                    placeholder="Escreva uma descrição atraente para seu livro"
                   />
                 </div>
                 
@@ -451,7 +660,7 @@ export function EbookUploadForm() {
                     <button
                       type="button"
                       onClick={handleAddCategory}
-                      className="px-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center"
+                      className="px-3 bg-indigo-600 text-dark-blue rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center"
                     >
                       <Plus className="w-4 h-4" />
                     </button>
@@ -502,6 +711,39 @@ export function EbookUploadForm() {
                   </div>
                 </div>
                 
+                {format !== 'used' && (
+                  <div>
+                    <label htmlFor="discountPercentage" className="block text-sm font-medium text-gray-700 mb-1">Desconto (%)</label>
+                    <input
+                      type="number"
+                      id="discountPercentage"
+                      name="discountPercentage"
+                      value={formData.discountPercentage}
+                      onChange={handleInputChange}
+                      min="0"
+                      max="100"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                      placeholder="0"
+                    />
+                  </div>
+                )}
+                
+                {format === 'physical' && (
+                  <div>
+                    <label htmlFor="quantity" className="block text-sm font-medium text-gray-700 mb-1">Quantidade Disponível</label>
+                    <input
+                      type="number"
+                      id="quantity"
+                      name="quantity"
+                      value={formData.quantity}
+                      onChange={handleInputChange}
+                      min="0"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                      placeholder="Digite a quantidade em estoque"
+                    />
+                  </div>
+                )}
+                
                 <div>
                   <label htmlFor="language" className="block text-sm font-medium text-gray-700 mb-1">Idioma</label>
                   <select
@@ -518,48 +760,37 @@ export function EbookUploadForm() {
                   </select>
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Opções de Publicação</label>
-                  <div className="space-y-3">
-                    <label className="flex items-start">
-                      <input
-                        type="checkbox"
-                        checked={formData.premiumDistribution}
-                        onChange={() => handleToggleChange('premiumDistribution')}
-                        className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <span className="ml-2 text-sm text-gray-700">
-                        <span className="font-medium">Distribuição Premium</span><br />
-                        <span className="text-gray-500">Distribuir para grandes varejistas como Amazon, Apple Books, etc.</span>
-                      </span>
-                    </label>
-                    <label className="flex items-start">
-                      <input
-                        type="checkbox"
-                        checked={formData.enableDRM}
-                        onChange={() => handleToggleChange('enableDRM')}
-                        className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <span className="ml-2 text-sm text-gray-700">
-                        <span className="font-medium">Ativar DRM</span><br />
-                        <span className="text-gray-500">Adicionar proteção de gerenciamento de direitos digitais</span>
-                      </span>
-                    </label>
-                    <label className="flex items-start">
-                      <input
-                        type="checkbox"
-                        name="acceptPromotions"
-                        checked={formData.acceptPromotions}
-                        onChange={handleInputChange}
-                        className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <span className="ml-2 text-sm text-gray-700">
-                        <span className="font-medium">Aceitar Promoções</span><br />
-                        <span className="text-gray-500">Receber ofertas especiais e promoções para este ebook</span>
-                      </span>
-                    </label>
+                {format === 'ebook' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Opções de Publicação</label>
+                    <div className="space-y-3">
+                      <label className="flex items-start">
+                        <input
+                          type="checkbox"
+                          checked={formData.premiumDistribution}
+                          onChange={() => handleToggleChange('premiumDistribution')}
+                          className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-700">
+                          <span className="font-medium">Distribuição Premium</span><br />
+                          <span className="text-gray-500">Distribuir para grandes varejistas como Amazon, Apple Books, etc.</span>
+                        </span>
+                      </label>
+                      <label className="flex items-start">
+                        <input
+                          type="checkbox"
+                          checked={formData.enableDRM}
+                          onChange={() => handleToggleChange('enableDRM')}
+                          className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-700">
+                          <span className="font-medium">Ativar DRM</span><br />
+                          <span className="text-gray-500">Adicionar proteção de gerenciamento de direitos digitais</span>
+                        </span>
+                      </label>
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 <div>
                   <label htmlFor="publish-date" className="block text-sm font-medium text-gray-700 mb-1">Data de Publicação</label>
@@ -575,6 +806,22 @@ export function EbookUploadForm() {
                   {formData.publishDate && new Date(formData.publishDate) < new Date(new Date().setHours(0, 0, 0, 0)) && (
                     <p className="text-sm text-red-500 mt-1">A data de publicação não pode ser no passado</p>
                   )}
+                </div>
+                
+                <div>
+                  <label className="flex items-start">
+                    <input
+                      type="checkbox"
+                      name="acceptPromotions"
+                      checked={formData.acceptPromotions}
+                      onChange={handleInputChange}
+                      className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">
+                      <span className="font-medium">Aceitar Promoções</span><br />
+                      <span className="text-gray-500">Receber ofertas especiais e promoções para este livro</span>
+                    </span>
+                  </label>
                 </div>
               </motion.div>
               
@@ -594,16 +841,16 @@ export function EbookUploadForm() {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="ml-auto px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center"
+                    className="ml-auto px-6 py-2 bg-indigo-600 text-dark-blue rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center"
                   >
                     Próximo <ArrowRight className="w-4 h-4 ml-2" />
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="ml-auto px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 flex items-center"
+                    className="ml-auto px-6 py-2 bg-green-600 text-dark-blue rounded-lg hover:bg-green-700 transition-colors duration-200 flex items-center"
                   >
-                    <CheckCircle className="w-4 h-4 mr-2" /> Publicar Ebook
+                    <CheckCircle className="w-4 h-4 mr-2" /> Publicar Livro
                   </button>
                 )}
               </div>
@@ -615,4 +862,4 @@ export function EbookUploadForm() {
   );
 };
 
-export default EbookUploadForm;
+export default BookUploadForm;
