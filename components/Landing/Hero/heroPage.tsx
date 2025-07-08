@@ -92,7 +92,7 @@ export function HeroSection() {
       {/* Conteúdo */}
       <div className="relative z-10">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 max-w-4xl mx-auto text-white">
-          Transforme seu conhecimento em renda com a Unitec<span className="bg-blue-300 text-blue-600 opacity-20">Pro</span>
+          Transforme seu conhecimento em renda com a Unitec<span className="bg-blue-300 rounded-lg text-blue-600 opacity-20">Pro</span>
         </h2>
         <p className="text-lg max-w-3xl mx-auto mb-6 text-white">
           Crie conteúdos, venda cursos e ebooks, ofereça mentorias e saque seus ganhos diretamente na plataforma.
@@ -105,7 +105,7 @@ export function HeroSection() {
               className="bg-white text-dark-blue font-semibold hover:bg-hover-blue transition-all relative z-20"
               onClick={() => setShowTooltip(!showTooltip)}
             >
-              Quero me tornar um associado
+              Comece Aqui
             </Button>
 
             <AnimatePresence>

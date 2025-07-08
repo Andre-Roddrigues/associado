@@ -5,7 +5,7 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get('auth_token')?.value;
   const { pathname, search } = req.nextUrl;
 
-  const isPublicRoute = pathname === '/login' || pathname === '/registro';
+  const isPublicRoute = pathname === '/login' || pathname === '/registro' || pathname === '/';
 
   if (!token && !isPublicRoute) {
     const loginUrl = new URL('/login', req.url);
