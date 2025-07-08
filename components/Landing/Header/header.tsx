@@ -221,7 +221,6 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50 flex items-center gap-2"
                 >
-                  <LayoutDashboard className="w-5 h-5" />
                   Painel
                 </Link>
                 <Link 

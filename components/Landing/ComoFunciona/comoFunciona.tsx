@@ -11,12 +11,12 @@ export function StepsSection() {
 
   const steps = [
     {
-      title: "Criar conta Unitec PRO",
+      title: "Criar Conta Unitec PRO",
       icon: UserCircle,
       description: "Crie sua conta PRO e tenha acesso a todas as ferramentas necessárias para começar a ganhar com o seu conhecimento.",
       gradient: "from-blue-400 to-cyan-400",
       bgColor: "bg-blue-500/10"
-    },
+    },  
     {
       title: "Publique o seu Produto",
       icon: UploadCloud,
@@ -56,7 +56,7 @@ export function StepsSection() {
             Como <span className="text-transparent bg-clip-text bg-white">Funciona</span>
           </h3>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Transforme seu conhecimento em oportunidades de renda com nossa plataforma exclusiva
+            Tudo que você precisa para gerar renda com os seus conteúdos.
           </p>
         </div>
 

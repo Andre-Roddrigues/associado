@@ -152,7 +152,7 @@ export function PremiumPlatformSection() {
             whileTap={{ scale: 0.95 }}
           > 
             <Link href="#cursos">
-              Cadastre o seu Conteúdo
+             Crie sua Conta
             </Link>
             <motion.span
               className="ml-2"

@@ -180,7 +180,7 @@ export function EbookUploadForm() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Seção de Imagem */}
-      <div className="lg:w-full bg-gradient-to-br from-indigo-900 to-purple-800 p-12 flex flex-col justify-center items-center text-white">
+      <div className="lg:w-full bg-gradient-darkblue-light p-12 flex flex-col justify-center items-center text-white">
         <div className="max-w-md text-center">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}

@@ -96,8 +96,7 @@ export function CoursesSection() {
             </span>
           </h3>
           <p className="text-lg text-blue-100 max-w-3xl mx-auto">
-            Cadastre seu conteúdo, adicione videoaulas e transforme conhecimento
-            em renda!
+           Cadastre o seu produto para que esteja disponivel para todo mundo e comece a faturar.
           </p>
         </div>
 

@@ -9,6 +9,8 @@ import {
   Layout,
   CreditCard,
   X,
+  BanknoteIcon,
+  
 } from "lucide-react";
 import { useState } from "react";
 
@@ -28,9 +30,12 @@ export function SaqueSection() {
       shortDescription:
         "Fique com a maior fatia da receita e taxas sempre transparentes.",
       fullDescription: [
-        "Até 80 % de comissão em vendas diretas.",
-        "Taxas fixas e sem surpresas na hora do saque.",
-        "Relatórios detalhados para acompanhar cada centavo.",
+        "Curss com conteúdos (vídeos, materiais e avaliações) integralmente fornecidos pelo criador: 22%",
+        "Cursos que a gravação e edição dos vídeos forem realizadas  pela UNITEC : 44%",
+        "Ebooks e mentorias: 18% sobre o valor bruto.",
+        "Livros físicos (novos ou usados): 18% + valor de entrega se aplicável",
+        "Eventos (ingressos): 18% do valor total de cada ingresso vendido",
+        "Solicitações de saque processadas automaticamente 24/7.",
       ],
       practiceTip:
         "Combine ofertas relâmpago com cupons para aumentar ainda mais seu ticket médio.",
@@ -44,7 +49,7 @@ export function SaqueSection() {
       shortDescription:
         "Suba seu conteúdo e, em poucas horas, já pode começar a vender.",
       fullDescription: [
-        "Time de curadoria 24/7 para agilizar a revisão.",
+        "Equipa de curadoria 24/7 para agilizar a revisão.",
         "Checklist inteligente aponta ajustes antes de enviar.",
         "Notificação em tempo real assim que seu curso é liberado.",
       ],
@@ -119,14 +124,14 @@ export function SaqueSection() {
     },
     {
       id: 7,
-      icon: <CreditCard size={28} className="text-white" />,
-      title: "Saques em Tempo Real",
+      icon: <BanknoteIcon size={28} className="text-white" />,
+      title: "Comece GRÁTIS",
       shortDescription:
-        "Receba seu dinheiro instantaneamente após a venda, sem burocracia.",
+        "Venda sem taxas iniciais, sem Mensalidades e sem Anuidade.",
       fullDescription: [
-        "Solicitações de saque processadas automaticamente 24/7.",
-        "Integração com carteiras digitais e bancos nacionais.",
-        "Sem tempo de espera: o dinheiro é seu na hora que você quiser.",
+        "Liberdade total de vender para quem você quiser e ganhar sempre.",
+        "Taxas transparentes.",
+        "Só paga quando vender.",
       ],
       practiceTip:
         "Programe saques automáticos diários ou semanais para maior comodidade.",
@@ -181,8 +186,7 @@ export function SaqueSection() {
             da Unitec PRO
           </h3>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Descubra como transformar seu conhecimento em renda de forma
-            escalável, segura e transparente
+            Confirma como a sua jornada pode ser encorajadora ao nosso lado!
           </p>
         </div>
 
