@@ -316,29 +316,57 @@ export function BookUploadForm() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-3xl font-bold text-gray-800 mb-2"
+            className="text-3xl font-bold text-gray-500 mb-2"
           >
-            Publicar Novo Livro
+            {format === 'ebook' && (
+              <>
+              Publique o seu Ebook
+              </>
+            )}
+            {format === 'physical' && (
+              <>
+              Publique o seu Livro Novo
+              </>
+            )}
+            {format === 'used' && (
+              <>
+              Publique o Seu Livro Usado
+              </>
+            )}
           </motion.h2>
           
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-gray-600 mb-8"
+            className="text-gray-500 mb-8"
           >
-            Complete todas as etapas para publicar seu livro
+           {format === 'ebook' && (
+              <>
+              Complete todas as etapas para publicar o seu ebook
+              </>
+            )}
+            {format === 'physical' && (
+              <>
+              Complete todas as etapas para publicar o seu Livro Novo
+              </>
+            )}
+            {format === 'used' && (
+              <>
+              Complete todas as etapas para publicar o seu Livro Usado
+              </>
+            )}
           </motion.p>
           
           {/* Tabs para selecionar o formato */}
           <div className="mb-6">
-            <div className="flex border-b border-gray-200">
+            <div className="flex justify-center">
               <button
                 type="button"
                 onClick={() => setFormat('ebook')}
                 className={`py-2 px-4 font-medium text-sm focus:outline-none ${
                   format === 'ebook'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
+                    ? 'border-b-2 border-purple-400 bg-purple-400 text-white rounded-lg'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -349,7 +377,7 @@ export function BookUploadForm() {
                 onClick={() => setFormat('physical')}
                 className={`py-2 px-4 font-medium text-sm focus:outline-none ${
                   format === 'physical'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
+                    ? 'border-b-2 border-emerald-400 rounded-lg bg-emerald-400 text-white'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -360,7 +388,7 @@ export function BookUploadForm() {
                 onClick={() => setFormat('used')}
                 className={`py-2 px-4 font-medium text-sm focus:outline-none ${
                   format === 'used'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
+                    ? 'border-b-2 border-orange-400 bg-orange-400 rounded-lg shadow-lg text-white'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -376,9 +404,9 @@ export function BookUploadForm() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
-            <div className="flex-1 h-1 bg-gray-200 rounded-full">
+            <div className="flex-1 h-1 bg-blue-300 rounded-full">
               <div 
-                className="h-1 bg-indigo-600 rounded-full transition-all duration-500" 
+                className="h-1 bg-blue-600 rounded-full transition-all duration-500" 
                 style={{ width: `${(currentStep / steps.length) * 100}%` }}
               />
             </div>
@@ -388,7 +416,7 @@ export function BookUploadForm() {
                   key={index}
                   className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
                     currentStep > index 
-                      ? 'bg-indigo-600 text-gray-600' 
+                      ? 'bg-blue-600 text-white-600' 
                       : currentStep === index + 1 
                         ? 'bg-indigo-600 text-gray-600' 
                         : 'border-2 border-gray-300 bg-white text-gray-400'
@@ -552,33 +580,31 @@ export function BookUploadForm() {
                   />
                 </div>
                 
-                <div>
-                  <label htmlFor="isbn" className="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
-                  <input
-                    type="text"
-                    id="isbn"
-                    name="isbn"
-                    value={formData.isbn}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                    placeholder="Digite o ISBN (opcional)"
-                  />
-                </div>
+                
                 
                 {format !== 'ebook' && (
-                  <div>
-                    <label htmlFor="pages" className="block text-sm font-medium text-gray-700 mb-1">Número de Páginas</label>
+                  <><div>
+                    <label htmlFor="isbn" className="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
                     <input
-                      type="number"
-                      id="pages"
-                      name="pages"
-                      value={formData.pages}
+                      type="text"
+                      id="isbn"
+                      name="isbn"
+                      value={formData.isbn}
                       onChange={handleInputChange}
-                      min="0"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                      placeholder="Digite o número de páginas"
-                    />
-                  </div>
+                      placeholder="Digite o ISBN (opcional)" />
+                  </div><div>
+                      <label htmlFor="pages" className="block text-sm font-medium text-gray-700 mb-1">Número de Páginas</label>
+                      <input
+                        type="number"
+                        id="pages"
+                        name="pages"
+                        value={formData.pages}
+                        onChange={handleInputChange}
+                        min="0"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                        placeholder="Digite o número de páginas" />
+                    </div></>
                 )}
                 
                 {format === 'used' && (
@@ -631,14 +657,14 @@ export function BookUploadForm() {
                   <label htmlFor="categories" className="block text-sm font-medium text-gray-700 mb-1">Categorias</label>
                   <div className="flex flex-wrap gap-2 mb-2">
                     {formData.categories.map((category, index) => (
-                      <div key={index} className="flex items-center bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">
+                      <div key={index} className="flex items-center bg-indigo-100 text-gray-600 px-3 py-1 rounded-full text-sm">
                         {category}
                         <button
                           type="button"
                           onClick={() => removeCategory(index)}
-                          className="ml-2 text-indigo-600 hover:text-indigo-900"
+                          className="ml-2 text-gray-600 hover:text-indigo-900"
                         >
-                          <X className="w-3 h-3" />
+                          <X className="w-3 h-3 text-gray-600" />
                         </button>
                       </div>
                     ))}
@@ -692,10 +718,10 @@ export function BookUploadForm() {
                 className={currentStep === 3 ? 'block space-y-6' : 'hidden'}
               >
                 <div>
-                  <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Preço (BRL)</label>
+                  <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Preço</label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <span className="text-gray-500">R$</span>
+                    <div className="absolute inset-y-0 right-0 pr-10 flex items-center pointer-events-none">
+                      <span className="text-gray-500">MZN</span>
                     </div>
                     <input
                       type="number"
@@ -705,7 +731,7 @@ export function BookUploadForm() {
                       onChange={handleInputChange}
                       min="0"
                       step="0.01"
-                      className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                      className="w-full pl-5 py-3 border border-gray-300 rounded-lg text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                       placeholder="0,00"
                     />
                   </div>
@@ -841,7 +867,7 @@ export function BookUploadForm() {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="ml-auto px-6 py-2 bg-indigo-600 text-dark-blue rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center"
+                    className="ml-auto px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center"
                   >
                     Próximo <ArrowRight className="w-4 h-4 ml-2" />
                   </button>
