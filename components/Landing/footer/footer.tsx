@@ -23,7 +23,7 @@ export default function Footer() {
           {/* Coluna 2 - Newsletter e Redes Sociais */}
           <div>
           <h4 className="text-sm font-semibold mb-3">REDES SOCIAIS</h4>
-            <div className="flex justify-center  gap-4 text-blue-500">
+            <div className="flex md:justify-start justify-center  gap-4 text-blue-500">
               <a href="https://facebook.com/unitec.upro" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                 <Facebook size={20} />
               </a>
@@ -69,11 +69,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <Phone className="text-blue-400" size={18} />
-                <span>+258 84 123 4567</span>
+                <span>+258 870 088 787 || 834 303 184 || 863 676 115</span>
               </li>
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <Mail className="text-blue-400" size={18} />
-                <span>info@unitec.cursos</span>
+                <span>pro@unitec.ac.mz</span>
               </li>
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <MapPin className="text-blue-400" size={18} />

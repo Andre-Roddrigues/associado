@@ -3,6 +3,7 @@
 import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, UploadCloud, Image as ImageIcon, ArrowRight, ArrowLeft, CheckCircle, X, Plus } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export function BookUploadForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -88,7 +89,7 @@ export function BookUploadForm() {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       if (files.length + extraImages.length > 5) {
-        alert('Você pode adicionar no máximo 5 imagens extras');
+        toast.error('Você pode adicionar no máximo 5 imagens extras');
         return;
       }
       
@@ -192,21 +193,21 @@ export function BookUploadForm() {
   const validateStep = (step: number): boolean => {
     if (step === 1) {
       if (format === 'ebook' && !ebookFile) {
-        alert('Por favor, faça upload do arquivo do ebook');
+        toast.error('Por favor, faça upload do arquivo do ebook');
         return false;
       }
       if (!coverImage) {
-        alert('Por favor, adicione uma imagem de capa');
+        toast.error('Por favor, adicione uma imagem de capa');
         return false;
       }
       if (format === 'used' && extraImages.length === 0) {
-        alert('Por favor, adicione pelo menos uma imagem extra para livros usados');
+        toast.error('Por favor, adicione pelo menos uma imagem extra para livros usados');
         return false;
       }
     }
     
     if (step === 2 && (!formData.title || !formData.author)) {
-      alert('Por favor, preencha todos os campos obrigatórios');
+      toast.error('Por favor, preencha todos os campos obrigatórios');
       return false;
     }
 
@@ -216,7 +217,7 @@ export function BookUploadForm() {
       const publishDate = new Date(formData.publishDate);
       
       if (publishDate < today) {
-        alert('A data de publicação não pode ser no passado');
+        toast.error('A data de publicação não pode ser no passado');
         return false;
       }
     }
@@ -234,7 +235,7 @@ export function BookUploadForm() {
         coverImage,
         extraImages: format === 'used' ? extraImages : []
       });
-      alert('Livro enviado com sucesso!');
+      toast.success('Livro enviado com sucesso!');
     }
   };
 
@@ -381,7 +382,7 @@ export function BookUploadForm() {
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
-                Livro Físico
+                Livro Novo
               </button>
               <button
                 type="button"
@@ -790,18 +791,6 @@ export function BookUploadForm() {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Opções de Publicação</label>
                     <div className="space-y-3">
-                      <label className="flex items-start">
-                        <input
-                          type="checkbox"
-                          checked={formData.premiumDistribution}
-                          onChange={() => handleToggleChange('premiumDistribution')}
-                          className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                        />
-                        <span className="ml-2 text-sm text-gray-700">
-                          <span className="font-medium">Distribuição Premium</span><br />
-                          <span className="text-gray-500">Distribuir para grandes varejistas como Amazon, Apple Books, etc.</span>
-                        </span>
-                      </label>
                       <label className="flex items-start">
                         <input
                           type="checkbox"

@@ -206,7 +206,7 @@ export default function TabelaCursos() {
                                 Ações <ChevronDown className="ml-1 h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-40">
+                            <DropdownMenuContent align="end" className="w-40 bg-gray-50">
                               <DropdownMenuItem 
                                 onClick={() => {
                                   setCursoSelecionado(item);
