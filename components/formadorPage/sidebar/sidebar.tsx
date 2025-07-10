@@ -14,9 +14,9 @@ import SidebarFormador from "./SidebarFormador";
 
 const Sidebar = () => {
   return (
-    <div className="hidden lg:flex text-dark-blue lg:w-72 bg-gradient-to-r from-[#283E66] to-[#152136] shadow-lg border-r border-gray-200 p-6 flex-col justify-between min-h-screen">
+    <div className="hidden sticky left-0 top-0 lg:flex text-dark-blue lg:w-72 bg-gradient-to-r from-[#283E66] to-[#152136] shadow-lg border-r border-gray-200 p-6 flex-col justify-between min-h-screen">
       <div>
-        <ul className="space-y-2">
+        <ul className="space-y-2 sticky top-12">
           <SidebarFormador href="/formador/painel" label="Dashboard" Icon={LayoutDashboard} />
           <SidebarFormador href="/formador/cursos" label="Meus Cursos" Icon={BookOpenText} />
           <SidebarFormador href="/formador/ebooks" label="Meus Ebooks" Icon={FileText} />

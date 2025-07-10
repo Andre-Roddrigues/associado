@@ -1,130 +1,176 @@
-// components/AccountModal.tsx
-"use client";
-
 import React from "react";
 
-interface AccountModalProps {
+interface Props {
   isOpen: boolean;
+  isBank: boolean;
+  formData: any;
+  setFormData: (data: any) => void;
   onClose: () => void;
-  onSubmit: (e: React.FormEvent) => void;
-  isBankModal: boolean;
+  onSubmit: (data: any) => void;
 }
 
-export default function AccountModal({
-  isOpen,
-  onClose,
-  onSubmit,
-  isBankModal,
-}: AccountModalProps) {
+const AccountModal = ({ isOpen, isBank, formData, setFormData, onClose, onSubmit }: Props) => {
   if (!isOpen) return null;
 
+  const banks = ["BCI", "BIM", "FNB"];
+  const mobileWallets = ["M-Pesa", "Emola", "M-Kesh"];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-bold">
-            {isBankModal ? "Adicionar Conta Bancária" : "Adicionar Conta Móvel"}
-          </h3>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <i className="fas fa-times"></i>
-          </button>
+    <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+      <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-xl relative border border-gray-100">
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">
+            {isBank ? "Adicionar Conta Bancária" : "Adicionar Carteira Móvel"}
+          </h2>
+          <p className="text-gray-500 text-sm mt-1">
+            {isBank ? "Preencha os dados da sua conta bancária" : "Informe os dados da sua carteira digital"}
+          </p>
         </div>
 
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium mb-1">
-              {isBankModal ? "Banco" : "Operadora"}
-            </label>
-            <select className="w-full px-4 py-2 border rounded-lg">
-              {isBankModal ? (
-                <>
-                  <option>BIM</option>
-                  <option>BCI</option>
-                  <option>ABSA</option>
-                </>
-              ) : (
-                <>
-                  <option>Emola</option>
-                  <option>Mpesa</option>
-                  <option>Mkesh</option>
-                </>
-              )}
-            </select>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Nome completo</label>
+            <input
+              name="fullName"
+              placeholder="Digite seu nome completo"
+              value={formData.fullName || ""}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm"
+            />
           </div>
 
-          {isBankModal ? (
+          {isBank ? (
             <>
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Número da Conta
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Banco</label>
+                <div className="relative">
+                  <select
+                    name="bankName"
+                    value={formData.bankName || ""}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 appearance-none shadow-sm bg-white pr-10"
+                  >
+                    <option value="">Selecione o banco</option>
+                    {banks.map((bank) => (
+                      <option key={bank} value={bank}>
+                        {bank}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Número da conta</label>
                 <input
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="123456789"
+                  name="bankNumber"
+                  placeholder="Digite o número da conta"
+                  value={formData.bankNumber || ""}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm"
                 />
               </div>
+
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Nome do Beneficiário
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  NIB <span className="text-gray-400">(Opcional)</span>
                 </label>
                 <input
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Nome completo"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">NIB</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="NIB"
+                  name="nib"
+                  placeholder="Digite o NIB se desejar"
+                  value={formData.nib || ""}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm"
                 />
               </div>
             </>
           ) : (
             <>
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Número de Telefone
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="+258 84 xxx xxxx"
-                />
+                <label className="block text-sm font-medium text-gray-700 mb-2">Carteira Móvel</label>
+                <div className="relative">
+                  <select
+                    name="wallet"
+                    value={formData.wallet || ""}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 appearance-none shadow-sm bg-white pr-10"
+                  >
+                    <option value="">Selecione a carteira</option>
+                    {mobileWallets.map((wallet) => (
+                      <option key={wallet} value={wallet}>
+                        {wallet}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
               </div>
+
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Nome do Proprietário
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Número de telefone</label>
                 <input
-                  type="text"
-                  className="w-full px-4 py-2 border rounded-lg"
-                  placeholder="Nome completo"
+                  name="phoneNumber"
+                  placeholder="Digite o número de telefone"
+                  value={formData.phoneNumber || ""}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm"
                 />
               </div>
             </>
           )}
 
-          <div className="flex justify-end gap-3 pt-4">
+          <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+              className="px-6 py-3 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50/80 transition-all duration-200 font-medium shadow-sm hover:shadow-xs"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600 transition-all duration-200 font-medium shadow-md hover:shadow-sm"
             >
-              Salvar
+              Salvar Conta
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
+
+export default AccountModal;

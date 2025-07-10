@@ -27,7 +27,7 @@ interface UserData {
 
 const PerfilForm = () => {
   const [editMode, setEditMode] = useState(false);
-  const [profilePic, setProfilePic] = useState("/images/avatar1.jpg");
+  const [profilePic, setProfilePic] = useState("/images/uPro.PNG");
   const [uploading, setUploading] = useState(false);
   const [userData, setUserData] = useState<UserData>({
     name: "",
@@ -38,7 +38,6 @@ const PerfilForm = () => {
     bio: "",
   });
 
-  // 🍃 Carrega os dados reais via Server Action
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -65,7 +64,6 @@ const PerfilForm = () => {
     fetchData();
   }, []);
 
-  /* ---------- manipulação de upload de foto ---------- */
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -171,7 +169,8 @@ const PerfilForm = () => {
               </div>
 
               <h2 className="text-lg font-bold text-center mt-6 text-gray-500">
-                {userData.name || "Usuário"}
+                {userData.name.toLowerCase()
+                    .replace(/\b\w/g, (l) => l.toUpperCase())}
               </h2>
               <p className="text-sm text-gray-400 text-center mt-1">
                 ID: {userData.id}

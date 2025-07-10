@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, VideoIcon, Eye, Search, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ModalNovoCurso from "./ModalNovoCurso";
@@ -9,7 +9,6 @@ import ModalVerCurso from "./ModalVerCurso";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -57,12 +56,17 @@ export interface Curso {
 export default function TabelaCursos() {
   const [cursos, setCursos] = useState<Curso[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("Todos");
+  const [selectedStatus, setSelectedStatus] = useState<Tab>("Todos");
   const [openNovoCurso, setOpenNovoCurso] = useState(false);
   const [cursoSelecionado, setCursoSelecionado] = useState<Curso | null>(null);
   const [openModalVideo, setOpenModalVideo] = useState(false);
   const [openModalVerCurso, setOpenModalVerCurso] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  const tabs = ["Todos", "Aprovado", "Rejeitado"] as const;
+  type Tab = typeof tabs[number];
 
   useEffect(() => {
     const fetchCursos = async () => {
@@ -96,6 +100,23 @@ export default function TabelaCursos() {
     return matchNome && matchStatus;
   });
 
+  const paginatedCursos = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return filteredCursos.slice(start, start + itemsPerPage);
+  }, [filteredCursos, currentPage, itemsPerPage]);
+
+  const totalPages = Math.ceil(filteredCursos.length / itemsPerPage);
+
+  const totalCursos = cursos.length;
+  const totalAprovado = cursos.filter((c) => c.estado).length;
+  const totalRejeitado = cursos.filter((c) => !c.estado).length;
+
+  const tabCounts: Record<Tab, number> = {
+    Todos: totalCursos,
+    Aprovado: totalAprovado,
+    Rejeitado: totalRejeitado,
+  };
+
   const formatarMetical = (valor: number | string) => {
     const numero = typeof valor === "string" ? parseFloat(valor) : valor;
     return numero.toLocaleString("pt-MZ", { style: "currency", currency: "MZN" });
@@ -105,24 +126,22 @@ export default function TabelaCursos() {
     const label = estado ? "Aprovado" : "Rejeitado";
     const bg = estado ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800";
     return (
-      <span className={` px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-medium ${bg} flex items-center gap-1`}>
-        <span className={` ${estado ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
+      <span className={`px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-medium ${bg} flex items-center gap-1`}>
+        <span className={`w-2 h-2 rounded-full ${estado ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
         {label}
       </span>
     );
   };
 
-  const tabs = ["Todos", "Aprovado", "Rejeitado"];
-
   return (
-    <div className="bg-white rounded-xl shadow-sm  border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="p-6 border-b border-gray-100">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold text-gray-800">Meus Cursos</h2>
             <p className="text-sm text-gray-500 mt-1">Gerencie todos os seus cursos em um só lugar</p>
           </div>
-          
+
           <Button
             className="flex gap-2 bg-gradient-to-br from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 items-center py-2 px-4 shadow-sm"
             onClick={() => setOpenNovoCurso(true)}
@@ -149,13 +168,16 @@ export default function TabelaCursos() {
             {tabs.map((tab) => (
               <button
                 key={tab}
-                onClick={() => setSelectedStatus(tab)}
+                onClick={() => {
+                  setSelectedStatus(tab);
+                  setCurrentPage(1);
+                }}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
                   ${selectedStatus === tab
-                    ? "bg-primary text-dark-blue shadow-lg"
+                    ? "bg-primary text-gray-500 shadow-lg"
                     : "bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200"}`}
               >
-                {tab}
+                {tab} <span className="ml-1 font-semibold">({tabCounts[tab]})</span>
               </button>
             ))}
           </div>
@@ -178,8 +200,8 @@ export default function TabelaCursos() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredCursos.length > 0 ? (
-                  filteredCursos.map((item) => (
+                {paginatedCursos.length > 0 ? (
+                  paginatedCursos.map((item) => (
                     <TableRow key={item.id} className="border-t border-gray-100 hover:bg-gray-50/50">
                       <TableCell className="py-4 pl-6 font-medium text-gray-500">
                         <div className="flex flex-col">
@@ -207,7 +229,7 @@ export default function TabelaCursos() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-40 bg-gray-50">
-                              <DropdownMenuItem 
+                              <DropdownMenuItem
                                 onClick={() => {
                                   setCursoSelecionado(item);
                                   setOpenModalVideo(true);
@@ -216,7 +238,7 @@ export default function TabelaCursos() {
                               >
                                 <VideoIcon size={14} /> Material
                               </DropdownMenuItem>
-                              <DropdownMenuItem 
+                              <DropdownMenuItem
                                 onClick={() => {
                                   setCursoSelecionado(item);
                                   setOpenModalVerCurso(true);
@@ -241,6 +263,51 @@ export default function TabelaCursos() {
               </TableBody>
             </Table>
           )}
+        </div>
+
+        <div className="flex justify-between items-center mt-6">
+          <div className="text-sm text-gray-500">
+            Página {currentPage} de {totalPages}
+          </div>
+          <div className="flex gap-2">
+            <label className="text-sm text-gray-600 mr-2">Ver:</label>
+            <select
+              className="border text-gray-500 border-gray-300 text-sm rounded px-2 py-1"
+              value={itemsPerPage}
+              onChange={(e) => {
+                setItemsPerPage(Number(e.target.value));
+                setCurrentPage(1);
+              }}
+            >
+              {[3, 5, 10, 20].map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className={`px-3 py-1 text-sm rounded ${
+                currentPage === 1
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-orange-500 text-white hover:bg-orange-600"
+              }`}
+            >
+              Anterior
+            </Button>
+            <Button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-1 text-sm rounded ${
+                currentPage === totalPages
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-orange-500 text-white hover:bg-orange-600"
+              }`}
+            >
+              Próxima
+            </Button>
+          </div>
         </div>
       </div>
 

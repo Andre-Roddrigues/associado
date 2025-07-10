@@ -61,7 +61,6 @@ const PerfilDocumentos = () => {
                 defaultValue="2028-03-15" 
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" 
               />
-              <Clock className="absolute right-3 top-3 text-gray-400" size={20} />
             </div>
           </div>
         </div>
