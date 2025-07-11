@@ -183,7 +183,7 @@ export function SaqueSection() {
             <span className="text-white">
               Exclusivos
             </span>{" "}
-            da Unitec PRO
+            da Unitec
           </h3>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
             Confirma como a sua jornada pode ser encorajadora ao nosso lado!

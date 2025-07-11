@@ -2,7 +2,8 @@
 
 import { Mail, MapPin, Phone, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
-
+import Image from "next/image";
+import unitec from "@/public/images/uniteccolor.PNG"
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-gray-300 to-gray-100 text-slate-700 py-12 px-4">
@@ -11,8 +12,9 @@ export default function Footer() {
 
           {/* Coluna 1 - Sobre */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-blue-500">UniPro</h3>
-            <p className="mb-4">
+            <h4 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-b from-blue-500 to-blue-900">Unitec</h4>
+            {/* <Image src={unitec} alt="unitec" width={100} height={100} /> */}
+            <p className="mb-2">
               Transformando vidas através da educação de qualidade e formação profissional.
             </p>
             <p className="text-sm text-gray-400 hidden md:block">

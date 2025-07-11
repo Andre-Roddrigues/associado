@@ -151,7 +151,7 @@ export function PremiumPlatformSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           > 
-            <Link href="#cursos">
+            <Link href="/registro">
              Crie sua Conta
             </Link>
             <motion.span

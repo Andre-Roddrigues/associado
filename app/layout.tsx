@@ -15,7 +15,7 @@ const montserrat = Montserrat({
 const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Unitec PRO",
+  title: "Unitec",
   description: "Venha partilhar o seu conhecimento e veja sua renda crescer com a nossa plataforma de cursos, ebooks e mentorias. Cadastre-se agora e comece a monetizar seu conhecimento!",
 };
 

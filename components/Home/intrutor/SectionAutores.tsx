@@ -93,8 +93,7 @@ export function AutoresSection() {
     <section className="py-12 px-4 bg-gradient-darkblue-light">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-8 text-white">
-          <span className="text-transparent bg-clip-text bg-cyan-500">PRO</span>dutores de conteúdo que geram
-          <span className="text-transparent bg-clip-text bg-cyan-500"> Valor</span>
+          Produtores de conteúdo que geram Valor
         </h2>
 
         <Slider {...settings} className="px-2">

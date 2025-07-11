@@ -66,7 +66,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
               <Menu className="h-6 w-6" />
             </button>
             <Link href="/">
-              <Image height={45} width={45} src="/images/uPro.PNG" alt="Unitec PRO" />
+              <Image height={45} width={45} src="/images/uniteclogo.PNG" alt="Unitec PRO" />
             </Link>
           </div>
 
