@@ -3,7 +3,7 @@
 import { Mail, MapPin, Phone, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import unitec from "@/public/images/uniteccolor.PNG"
+// import unitec from "@/public/images/uniteccolor.PNG"
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-gray-300 to-gray-100 text-slate-700 py-12 px-4">
