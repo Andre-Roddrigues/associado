@@ -3,10 +3,9 @@ import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Ba
 
 interface Props {
   vendasPorCurso: { nome: string; total: number }[];
-  alunos: { nome: string; total: number }[];
 }
 
-export default function GraficoFinanceiro({ vendasPorCurso, alunos }: Props) {
+export default function GraficoFinanceiro({ vendasPorCurso }: Props) {
   const formatarMetical = (valor: number) => {
     return valor.toLocaleString("pt-MZ", { style: "currency", currency: "MZN" });
   };
