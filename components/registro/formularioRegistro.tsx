@@ -100,7 +100,7 @@ export default function AuthPanel() {
           >
             <div className="flex items-center gap-2 mb-4">
               <UserPlus className="text-blue-500" size={28} />
-              <h1 className="text-2xl text-blue-500 font-bold">UnitecPRO</h1>
+              <h1 className="text-2xl text-blue-500 font-bold">Unitec</h1>
             </div>
 
             <InputField
@@ -183,7 +183,7 @@ export default function AuthPanel() {
               priority
             />
             <div className="absolute z-20 flex flex-col items-start px-10 text-left">
-              <h1 className="text-2xl font-bold mb-2 drop-shadow-md">Registre-se na UnitecPRO!</h1>
+              <h1 className="text-2xl font-bold mb-2 drop-shadow-md">Registre-se na Unitec!</h1>
               <p className="text-sm mb-4 text-white/90">Crie sua conta para começar sua jornada conosco</p>
               <p className="text-sm mb-2 text-white/90">A senha deve conter:</p>
               <ul className="text-sm text-white space-y-1">

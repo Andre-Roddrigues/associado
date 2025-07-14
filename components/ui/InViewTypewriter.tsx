@@ -18,7 +18,7 @@ export function InViewTypewriter({ children, className }: InViewTypewriterProps)
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.01, // Intervalo entre cada letra
+        staggerChildren: 0.04, // Intervalo entre cada letra
       },
     },
   };

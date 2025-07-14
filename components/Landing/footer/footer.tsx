@@ -1,9 +1,15 @@
 "use client";
 
-import { Mail, MapPin, Phone, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  Facebook,
+  Instagram,
+  Linkedin,
+} from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-// import unitec from "@/public/images/uniteccolor.PNG"
+
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-gray-300 to-gray-100 text-slate-700 py-12 px-4">
@@ -13,7 +19,6 @@ export default function Footer() {
           {/* Coluna 1 - Sobre */}
           <div>
             <h4 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-b from-blue-500 to-blue-900">Unitec</h4>
-            {/* <Image src={unitec} alt="unitec" width={100} height={100} /> */}
             <p className="mb-2">
               Transformando vidas através da educação de qualidade e formação profissional.
             </p>
@@ -22,23 +27,42 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Coluna 2 - Newsletter e Redes Sociais */}
+          {/* Coluna 2 - Redes Sociais e Newsletter */}
           <div>
-          <h4 className="text-sm font-semibold mb-3">REDES SOCIAIS</h4>
-            <div className="flex md:justify-start justify-center  gap-4 text-blue-500">
-              <a href="https://facebook.com/unitec.upro" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                <Facebook size={20} />
+            <h4 className="text-sm font-semibold mb-3">REDES SOCIAIS</h4>
+            <div className="flex md:justify-start justify-center items-center gap-4 text-blue-500">
+
+              <a href="https://facebook.com/unitecm" target="_blank" rel="noopener noreferrer">
+                <Facebook size={19} />
               </a>
-              <a href="https://twitter.com/unitec" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                <Twitter size={20} />
+
+              <a href="https://x.com/unitec_go" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                {/* Ícone X (Twitter novo) */}
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.65 10.48 23.06 0h-2.1l-7.63 8.91L7.7 0H0l9.85 14.1L0 24h2.1l8.12-9.48L16.3 24H24M2.87 1.56h3.77l14.5 20.88h-3.76"/>
+                </svg>
               </a>
-              <a href="https://instagram.com/unitecpo" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                <Instagram size={20} />
+
+              <a href="https://instagram.com/unitec_go" target="_blank" rel="noopener noreferrer">
+                <Instagram size={18} />
               </a>
-              <a href="#" aria-label="Linkedin" target="_blank" rel="noopener noreferrer">
-                <Linkedin size={20} />
+
+              <a href="https://tiktok.com/@unitec_go" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                {/* Ícone TikTok */}
+                <svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor">
+                  <path d="M168,48V148a52,52,0,1,1-52-52,8,8,0,0,1,0,16,36,36,0,1,0,36,36V48a8,8,0,0,1,8-8h24a8,8,0,0,1,8,8,28,28,0,0,0,28,28,8,8,0,0,1,0,16,44.1,44.1,0,0,1-32-13.2V148a68,68,0,1,1-68-68,8,8,0,0,1,0,16A52,52,0,1,0,168,148V56h-8A8,8,0,0,1,168,48Z"/>
+                </svg>
               </a>
+
+              <a href="https://youtube.com/@unitec_go" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                {/* Ícone YouTube */}
+                <svg width="20" height="20" viewBox="0 0 576 512" fill="currentColor">
+                  <path d="M549.7 124.1c-6.3-24.1-25.2-43-49.3-49.3C458.3 64 288 64 288 64s-170.3 0-212.4 10.8c-24.1 6.3-43 25.2-49.3 49.3C16 166.3 16 256 16 256s0 89.7 10.3 131.9c6.3 24.1 25.2 43 49.3 49.3C117.7 448 288 448 288 448s170.3 0 212.4-10.8c24.1-6.3 43-25.2 49.3-49.3C560 345.7 560 256 560 256s0-89.7-10.3-131.9zM232 334.3V177.7L345 256 232 334.3z"/>
+                </svg>
+              </a>
+
             </div>
+
             <form className="flex flex-col sm:flex-row gap-2 mt-5">
               <input
                 type="email"
@@ -52,8 +76,6 @@ export default function Footer() {
                 Inscrever
               </button>
             </form>
-
-            
 
             <div className="flex justify-center flex-wrap gap-4 text-sm text-gray-400 mt-6">
               <Link href="/politica-de-privacidade" className="hover:text-blue-400 transition-colors">

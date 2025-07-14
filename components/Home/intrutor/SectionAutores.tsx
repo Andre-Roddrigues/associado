@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const autores = [
   {
@@ -73,6 +74,10 @@ const autores = [
 ];
 
 export function AutoresSection() {
+  const fadeIn = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0 },
+  };
   const settings = {
     dots: false,
     infinite: true,
@@ -95,7 +100,15 @@ export function AutoresSection() {
         <h2 className="text-2xl font-bold text-center mb-8 text-white">
           Produtores de conteúdo que geram Valor
         </h2>
-
+        <motion.section
+      id="como-funciona"
+      initial="hidden"
+      whileInView="visible"
+      variants={fadeIn}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="py-24 px-6 z-0 "
+    >
         <Slider {...settings} className="px-2">
           {autores.map((autor) => (
             <div key={autor.id} className="px-2 py-2">
@@ -139,6 +152,7 @@ export function AutoresSection() {
             </div>
           ))}
         </Slider>
+        </motion.section>
       </div>
     </section>
   );

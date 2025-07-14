@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import { BookText, GraduationCap, MessageSquare, BookOpen } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { InViewTypewriter } from "@/components/ui/InViewTypewriter";
 
 export function HeroSection() {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -91,9 +92,9 @@ export function HeroSection() {
 
       {/* Conteúdo */}
       <div className="relative z-10">
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 max-w-4xl mx-auto text-white">
+        <InViewTypewriter className="text-4xl md:text-5xl font-extrabold mb-4 max-w-4xl mx-auto text-white">
           Transforme seu conhecimento em renda com a Unitec
-        </h2>
+        </InViewTypewriter>
         <p className="text-lg max-w-3xl mx-auto mb-6 text-white">
           Crie conteúdos, venda cursos e ebooks, ofereça mentorias e saque seus ganhos diretamente na plataforma.
         </p>
