@@ -11,31 +11,31 @@ const autores = [
     id: 1,
     name: "Carlos Mbanze",
     role: "Formador",
-    email: "carlos@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    email: "carlos@unitec.ac.mz",
+    image: "/images/instr2.jpg",
     glassColor: "rgba(255, 255, 255, 0.12)" // Branco com 12% de opacidade
   },
   {
     id: 2,
-    name: "Tatiana Nhachungue",
-    role: "Formadora",
-    email: "tatiana@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    name: "André Rodrigues",
+    role: "Formador",
+    email: "andre@unitec.ac.mz",
+    image: "/images/instr1.jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
   {
     id: 3,
     name: "João Matsinhe",
     role: "Formador",
-    email: "joao@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    email: "joao@unitec.ac.mz",
+    image: "/images/instr3.jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
   {
     id: 4,
     name: "Helena Langa",
     role: "Formadora",
-    email: "helena@unitec.cursos",
+    email: "helena@unitec.ac.mz",
     image: "/images/avatar1.jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
@@ -43,32 +43,32 @@ const autores = [
     id: 5,
     name: "Amílcar Tamele",
     role: "Formador",
-    email: "amilcar@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    email: "amilcar@unitec.ac.mz",
+    image: "/images/uni(4).jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
   {
     id: 6,
     name: "Ivone Simbine",
     role: "Formadora",
-    email: "ivone@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    email: "ivone@unitec.ac.mz",
+    image: "/images/uni(1).jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
   {
     id: 7,
-    name: "Ernesto Zandamela",
+    name: "Akil Bashir",
     role: "Formador",
-    email: "ernesto@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    email: "akil@unitec.ac.mz",
+    image: "/images/uni(3).jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
   {
     id: 8,
     name: "Nádia Ussene",
     role: "Formadora",
-    email: "nadia@unitec.cursos",
-    image: "/images/avatar1.jpg",
+    email: "nadia@unitec.ac.mz",
+    image: "/images/uni(2).jpg",
     glassColor: "rgba(255, 255, 255, 0.12)"
   },
 ];

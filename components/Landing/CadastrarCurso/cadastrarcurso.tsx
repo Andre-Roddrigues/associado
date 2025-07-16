@@ -41,27 +41,27 @@ export function CoursesSection() {
       borderColor: "rgba(59, 130, 246, 0.3)",
       href: "/adicionar-mentoria",
     },
-    {
-      icon: <FilePlus size={28} className="text-white" />,
-      title: "E‑book",
-      description:
-        "Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade",
-      buttonText: "Cadastrar Ebook",
-      gradient: "from-emerald-500 to-teal-400",
-      glassColor: "rgba(16, 185, 129, 0.15)",
-      borderColor: "rgba(16, 185, 129, 0.3)",
-      href: "/adicionar-ebook",
-    },
+    // {
+    //   icon: <FilePlus size={28} className="text-white" />,
+    //   title: "E‑book",
+    //   description:
+    //     "Alcance leitores de todo o país e amplie sua autoridade em sua área de especialidade",
+    //   buttonText: "Cadastrar Ebook",
+    //   gradient: "from-emerald-500 to-teal-400",
+    //   glassColor: "rgba(16, 185, 129, 0.15)",
+    //   borderColor: "rgba(16, 185, 129, 0.3)",
+    //   href: "/adicionar-ebook",
+    // },
     {
       icon: <BookOpen size={28} className="text-white" />,
       title: "Livro",
       description:
-        "Publique livros físicos, novos ou usados, e contribua com conhecimento.",
+        "Publique ebook, livros físicos, novos ou usados, e contribua com conhecimento.",
       buttonText: "Cadastrar Livro",
       gradient: "from-blue-500 to-indigo-400",
       glassColor: "rgba(59, 130, 246, 0.15)",
       borderColor: "rgba(59, 130, 246, 0.3)",
-      href: "/adicionar-livro",
+      href: "/adicionar-ebook",
     },
     {
       icon: <TicketCheckIcon size={28} className="text-white" />,
@@ -100,7 +100,7 @@ export function CoursesSection() {
           </p>
         </div>
 
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}

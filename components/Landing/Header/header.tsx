@@ -74,11 +74,11 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
           <nav className="hidden md:flex items-center space-x-8 text-sm">
             {!isAuthenticated ? (
               <>
-                <Link href="#como-funciona" className="text-white hover:text-blue-100 font-medium">Como Funciona</Link>
-                <Link href="#cursos" className="text-white hover:text-blue-100 font-medium">Sobre Produtos</Link>
-                <Link href="#mentorias" className="text-white hover:text-blue-100 font-medium">Mentorias</Link>
-                <Link href="#saque" className="text-white hover:text-blue-100 font-medium">Saque</Link>
-                <Link href="#faq" className="text-white hover:text-blue-100 font-medium">FAQ</Link>
+                <Link href="/#como-funciona" className="text-white hover:text-blue-100 font-medium">Como Funciona</Link>
+                <Link href="/#cursos" className="text-white hover:text-blue-100 font-medium">Sobre Produtos</Link>
+                <Link href="/#mentorias" className="text-white hover:text-blue-100 font-medium">Mentorias</Link>
+                <Link href="/#saque" className="text-white hover:text-blue-100 font-medium">Benefícios</Link>
+                <Link href="/#faq" className="text-white hover:text-blue-100 font-medium">FAQ</Link>
               </>
             ) : (
               <>
@@ -86,7 +86,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
                 <Link href="/#como-funciona" className="text-white hover:text-blue-100 font-medium">Como Funciona</Link>
                 <Link href="/#cursos" className="text-white hover:text-blue-100 font-medium">Sobre Produtos</Link>
                 <Link href="/#mentorias" className="text-white hover:text-blue-100 font-medium">Mentorias</Link>
-                <Link href="/#saque" className="text-white hover:text-blue-100 font-medium">Saque</Link>
+                <Link href="/#saque" className="text-white hover:text-blue-100 font-medium">Benefícios</Link>
                 <Link href="/#faq" className="text-white hover:text-blue-100 font-medium">FAQ</Link>
               </>
             )}
@@ -165,35 +165,35 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             {!isAuthenticated ? (
               <>
                 <Link 
-                  href="#como-funciona" 
+                  href="/#como-funciona" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
                 >
                   Como Funciona
                 </Link>
                 <Link 
-                  href="#cursos" 
+                  href="/#cursos" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
                 >
                   Sobre Produtos
                 </Link>
                 <Link 
-                  href="#mentorias" 
+                  href="/#mentorias" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
                 >
                   Mentorias
                 </Link>
                 <Link 
-                  href="#saque" 
+                  href="/#saque" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
                 >
-                  Saque
+                  Benefícios 
                 </Link>
                 <Link 
-                  href="#faq" 
+                  href="/#faq" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
                 >
@@ -249,7 +249,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
                 >
-                  Saque
+                  Benefícios 
                 </Link>
                 <Link 
                   href="/#faq" 

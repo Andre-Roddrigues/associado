@@ -23,7 +23,7 @@ export default function Footer() {
               Transformando vidas através da educação de qualidade e formação profissional.
             </p>
             <p className="text-sm text-gray-400 hidden md:block">
-              © {new Date().getFullYear()} UnitecPRO. Todos os direitos reservados.
+              © {new Date().getFullYear()} Unitec. Todos os direitos reservados.
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <Mail className="text-blue-400" size={18} />
-                <span>pro@unitec.ac.mz</span>
+                <span>suporte@unitec.ac.mz</span>
               </li>
               <li className="flex items-center gap-2 justify-center md:justify-start">
                 <MapPin className="text-blue-400" size={18} />

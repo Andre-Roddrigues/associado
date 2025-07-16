@@ -1,12 +1,9 @@
-
 "use client";
 
 import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, UploadCloud, Image as ImageIcon, ArrowRight, ArrowLeft, CheckCircle, X, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { addBookAction } from '@/components/formadorPage/actionsFormador/addBookAction';
-import { getInstructorData } from '@/components/formadorPage/actionsFormador/get-user-actions';
 
 export function BookUploadForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -228,50 +225,19 @@ export function BookUploadForm() {
     return true;
   };
 
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
     if (validateStep(currentStep)) {
-      try {
-        const user = await getInstructorData(); // Pega o ID direto
-        console.log("ID do usuário:", user.id); // <-- Console do ID
-  
-        const bookData = {
-          title: formData.title,
-          author: formData.author,
-          description: formData.description,
-          price: formData.price,
-          rating: formData.rating || '0',
-          totalReviews: formData.totalReviews || '0',
-          format: (
-            format === 'ebook'
-              ? 'ebook'
-              : format === 'used'
-              ? 'Livro Usado'
-              : 'Livro'
-          ) as "ebook" | "Livro Usado" | "Livro",
-          pages: formData.pages,
-          publishDate: formData.publishDate,
-          user_id: user.id.toString()
-          // user_id:"34836f33-7ca2-4b06-8a1b-0d0278255395"
-        };
-  
-        const result = await addBookAction(bookData);
-  
-        if (result.success) {
-          toast.success('Livro publicado com sucesso!');
-        } else {
-          toast.error(result.message);
-        }
-      } catch (error: any) {
-        console.error(error);
-        toast.error("Erro ao obter ID do usuário ou publicar livro.");
-      }
+      console.log('Formulário enviado:', { 
+        ...formData, 
+        format,
+        ebookFile: format === 'ebook' ? ebookFile : null,
+        coverImage,
+        extraImages: format === 'used' ? extraImages : []
+      });
+      toast.success('Livro enviado com sucesso!');
     }
   };
-  
-
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

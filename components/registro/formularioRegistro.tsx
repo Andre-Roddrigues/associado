@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { UserPlus, Mail, Lock, User, Phone, Eye, EyeOff, Check } from "lucide-react";
+import {
+  UserPlus,
+  Mail,
+  Lock,
+  User,
+  Phone,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import Image from "next/image";
 import { registerInstructor } from "../formadorPage/actionsFormador/registar-actions";
 import toast from "react-hot-toast";
@@ -24,23 +32,42 @@ export default function AuthPanel() {
     senha: "",
     confirmarSenha: "",
   });
+
+  const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [shakePasswords, setShakePasswords] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "contacto" && (!/^\d*$/.test(value) || value.length > 9)) return;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setFormErrors({});
+    setShakePasswords(false);
 
+    const errors: Partial<FormData> = {};
+
+    if (!formData.nomeCompleto.trim()) errors.nomeCompleto = "erro";
+    if (!formData.contacto.match(/^\d{9}$/)) errors.contacto = "erro";
+    if (!formData.email.includes("@")) errors.email = "erro";
+    if (formData.senha.length < 8) errors.senha = "erro";
     if (formData.senha !== formData.confirmarSenha) {
-      toast.error("As senhas não coincidem.");
+      errors.senha = "erro";
+      errors.confirmarSenha = "erro";
+      setShakePasswords(true);
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      setTimeout(() => setShakePasswords(false), 600);
       setIsLoading(false);
       return;
     }
@@ -54,6 +81,7 @@ export default function AuthPanel() {
       });
 
       toast.success("Cadastro realizado com sucesso!");
+
       setFormData({
         nomeCompleto: "",
         contacto: "",
@@ -61,8 +89,8 @@ export default function AuthPanel() {
         senha: "",
         confirmarSenha: "",
       });
-    } catch (err: any) {
-      toast.error(err.message || "Erro ao registrar.");
+    } catch {
+      toast.error("Erro ao registrar.");
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +120,6 @@ export default function AuthPanel() {
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 p-4">
       <div className="relative w-full max-w-[768px] min-h-[520px] bg-white rounded-xl shadow-2xl overflow-hidden">
-        {/* Formulario */}
         <div className="absolute top-0 left-0 h-full w-full md:w-1/2">
           <form
             onSubmit={handleSubmit}
@@ -111,6 +138,7 @@ export default function AuthPanel() {
               value={formData.nomeCompleto}
               onChange={handleInputChange}
               required
+              error={formErrors.nomeCompleto}
             />
             <InputField
               type="text"
@@ -120,6 +148,7 @@ export default function AuthPanel() {
               value={formData.contacto}
               onChange={handleInputChange}
               required
+              error={formErrors.contacto}
             />
             <InputField
               type="email"
@@ -129,6 +158,7 @@ export default function AuthPanel() {
               value={formData.email}
               onChange={handleInputChange}
               required
+              error={formErrors.email}
             />
             <InputField
               type={showPassword ? "text" : "password"}
@@ -140,6 +170,8 @@ export default function AuthPanel() {
               required
               toggleIcon={showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               onToggle={() => setShowPassword((prev) => !prev)}
+              error={formErrors.senha}
+              shake={shakePasswords}
             />
             <InputField
               type={showConfirmPassword ? "text" : "password"}
@@ -151,6 +183,8 @@ export default function AuthPanel() {
               required
               toggleIcon={showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               onToggle={() => setShowConfirmPassword((prev) => !prev)}
+              error={formErrors.confirmarSenha}
+              shake={shakePasswords}
             />
 
             {formData.senha.length > 0 && (
@@ -171,7 +205,6 @@ export default function AuthPanel() {
           </form>
         </div>
 
-        {/* Lado direito com imagem e requisitos */}
         <div className="hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden">
           <div className="relative h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center">
             <div className="absolute inset-0 bg-blue-500/40 z-10" />
@@ -188,19 +221,19 @@ export default function AuthPanel() {
               <p className="text-sm mb-2 text-white/90">A senha deve conter:</p>
               <ul className="text-sm text-white space-y-1">
                 <li className={passwordRequirements.length ? "text-green-400" : "text-white/90"}>
-                  {passwordRequirements.length && "✓"}Mínimo de 8 caracteres
+                  {passwordRequirements.length && "✓"} Mínimo de 8 caracteres
                 </li>
                 <li className={passwordRequirements.upper ? "text-green-400" : "text-white/90"}>
-                  {passwordRequirements.upper && "✓"}1 letra maiúscula
+                  {passwordRequirements.upper && "✓"} 1 letra maiúscula
                 </li>
                 <li className={passwordRequirements.lower ? "text-green-400" : "text-white/90"}>
-                  {passwordRequirements.lower && "✓"}1 letra minúscula
+                  {passwordRequirements.lower && "✓"} 1 letra minúscula
                 </li>
                 <li className={passwordRequirements.number ? "text-green-400" : "text-white/90"}>
-                  {passwordRequirements.number && "✓"}1 número
+                  {passwordRequirements.number && "✓"} 1 número
                 </li>
                 <li className={passwordRequirements.special ? "text-green-400" : "text-white/90"}>
-                  {passwordRequirements.special && "✓"}1 caractere especial
+                  {passwordRequirements.special && "✓"} 1 caractere especial
                 </li>
               </ul>
               <div className="text-sm text-white mt-4">
@@ -232,6 +265,8 @@ const InputField = ({
   required,
   toggleIcon,
   onToggle,
+  error,
+  shake = false,
 }: {
   type: string;
   name: string;
@@ -242,8 +277,14 @@ const InputField = ({
   required?: boolean;
   toggleIcon?: React.ReactNode;
   onToggle?: () => void;
+  error?: string;
+  shake?: boolean;
 }) => (
-  <div className="relative w-full my-3">
+  <motion.div
+    className="relative w-full my-3"
+    animate={shake ? { x: [-10, 10, -8, 8, -5, 5, 0] } : {}}
+    transition={{ duration: 0.4 }}
+  >
     <span className="absolute left-3 top-1/2 transform -translate-y-1/2">{icon}</span>
     <input
       type={type}
@@ -252,7 +293,11 @@ const InputField = ({
       value={value}
       onChange={onChange}
       required={required}
-      className="w-full bg-gray-100 border-none text-gray-500 rounded-lg p-3 pl-10 pr-10 text-sm focus:outline-2 focus:outline-blue-500 focus:bg-white transition-all"
+      className={`w-full bg-gray-100 text-gray-500 rounded-lg p-3 pl-10 pr-10 text-sm transition-all ${
+        error
+          ? "border border-red-500 focus:outline-red-500 bg-red-50"
+          : "border-none focus:outline-2 focus:outline-blue-500 focus:bg-white"
+      }`}
     />
     {toggleIcon && (
       <button
@@ -263,7 +308,7 @@ const InputField = ({
         {toggleIcon}
       </button>
     )}
-  </div>
+  </motion.div>
 );
 
 const SubmitButton = ({

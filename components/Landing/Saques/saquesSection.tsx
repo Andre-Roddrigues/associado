@@ -95,7 +95,7 @@ export function SaqueSection() {
       icon: <Layout size={28} className="text-white" />,
       title: "Presença profissional personalizada",
       shortDescription:
-        "Tenha uma página exclusiva com um e‑mail profissional para reforçar sua marca.",
+        "E‑mail profissional para reforçar sua marca.",
       fullDescription: [
         "Construa sua identidade digital com uma página dedicada ao seu conteúdo.",
         "Utilize um e‑mail personalizado com domínio @unitec.academy para transmitir mais credibilidade.",
