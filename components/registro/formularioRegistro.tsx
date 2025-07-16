@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation"; 
 import { useState, FormEvent } from "react";
 import {
   UserPlus,
@@ -15,6 +15,7 @@ import { registerInstructor } from "../formadorPage/actionsFormador/registar-act
 import toast from "react-hot-toast";
 import ModalTermos from "@/app/(auth)/login/ModalTermis";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 type FormData = {
   nomeCompleto: string;
@@ -47,54 +48,65 @@ export default function AuthPanel() {
     setFormErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setFormErrors({});
-    setShakePasswords(false);
 
-    const errors: Partial<FormData> = {};
+const router = useRouter(); 
 
-    if (!formData.nomeCompleto.trim()) errors.nomeCompleto = "erro";
-    if (!formData.contacto.match(/^\d{9}$/)) errors.contacto = "erro";
-    if (!formData.email.includes("@")) errors.email = "erro";
-    if (formData.senha.length < 8) errors.senha = "erro";
-    if (formData.senha !== formData.confirmarSenha) {
-      errors.senha = "erro";
-      errors.confirmarSenha = "erro";
-      setShakePasswords(true);
-    }
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setFormErrors({});
+  setShakePasswords(false);
 
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      setTimeout(() => setShakePasswords(false), 600);
-      setIsLoading(false);
-      return;
-    }
+  const errors: Partial<FormData> = {};
 
-    try {
-      await registerInstructor({
-        nomeCompleto: formData.nomeCompleto,
-        email: formData.email,
-        contacto: formData.contacto,
-        senha: formData.senha,
-      });
+  if (!formData.nomeCompleto.trim()) errors.nomeCompleto = "erro";
+  if (!formData.contacto.match(/^\d{9}$/)) errors.contacto = "erro";
+  if (!formData.email.includes("@")) errors.email = "erro";
+  if (formData.senha.length < 8) errors.senha = "erro";
+  if (formData.senha !== formData.confirmarSenha) {
+    errors.senha = "erro";
+    errors.confirmarSenha = "erro";
+    setShakePasswords(true);
+  }
 
-      toast.success("Cadastro realizado com sucesso!");
+  if (Object.keys(errors).length > 0) {
+    setFormErrors(errors);
+    setTimeout(() => setShakePasswords(false), 600);
+    setIsLoading(false);
+    return;
+  }
 
-      setFormData({
-        nomeCompleto: "",
-        contacto: "",
-        email: "",
-        senha: "",
-        confirmarSenha: "",
-      });
-    } catch {
-      toast.error("Erro ao registrar.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  try {
+    await registerInstructor({
+      nomeCompleto: formData.nomeCompleto,
+      email: formData.email,
+      contacto: formData.contacto,
+      senha: formData.senha,
+    });
+
+    toast.success("Cadastro realizado com sucesso!");
+    setTimeout(() => {
+      router.push("/login");
+    }, 1500);
+    
+
+    setFormData({
+      nomeCompleto: "",
+      contacto: "",
+      email: "",
+      senha: "",
+      confirmarSenha: "",
+    });
+
+    // ✅ Redireciona após o sucesso
+    router.push("/login");
+  } catch {
+    toast.error("Erro ao registrar.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const password = formData.senha;
   const passwordScore = [
@@ -186,7 +198,14 @@ export default function AuthPanel() {
               error={formErrors.confirmarSenha}
               shake={shakePasswords}
             />
-
+              <div className="text-center text-sm text-gray-500">
+                  Já tem conta? {""}
+                  <Link href="/login"
+                    className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-300"
+                  >
+                    Faça o Login
+                  </Link>
+                </div>
             {formData.senha.length > 0 && (
               <div className="w-full mt-2 h-2 bg-gray-200 rounded">
                 <motion.div

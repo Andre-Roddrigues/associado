@@ -155,6 +155,14 @@ export default function LoginPage() {
                 </button>
 
                 <div className="text-center text-sm text-gray-500">
+                  Ainda sem conta? {""}
+                  <Link href="/registro"
+                    className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-300"
+                  >
+                    Faça o registro
+                  </Link>
+                </div>
+                <div className="text-center text-sm text-gray-500">
                   Ao continuar, você concorda com os{" "}
                   <button
                     type="button"
