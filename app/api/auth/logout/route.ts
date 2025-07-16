@@ -5,14 +5,14 @@ import { redirect } from "next/navigation";
 export async function GET(req: NextRequest) {
   try {
     // Exclui o cookie de sessão
-    cookies().set("session", "", { maxAge: -1, path: "/" });
-    cookies().delete("session");
+    cookies().set("auth_token", "", { maxAge: -1, path: "/" });
+    cookies().delete("auth_token");
     console.log("Usuário deslogado com sucesso!");
     const url = req.url;
     const baseUrl = new URL(url).origin;
     console.log("Url: ", url);
     console.log("Base URL", baseUrl);
-    req.cookies.delete("session");
+    req.cookies.delete("auth_token");
 
     // Retorna uma resposta JSON indicando o sucesso
     // return NextResponse.redirect(baseUrl)

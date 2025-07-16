@@ -30,7 +30,7 @@ export function SaqueSection() {
       shortDescription:
         "Fique com a maior fatia da receita e taxas sempre transparentes.",
       fullDescription: [
-        "Curss com conteúdos (vídeos, materiais e avaliações) integralmente fornecidos pelo criador: 22%",
+        "Cursos com conteúdos (vídeos, materiais e avaliações) integralmente fornecidos pelo criador: 22%",
         "Cursos que a gravação e edição dos vídeos forem realizadas  pela UNITEC : 44%",
         "Ebooks e mentorias: 18% sobre o valor bruto.",
         "Livros físicos (novos ou usados): 18% + valor de entrega se aplicável",

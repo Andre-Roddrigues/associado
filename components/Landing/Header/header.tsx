@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, X, BookOpen, BookCopy, Wallet, User2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getInstructorData } from "@/components/formadorPage/actionsFormador/get-user-actions";
@@ -140,136 +140,56 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
 
       {/* Menu Mobile */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm md:hidden transition-opacity duration-300 ease-in-out">
-        <div className="bg-gradient-to-b from-indigo-900 to-blue-900 w-4/5 h-full shadow-2xl p-8 space-y-8">
-          <div className="flex justify-between items-center border-b border-blue-700 pb-4">
-            <Link href="/">
-              <Image 
-                height={48} 
-                width={48} 
-                src="/images/uPro.PNG" 
-                alt="Unitec PRO" 
-                className="filter brightness-0 invert"
-              />
-            </Link>
-            <button 
-              onClick={() => setMobileMenuOpen(false)} 
-              aria-label="Fechar menu"
-              className="p-1 rounded-full hover:bg-blue-800 transition-colors duration-200"
-            >
-              <X className="w-7 h-7 text-blue-200" />
-            </button>
+        <div className="fixed overflow-auto inset-0 z-50 bg-black/80 backdrop-blur-sm md:hidden transition-opacity duration-300 ease-in-out">
+          <div className="bg-gradient-to-b from-indigo-900 to-blue-900 w-4/5 h-full shadow-2xl p-8 space-y-8">
+            <div className="flex justify-between items-center border-b border-blue-700 pb-4">
+              <Link href="/">
+                <Image 
+                  height={48} 
+                  width={48} 
+                  src="/images/uPro.PNG" 
+                  alt="Unitec PRO" 
+                  className="filter brightness-0 invert"
+                />
+              </Link>
+              <button 
+                onClick={() => setMobileMenuOpen(false)} 
+                aria-label="Fechar menu"
+                className="p-1 rounded-full hover:bg-blue-800 transition-colors duration-200"
+              >
+                <X className="w-7 h-7 text-blue-200" />
+              </button>
+            </div>
+
+            <nav className="flex flex-col gap-2 text-base font-medium">
+              {!isAuthenticated ? (
+                <>
+                  <Link href="/#como-funciona" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Como Funciona</Link>
+                  <Link href="/#cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Sobre Produtos</Link>
+                  <Link href="/#mentorias" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Mentorias</Link>
+                  <Link href="/#saque" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Benefícios</Link>
+                  <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">FAQ</Link>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="bg-white/10 text-white hover:bg-white/20 rounded-lg py-3 px-4 text-center mt-4">Entrar</Link>
+                  <Link href="/registro" onClick={() => setMobileMenuOpen(false)} className="bg-blue-500 text-white hover:bg-blue-600 rounded-lg py-3 px-4 text-center">Registrar-se</Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/formador/painel" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><LayoutDashboard size={18}/> Painel</Link>
+                  <Link href="/formador/cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><BookOpen size={18}/> Meus Cursos</Link>
+                  <Link href="/formador/ebooks" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><BookCopy size={18}/> Meus Ebooks</Link>
+                  <Link href="/formador/ganhos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><Wallet size={18}/> Meus Ganhos</Link>
+                  <Link href="/formador/perfil" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><User2 size={18}/> Meu Perfil</Link>
+                  <Link href="/#como-funciona" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Como Funciona</Link>
+                  <Link href="/#cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Sobre Produtos</Link>
+                  <Link href="/#mentorias" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Mentorias</Link>
+                  <Link href="/#saque" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">Benefícios</Link>
+                  <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50">FAQ</Link>
+                  <button onClick={handleLogout} className="text-red-300 hover:text-red-100 py-2 border-t border-blue-800/50 mt-4 flex items-center gap-2"><LogOut size={18}/> Sair</button>
+                </>
+              )}
+            </nav>
           </div>
-      
-          <nav className="flex flex-col gap-2 text-base font-medium">
-            {!isAuthenticated ? (
-              <>
-                <Link 
-                  href="/#como-funciona" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Como Funciona
-                </Link>
-                <Link 
-                  href="/#cursos" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Sobre Produtos
-                </Link>
-                <Link 
-                  href="/#mentorias" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Mentorias
-                </Link>
-                <Link 
-                  href="/#saque" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Benefícios 
-                </Link>
-                <Link 
-                  href="/#faq" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  FAQ
-                </Link>
-                <Link 
-                  href="/login" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="bg-white/10 text-white hover:bg-white/20 transition-colors duration-200 rounded-lg py-3 px-4 text-center mt-4"
-                >
-                  Entrar
-                </Link>
-                <Link 
-                  href="/registro" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200 rounded-lg py-3 px-4 text-center"
-                >
-                  Registrar-se
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link 
-                  href="/formador/painel" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50 flex items-center gap-2"
-                >
-                  Painel
-                </Link>
-                <Link 
-                  href="/#como-funciona" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Como Funciona
-                </Link>
-                <Link 
-                  href="/#cursos" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Sobre Produtos
-                </Link>
-                <Link 
-                  href="/#mentorias" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Mentorias
-                </Link>
-                <Link 
-                  href="/#saque" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  Benefícios 
-                </Link>
-                <Link 
-                  href="/#faq" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-blue-100 hover:text-white transition-colors duration-200 py-2 border-b border-blue-800/50"
-                >
-                  FAQ
-                </Link>
-                <button 
-                  onClick={handleLogout} 
-                  className="text-red-300 hover:text-red-100 transition-colors duration-200 py-2 border-t border-blue-800/50 mt-4 flex items-center gap-2"
-                >
-                  <LogOut className="w-5 h-5" />
-                  Sair
-                </button>
-              </>
-            )}
-          </nav>
         </div>
-      </div>
       )}
     </>
   );
