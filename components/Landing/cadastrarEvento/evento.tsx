@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function EventForm() {
   const [fileName, setFileName] = useState("");
@@ -11,14 +12,15 @@ export default function EventForm() {
     "/images/eventos(1).jpg", 
     "/images/eventos(2).jpg",
     "/images/eventos(3).jpg",
-    "/images/eventos(2).jpg"
+    "/images/eventos(4).jpg",
+    "/images/eventos(5).jpg"
   ];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     console.log("Dados do formulário:", Object.fromEntries(formData));
-    alert("Evento cadastrado com sucesso!");
+    toast.success("Evento cadastrado com sucesso!");
     e.currentTarget.reset();
     setFileName("");
   };
@@ -27,16 +29,16 @@ export default function EventForm() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveImage((prev) => (prev + 1) % eventImages.length);
-    }, 5000);
+    }, 10000);
   
     return () => clearInterval(interval);
-  }, []);
+  }, [eventImages.length]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-500 to-blue-200 p-4">
       <div className="flex w-full max-w-6xl bg-white bg-opacity-90 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden">
         {/* Seção de Imagens */}
-        <div className="hidden lg:block relative w-1/3 bg-gray-100">
+        <div className="hidden lg:block relative w-1/3 bg-transparent">
           <div className="absolute inset-0 overflow-hidden">
             {eventImages.map((img, index) => (
               <div 
@@ -86,7 +88,7 @@ export default function EventForm() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 md:p-8 grid grid-cols-1 text-gray-500 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="p-6 text-sm md:p-8 grid grid-cols-1 bg-transparent text-gray-500 md:grid-cols-2 gap-6">
             {/* Coluna Esquerda */}
             <div className="space-y-4">
               <InputField 

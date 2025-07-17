@@ -7,6 +7,7 @@ import {
   Facebook,
   Instagram,
   Linkedin,
+  Youtube,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -46,6 +47,9 @@ export default function Footer() {
               <a href="https://instagram.com/unitec_go" target="_blank" rel="noopener noreferrer">
                 <Instagram size={18} />
               </a>
+              <a href="https://linkedin.com/company/unitecm" target="_blank" rel="noopener noreferrer">
+                <Linkedin size={18} />
+              </a>
 
               <a href="https://tiktok.com/@unitec_go" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
                 {/* Ícone TikTok */}
@@ -56,9 +60,7 @@ export default function Footer() {
 
               <a href="https://youtube.com/@unitec_go" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                 {/* Ícone YouTube */}
-                <svg width="20" height="20" viewBox="0 0 576 512" fill="currentColor">
-                  <path d="M549.7 124.1c-6.3-24.1-25.2-43-49.3-49.3C458.3 64 288 64 288 64s-170.3 0-212.4 10.8c-24.1 6.3-43 25.2-49.3 49.3C16 166.3 16 256 16 256s0 89.7 10.3 131.9c6.3 24.1 25.2 43 49.3 49.3C117.7 448 288 448 288 448s170.3 0 212.4-10.8c24.1-6.3 43-25.2 49.3-49.3C560 345.7 560 256 560 256s0-89.7-10.3-131.9zM232 334.3V177.7L345 256 232 334.3z"/>
-                </svg>
+                <Youtube size={20} />
               </a>
 
             </div>
