@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, Eye, EyeOff, Award, BookOpen, Users, Loader2, LockKeyhole, MailCheck } from "lucide-react";
 import { authenticate } from "@/lib/auth-actions";
 import Link from "next/link";
@@ -16,6 +16,8 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/formador/painel";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ export default function LoginPage() {
 
       if (response.success) {
         toast.success("Login realizado com sucesso!");
-        router.push("/formador/painel");
+        router.push(redirect);
       } else {
         toast.error(response.message || "Credenciais inválidas");
         setError(response.message || "Credenciais inválidas");
