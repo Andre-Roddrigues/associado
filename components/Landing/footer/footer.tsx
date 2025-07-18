@@ -44,14 +44,14 @@ export default function Footer() {
                 </svg>
               </a>
 
-              <a href="https://instagram.com/unitec_go" target="_blank" rel="noopener noreferrer">
+              <a href="https://instagram.com/unitecs_" target="_blank" rel="noopener noreferrer">
                 <Instagram size={18} />
               </a>
               <a href="https://linkedin.com/company/unitecm" target="_blank" rel="noopener noreferrer">
                 <Linkedin size={18} />
               </a>
 
-              <a href="https://tiktok.com/@unitec_go" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <a href="https://tiktok.com/@unitec.c" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
                 {/* Ícone TikTok */}
                 <svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor">
                   <path d="M168,48V148a52,52,0,1,1-52-52,8,8,0,0,1,0,16,36,36,0,1,0,36,36V48a8,8,0,0,1,8-8h24a8,8,0,0,1,8,8,28,28,0,0,0,28,28,8,8,0,0,1,0,16,44.1,44.1,0,0,1-32-13.2V148a68,68,0,1,1-68-68,8,8,0,0,1,0,16A52,52,0,1,0,168,148V56h-8A8,8,0,0,1,168,48Z"/>
