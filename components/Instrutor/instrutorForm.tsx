@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import business from "@/public/images/business.svg";
-import logo from "@/public/images/bp.png";
 import {
   BadgeDollarSign,
   BookA,
@@ -16,17 +15,13 @@ import {
   Users,
 } from "lucide-react";
 import { InputField } from "../ui/inputField";
-import { ColaboradoresSection } from "../Home/Colaboradores/sectionColabaores";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-hot-toast";
 import LoadingButton from "../ui/loading-button";
-import SectionCardsCourse from "./CardsAddCourse";
 import { InputFieldCurrency } from "../ui/currencyInput";
-import { routes } from "@/config/routes";
 import { registerCursoInstrutor } from "../formadorPage/actionsFormador/actions";
 
 const partnerSchema = z.object({
