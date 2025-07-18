@@ -179,7 +179,7 @@ export function SaqueSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h3 className="text-4xl font-bold text-gray-100 mb-4">
-            <span className="text-gray-300">Benefícios</span>{" "}
+            <span className="text-gray-white">Benefícios</span>{" "}
             <span className="text-white">
               Exclusivos
             </span>{" "}

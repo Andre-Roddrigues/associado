@@ -53,7 +53,7 @@ export default function ModalVerCurso({ curso, onClose }: ModalVerCursoProps) {
               <h3 className="text-xl font-bold text-gray-800">{curso.nomeDoCurso}</h3>
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-xs text-gray-500">
-                  {watchedVideos}/{curso.video.length} aulas concluídas
+                  {curso.video.length} Vídeos
                 </span>
               </div>
             </div>
@@ -123,9 +123,6 @@ export default function ModalVerCurso({ curso, onClose }: ModalVerCursoProps) {
             {curso.video.length === 0 ? (
               <div className="bg-gray-50 rounded-lg p-8 text-center">
                 <p className="text-gray-500">Nenhum vídeo disponível para este curso.</p>
-                <Button variant="outline" className="mt-4">
-                  Adicionar Aula
-                </Button>
               </div>
             ) : (
               <div className="space-y-4">

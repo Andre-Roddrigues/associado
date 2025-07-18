@@ -37,6 +37,7 @@ const PerfilForm = () => {
     gender: "male",
     bio: "",
   });
+  const [bio, setBio] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +103,16 @@ const PerfilForm = () => {
   ) => {
     const { name, value } = e.target;
     setUserData((prev) => ({ ...prev, [name]: value }));
+    const inputText = e.target.value;
+    const wordCount = inputText.trim().split(/\s+/).length;
+
+    if (wordCount <= 500) {
+      setBio(inputText);
+    }
+  };
+  const getWordCount = (text: string) => {
+    if (!text.trim()) return 0;
+    return text.trim().split(/\s+/).length;
   };
 
   /* ---------- salvar alterações ---------- */
@@ -305,7 +316,7 @@ const PerfilForm = () => {
               </label>
               <textarea
                 name="bio"
-                value={userData.bio}
+                value={bio}
                 onChange={handleInputChange}
                 className={`w-full px-4 py-3 border ${
                   editMode
@@ -315,6 +326,9 @@ const PerfilForm = () => {
                 disabled={!editMode}
                 placeholder="Conte um pouco sobre você..."
               />
+              <p className="text-sm text-gray-500 text-right mt-1">
+                {getWordCount(bio)} / 500 palavras
+              </p>
             </div>
           </div>
         </div>

@@ -134,7 +134,7 @@ export default function TabelaCursos() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white h-screen rounded-xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="p-6 border-b border-gray-100">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -291,7 +291,7 @@ export default function TabelaCursos() {
               className={`px-3 py-1 text-sm rounded ${
                 currentPage === 1
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-orange-500 text-white hover:bg-orange-600"
+                  : "bg-gray-500 text-white hover:bg-gray-600"
               }`}
             >
               Anterior
@@ -302,7 +302,7 @@ export default function TabelaCursos() {
               className={`px-3 py-1 text-sm rounded ${
                 currentPage === totalPages
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-orange-500 text-white hover:bg-orange-600"
+                  : "bg-gray-500 text-white hover:bg-gray-600"
               }`}
             >
               Próxima
