@@ -17,7 +17,6 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
 
-          {/* Coluna 1 - Sobre */}
           <div>
             <h4 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-b from-blue-500 to-blue-900">Unitec</h4>
             <p className="mb-2">
@@ -28,7 +27,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Coluna 2 - Redes Sociais e Newsletter */}
           <div>
             <h4 className="text-sm font-semibold mb-3">REDES SOCIAIS</h4>
             <div className="flex md:justify-start justify-center items-center gap-4 text-blue-500">
@@ -38,7 +36,6 @@ export default function Footer() {
               </a>
 
               <a href="https://x.com/unitec_go" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                {/* Ícone X (Twitter novo) */}
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14.65 10.48 23.06 0h-2.1l-7.63 8.91L7.7 0H0l9.85 14.1L0 24h2.1l8.12-9.48L16.3 24H24M2.87 1.56h3.77l14.5 20.88h-3.76"/>
                 </svg>
