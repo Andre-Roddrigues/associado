@@ -44,13 +44,11 @@ export default function AuthPanel() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
   
-    // Validação para o campo "contacto"
     if (name === "contacto" && (!/^\d*$/.test(value) || value.length > 9)) return;
   
     setFormData((prev) => {
       const updatedFormData = { ...prev, [name]: value };
   
-      // Validação em tempo real do campo confirmarSenha
       if (name === "confirmarSenha" || (name === "senha" && updatedFormData.confirmarSenha)) {
         if (updatedFormData.senha !== updatedFormData.confirmarSenha) {
           setFormErrors((prevErrors) => ({
@@ -68,7 +66,6 @@ export default function AuthPanel() {
       return updatedFormData;
     });
   
-    // Limpa o erro individual do campo digitado
     setFormErrors((prev) => ({ ...prev, [name]: undefined }));
   };
   

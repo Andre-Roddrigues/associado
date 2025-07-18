@@ -9,8 +9,8 @@ import {
   DoorClosed,
   Landmark,
 } from "lucide-react";
-import { LogoutButton } from "@/components/LogoutButton"; 
 import SidebarFormador from "./SidebarFormador";
+import { LogoutButton } from "@/components/Landing/LogoutButton";
 
 const Sidebar = () => {
   return (
@@ -26,14 +26,14 @@ const Sidebar = () => {
       </div>
 
       {/* LOGOUT */}
-      {/* <div className="mt-8">
+      <div className="mt-8">
         <LogoutButton>
-          <div className="flex items-center gap-3 p-3 rounded-lg bg-red-100 text-red-600 transition-colors cursor-pointer">
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-white text-red-600 transition-colors cursor-pointer">
             <DoorClosed className="w-5 h-5" />
             <span className="font-medium">Sair</span>
           </div>
         </LogoutButton>
-      </div> */}
+      </div>
     </div>
   );
 };

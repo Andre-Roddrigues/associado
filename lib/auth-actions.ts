@@ -1,5 +1,6 @@
 'use server';
 
+import { redirect } from 'next/navigation';
 import { routes } from '@/config/routes';
 import { cookies } from 'next/headers';
 
@@ -12,10 +13,8 @@ export const authenticate = async (email: string, password: string) => {
       cache: 'no-store',
     });
 
-    // Lê o corpo da resposta (pode ser string ou objeto JSON)
     const data = await response.json();
 
-    // 🔒 Se não for 200, interrompe e devolve mensagem do backend (se existir)
     if (response.status !== 200) {
       return {
         success: false,
@@ -23,7 +22,6 @@ export const authenticate = async (email: string, password: string) => {
       };
     }
 
-    // Extrai token e usuário (dependendo do formato retornado)
     const token = typeof data === 'string' ? data : data.token;
     const user  = typeof data === 'object' ? data.user : null;
 
@@ -67,3 +65,13 @@ export const authenticate = async (email: string, password: string) => {
     };
   }
 };
+
+
+export async function logout() {
+  const cookieStore = cookies();
+
+  cookieStore.delete('auth_token');
+  cookieStore.delete('auth_user');
+
+  redirect('/login');
+}
