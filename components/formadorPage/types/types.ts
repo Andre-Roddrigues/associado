@@ -1,4 +1,4 @@
-interface Curso {
+export interface Curso {
     id: number;
     titulo: string;
     descricao: string;

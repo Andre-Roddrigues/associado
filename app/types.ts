@@ -1,4 +1,4 @@
-import { Cursos } from "@/components/types/types";
+import { Curso } from "@/components/types/types";
 
 interface User {
   accessToken?: string;
@@ -8,6 +8,6 @@ interface User {
   nome?: string;
   apelido?: string;
   id?: number;
-  curso?: Cursos[];
+  curso?: Curso[];
   iat?: number;
 }
