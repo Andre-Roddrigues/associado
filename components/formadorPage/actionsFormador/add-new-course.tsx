@@ -1,12 +1,13 @@
 'use server';
 
+import { routes } from "@/config/routes";
 import { cookies } from "next/headers";
 
 export async function registerCursoInstrutor(data: any) {
   const token = cookies().get("auth_token")?.value;
 
   try {
-    const res = await fetch("https://backend.unitec.ac.mz/addnewcourseinstructor", {
+    const res = await fetch(routes.addnewcourseinstructor, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

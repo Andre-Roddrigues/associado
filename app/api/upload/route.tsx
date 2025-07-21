@@ -1,6 +1,7 @@
 // app/api/upload/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { routes } from "@/config/routes";
 
 export async function POST(req: Request) {
   const token = cookies().get("auth_token")?.value;
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
   console.log("video:", formData.get("video"));
   
   try {
-    const response = await fetch("https://backend.unitec.ac.mz/addcourse", {
+    const response = await fetch(routes.addcourse, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

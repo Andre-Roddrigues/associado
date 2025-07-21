@@ -1,3 +1,4 @@
+import { routes } from "@/config/routes";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
     const backendForm = new FormData();
     backendForm.append("photo", file);
 
-    const response = await fetch("https://backend.unitec.ac.mz/addphoto", {
+    const response = await fetch(routes.addphoto, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

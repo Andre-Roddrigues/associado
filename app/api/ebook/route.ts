@@ -12,7 +12,7 @@ export async function GET() {
   }
 
   try {
-    const response = await fetch(routes.listcourseinstructor, {
+    const response = await fetch(routes.getallebook, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

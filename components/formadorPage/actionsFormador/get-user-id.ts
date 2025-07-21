@@ -1,6 +1,7 @@
 // app/actions/get-user-id.ts
 "use server";
 
+import { routes } from "@/config/routes";
 import { cookies } from "next/headers";
 
 export async function getUserId(): Promise<number> {
@@ -10,7 +11,7 @@ export async function getUserId(): Promise<number> {
     throw new Error("Token de autenticação não encontrado.");
   }
 
-  const res = await fetch("https://backend.unitec.ac.mz/dadosinstrutor", {
+  const res = await fetch(routes.dadosinstrutor, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 'use server';
 
+import { routes } from '@/config/routes';
 import { cookies } from 'next/headers';
 
 export interface CursoInstrutor {
@@ -49,7 +50,7 @@ export async function getInstructorCourses(
   /* 2. Token admin (fixo) para consultar endpoint protegido            */
   /* ------------------------------------------------------------------ */
   const tokenAdmin =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3VuaXRlYy5hYy5teiIsImF1ZCI6IlVuaXRlYyBBY2FkZW15IEdlc3TDo28iLCJzdWIiOjI3LCJwcmV2aWxlZ2lvIjoiQW1pbmlzdHJhZG9yIiwiaWF0IjoxNzMzODQ5NTYxfQ.zzQTCepTfwBxRVtopGvchTBUOiEFE2EizSM-Z7WEOJY';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
   /* ------------------------------------------------------------------ */
   /* 3. Extrai o id (sub) do token do usuário                           */
@@ -61,7 +62,7 @@ export async function getInstructorCourses(
   /* ------------------------------------------------------------------ */
   /* 4. Chama /instructor com token admin                               */
   /* ------------------------------------------------------------------ */
-  const res = await fetch('https://backend.unitec.ac.mz/instructor', {
+  const res = await fetch(routes.instructor, {
     headers: { Authorization: `Bearer ${tokenAdmin}` },
     cache: 'no-store',
   });

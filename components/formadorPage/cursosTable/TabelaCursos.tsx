@@ -67,10 +67,17 @@ export default function ListaCursos() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {paginatedCursos.map((curso) => (
-              <CursoItem key={curso.id} curso={curso} />
-            ))}
+            {paginatedCursos.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="text-center px-6 py-4 text-gray-500">
+                  Sem Cursos
+                </td>
+              </tr>
+            ) : (
+              paginatedCursos.map((curso) => <CursoItem key={curso.id} curso={curso} />)
+            )}
           </tbody>
+                  
         </table>
       </div>
 

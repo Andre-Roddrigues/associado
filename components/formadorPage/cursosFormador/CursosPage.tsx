@@ -222,35 +222,38 @@ export default function TabelaCursos() {
                       </TableCell>
                       <TableCell className="py-4 pr-6">
                         <div className="flex justify-end gap-2">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button size="sm" className="h-8 bg-gradient-to-br from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white">
-                                Ações <ChevronDown className="ml-1 h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-40 bg-gray-50">
-                              <DropdownMenuItem
-                                onClick={() => {
-                                  setCursoSelecionado(item);
-                                  setOpenModalVideo(true);
-                                }}
-                                className="flex bg-blue-500 rounded-lg text-white items-center gap-2"
-                              >
-                                <VideoIcon size={14} /> Material
-                              </DropdownMenuItem>
-                              <DropdownMenuItem
-                                onClick={() => {
-                                  setCursoSelecionado(item);
-                                  setOpenModalVerCurso(true);
-                                }}
-                                className="flex bg-emerald-500 mt-2 rounded-lg text-white items-center gap-2"
-                              >
-                                <Eye size={14} /> Ver Curso
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+                          {item.estado && ( // Só exibe se curso for aprovado
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button size="sm" className="h-8 bg-gradient-to-br from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white">
+                                  Ações <ChevronDown className="ml-1 h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="w-40 bg-gray-50">
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    setCursoSelecionado(item);
+                                    setOpenModalVideo(true);
+                                  }}
+                                  className="flex bg-blue-500 rounded-lg text-white items-center gap-2"
+                                >
+                                  <VideoIcon size={14} /> Material
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    setCursoSelecionado(item);
+                                    setOpenModalVerCurso(true);
+                                  }}
+                                  className="flex bg-emerald-500 mt-2 rounded-lg text-white items-center gap-2"
+                                >
+                                  <Eye size={14} /> Ver Curso
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          )}
                         </div>
                       </TableCell>
+
                     </TableRow>
                   ))
                 ) : (

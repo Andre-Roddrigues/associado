@@ -25,40 +25,36 @@ export interface UserProfile {
   courseCount: number;
 }
 
-export interface Cursos {
-  valorDescontado?: number;
-  desconto?: number;
-  id: number | string;
-  nome: string;
-  objectivo?: string;
-  categoria: string;
-  descricao?: string;
-  valor: string;
-  duracao?: string;
-  tipocurso: string;
-  horario?: string;
-  estado?: string;
-  Imagens: Image[];
-  PacotesCursos?: [
-    {
-      id: string;
-      idCurso: string;
-      idPacote: string;
-      idMoodle: string;
-    }
-  ];
-  CursoRegistados?: [
-    {
-      id_aluno: string;
-    }
-  ];
-  inscricao?: {
-    id?: string;
-    valorDescontado?: number;
-    valor?: number;
-    desconto?: number;
-    idCurso?: number;
-  };
+export interface Video {
+  id: number;
+  url: string;
+  fileName: string;
+  originalName: string;
+  uri: string;
+  idInstrutor: number;
+  idCourse: number;
+  listNumber: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Curso {
+  id: number;
+  nomeDoCurso: string;
+  IdCategoria: number;
+  objectivoDoCurso: string;
+  descricaoDoCurso: string;
+  programaDocurso: string;
+  preco: number;
+  modalidade: string;
+  duracao: string;
+  idInstrutor: number;
+  estado: boolean;
+  maxQnt: number | null;
+  createdAt: string;
+  updatedAt: string;
+  video: Video[];
 }
 
 export interface searchParamsProps {
@@ -122,6 +118,6 @@ export interface UserSession {
   nome?: string;
   apelido?: string;
   id?: number;
-  curso?: Cursos[];
+  curso?: Curso[];
   exp?: string;
 }

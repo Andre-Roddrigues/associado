@@ -1,5 +1,6 @@
 "use server";
 
+import { routes } from "@/config/routes";
 import Cookies from "js-cookie";
 import { cookies } from "next/headers";
 
@@ -12,7 +13,7 @@ export async function addAccount(data: any): Promise<boolean> {
       return false;
     }
 
-    const res = await fetch("https://backend.unitec.ac.mz/Bank", {
+    const res = await fetch(routes.Bank, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

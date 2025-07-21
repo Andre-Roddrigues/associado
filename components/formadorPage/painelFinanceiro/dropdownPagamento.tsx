@@ -1,70 +1,151 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Image, { StaticImageData } from "next/image";
-import { ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { getInstructorData } from "../actionsFormador/get-user-actions";
 
-interface Banco {
-  label: string;
-  value: string;
-  logo: StaticImageData;
-  precisaNib: boolean;
-}
+const bancos = [
+  {
+    label: "Millennium BCP",
+    value: "millennium",
+    logo: { src: "/logos/millennium.png" },
+  },
+  {
+    label: "BIM",
+    value: "bim",
+    logo: { src: "/logos/bim.png" },
+  },
+  {
+    label: "Standard Bank",
+    value: "standard",
+    logo: { src: "/logos/standard.png" },
+  },
+  {
+    label: "BCI",
+    value: "bci",
+    logo: { src: "/logos/bci.png" },
+  },
+];
 
-interface BancoDropdownProps {
-  selectedBanco: string;
-  onChange: (value: string) => void;
-  bancos: Banco[];
-}
+export default function PagamentoForm() {
+  const [formData, setFormData] = useState({
+    nome: "",
+    valor: "",
+    banco: "",
+    descricao: "",
+  });
 
-export default function BancoDropdown({ selectedBanco, onChange, bancos }: BancoDropdownProps) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const bancoSelecionado = bancos.find((b) => b.value === selectedBanco) || bancos[0];
-
-  // Fecha dropdown ao clicar fora
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setOpen(false);
+    async function fetchData() {
+      try {
+        const data = await getInstructorData();
+
+        const bancoSelecionado = data.bank?.bankName?.toLowerCase() || "";
+
+        const descricao = `
+Banco: ${data.bank?.bankName ?? "N/A"}
+Nº Conta: ${data.bank?.bankNumber ?? "N/A"}
+Carteira: ${data.carteira?.wallet ?? "N/A"}
+Telemóvel: ${data.carteira?.phoneNumber ?? "N/A"}
+        `.trim();
+
+        setFormData({
+          nome: data.nomeCompleto || "",
+          valor: "",
+          banco: bancoSelecionado,
+          descricao,
+        });
+      } catch (error) {
+        console.error("Erro ao carregar dados do instrutor:", error);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    fetchData();
   }, []);
 
-  return (
-    <div ref={ref} className="relative w-full">
-      <button
-        type="button"
-        className="w-full flex items-center justify-between border border-gray-300 rounded p-2 bg-white"
-        onClick={() => setOpen(!open)}
-      >
-        <div className="flex items-center gap-2 text-gray-600">
-          <Image src={bancoSelecionado.logo} alt={bancoSelecionado.label} width={22} height={22} />
-          <span>{bancoSelecionado.label}</span>
-        </div>
-        <ChevronDown size={20} />
-      </button>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formData);
+    // Enviar os dados para o backend aqui
+  };
 
-      {open && (
-        <ul className="absolute z-10 mt-1 w-full bg-white text-gray-600 border border-gray-300 rounded shadow max-h-48 overflow-auto">
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto p-6 space-y-6 bg-white shadow-md rounded-lg"
+    >
+      <h2 className="text-xl font-semibold">Formulário de Pagamento</h2>
+
+      <div className="space-y-2">
+        <label className="block font-medium">Nome</label>
+        <Input
+          type="text"
+          value={formData.nome}
+          onChange={(e) =>
+            setFormData({ ...formData, nome: e.target.value })
+          }
+          required
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="block font-medium">Valor</label>
+        <Input
+          type="number"
+          value={formData.valor}
+          onChange={(e) =>
+            setFormData({ ...formData, valor: e.target.value })
+          }
+          required
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="block font-medium">Escolha o Banco</label>
+        <div className="grid grid-cols-2 gap-4">
           {bancos.map((banco) => (
-            <li
+            <label
               key={banco.value}
-              className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-gray-100"
-              onClick={() => {
-                onChange(banco.value);
-                setOpen(false);
-              }}
+              className={`cursor-pointer border rounded-lg p-3 flex items-center gap-3 transition-all
+              ${
+                formData.banco === banco.value
+                  ? "border-green-600 ring-2 ring-green-400 bg-green-50"
+                  : "border-gray-300 hover:border-green-400"
+              }`}
             >
-              <Image src={banco.logo} alt={banco.label} width={22} height={22} className="rounded-full"/>
-              <span>{banco.label}</span>
-            </li>
+              <input
+                type="radio"
+                name="banco"
+                value={banco.value}
+                checked={formData.banco === banco.value}
+                onChange={() =>
+                  setFormData({ ...formData, banco: banco.value })
+                }
+                className="sr-only"
+              />
+              <div className="w-10 h-10">
+                <img
+                  src={banco.logo.src}
+                  alt={banco.label}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              <span className="font-medium text-sm text-gray-800">
+                {banco.label}
+              </span>
+            </label>
           ))}
-        </ul>
-      )}
-    </div>
+        </div>
+      </div>
+
+      <Button
+        type="submit"
+        className="bg-green-600 hover:bg-green-700 text-white"
+      >
+        Enviar
+      </Button>
+    </form>
   );
 }

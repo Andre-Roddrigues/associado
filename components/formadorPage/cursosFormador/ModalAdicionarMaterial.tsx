@@ -177,12 +177,12 @@ export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: P
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Unidade (número ou nome)
+                      Unidade (número)
                     </label>
                     <Input
                       value={video.unit}
                       onChange={(e) => handleUnitChange(video.id, e.target.value)}
-                      placeholder={`Ex: 1 ou Unidade 1`}
+                      placeholder={`Ex: 1`}
                       className="border-gray-300 focus:ring-2 px-2 focus:ring-blue-500 text-gray-500 focus:border-blue-500"
                     />
                   </div>

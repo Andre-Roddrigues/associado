@@ -1,6 +1,7 @@
 // app/actions/uploadProfilePhoto.ts
 'use server';
 
+import { routes } from '@/config/routes';
 import { cookies } from 'next/headers';
 
 export async function uploadProfilePhoto(file: File) {
@@ -13,7 +14,7 @@ export async function uploadProfilePhoto(file: File) {
   const formData = new FormData();
   formData.append('photo', file); // 🔑 deve ser exatamente "photo"
 
-  const res = await fetch('https://backend.unitec.ac.mz/addphoto', {
+  const res = await fetch(routes.addphoto, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,

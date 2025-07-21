@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { getInstructorData } from "./get-user-actions";
+import { routes } from "@/config/routes";
 
 interface BookPayload {
   title: string;
@@ -10,7 +11,7 @@ interface BookPayload {
   price: string;
   rating: string;
   totalReviews: string;
-  format: "ebook" | "Livro Usado" | "Livro";
+  format: string;
   pages: string;
   publishDate: string;
 }
@@ -37,7 +38,7 @@ export async function addBookAction(data: BookPayload) {
       user_id,
     };
 
-    const response = await fetch("https://backend.unitec.ac.mz/ebook", {
+    const response = await fetch(routes.ebook, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,11 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, Menu, X, BookOpen, BookCopy, Wallet, User2 } from "lucide-react";
+import {
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  X,
+  BookOpen,
+  BookCopy,
+  Wallet,
+  User2,
+  Bell,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getInstructorData } from "@/components/formadorPage/actionsFormador/get-user-actions";
 import { LogoutButton } from "../LogoutButton";
+import NotificationBell from "./notificacoes";
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -16,6 +27,7 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [notificacoes, setNotificacoes] = useState(27); // Exemplo de contagem
 
   useEffect(() => {
     const handleScroll = () => setHasScrolled(window.scrollY > 10);
@@ -36,7 +48,6 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
     if (isAuthenticated) fetchData();
   }, [isAuthenticated]);
 
-  
   return (
     <>
       {/* Header principal */}
@@ -107,7 +118,10 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
                 </Link>
               </>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
+                {/* Sino de notificações */}
+                {/* <NotificationBell /> */}
+
                 {profileImage && (
                   <Image
                     src={profileImage}
@@ -117,14 +131,12 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
                     className="rounded-full object-cover w-10 h-10 border-2 border-green-600 shadow-md"
                   />
                 )}
-                <div
-                  className="w-10 h-10 flex justify-center  text-white bg-red-200 rounded-full hover:bg-red-300 transition-colors duration-200 relative"
-                >
-                  <LogoutButton data-action="logout" >
-                <span className="cursor-pointer  w-full flex justify-center items-center text-xs text-red-500">
-                  <LogOut size={18}/>
-                </span>       
-              </LogoutButton>
+                <div className="w-10 h-10 flex justify-center text-white bg-red-200 rounded-full hover:bg-red-300 transition-colors duration-200 relative">
+                  <LogoutButton data-action="logout">
+                    <span className="cursor-pointer w-full flex justify-center items-center text-xs text-red-500">
+                      <LogOut size={18} />
+                    </span>
+                  </LogoutButton>
                 </div>
               </div>
             )}
@@ -138,18 +150,11 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
           <div className="bg-gradient-to-b from-indigo-900 to-blue-900 w-4/5 h-full shadow-2xl p-8 space-y-8">
             <div className="flex flex-row justify-between items-center border-b border-blue-700 pb-4">
               <Link href="/">
-                <Image 
-                  height={48} 
-                  width={48} 
-                  src="/images/uniteclogo.PNG" 
-                  alt="Unitec" 
-                /> 
+                <Image height={48} width={48} src="/images/uniteclogo.PNG" alt="Unitec" />
               </Link>
-                <h2 
-                  className="text-white text-lg font-bold ml-2"
-                >Unitec</h2>
-              <button 
-                onClick={() => setMobileMenuOpen(false)} 
+              <h2 className="text-white text-lg font-bold ml-2">Unitec</h2>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
                 aria-label="Fechar menu"
                 className="p-1 rounded-full hover:bg-blue-800 transition-colors duration-200"
               >
@@ -160,31 +165,33 @@ export function Header({ isAuthenticated = false }: HeaderProps) {
             <nav className="flex flex-col gap-2 text-base pb-4 font-medium">
               {!isAuthenticated ? (
                 <>
-                  <Link href="/#como-funciona" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Como Funciona</Link>
-                  <Link href="/#cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Sobre Produtos</Link>
-                  <Link href="/#mentorias" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Mentorias</Link>
-                  <Link href="/#saque" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Benefícios</Link>
-                  <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">FAQ</Link>
+                  <Link href="/#como-funciona" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Como Funciona</Link>
+                  <Link href="/#cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Sobre Produtos</Link>
+                  <Link href="/#mentorias" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Mentorias</Link>
+                  <Link href="/#saque" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Benefícios</Link>
+                  <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">FAQ</Link>
                   <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="bg-white/10 text-white hover:bg-white/20 rounded-lg py-3 px-4 text-center mt-4">Entrar</Link>
                   <Link href="/registro" onClick={() => setMobileMenuOpen(false)} className="bg-blue-500 text-white hover:bg-blue-600 rounded-lg py-3 px-4 text-center">Registrar-se</Link>
                 </>
               ) : (
                 <>
-                  <Link href="/formador/painel" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><LayoutDashboard size={18}/> Painel</Link>
-                  <Link href="/formador/cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><BookOpen size={18}/> Meus Cursos</Link>
-                  <Link href="/formador/ebooks" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><BookCopy size={18}/> Meus Ebooks</Link>
-                  <Link href="/formador/ganhos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><Wallet size={18}/> Meus Ganhos</Link>
-                  <Link href="/formador/perfil" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><User2 size={18}/> Meu Perfil</Link>
-                  <Link href="/#como-funciona" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Como Funciona</Link>
-                  <Link href="/#cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Sobre Produtos</Link>
-                  <Link href="/#mentorias" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Mentorias</Link>
-                  <Link href="/#saque" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">Benefícios</Link>
-                  <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 ">FAQ</Link>
-                  <button  className="text-red-300 bg-white hover:bg-red-200 rounded-lg w-full hover:text-red-100 py-2 border-t border-blue-800/50 mt-4 flex items-center gap-2"><LogoutButton data-action="logout" >
-                <span className="cursor-pointer  w-full flex justify-center items-center text-xs text-red-500">
-                  <LogOut size={18}/> Sair
-                </span>       
-              </LogoutButton> </button>
+                  <Link href="/formador/painel" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><LayoutDashboard size={18} /> Painel</Link>
+                  <Link href="/formador/cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><BookOpen size={18} /> Meus Cursos</Link>
+                  <Link href="/formador/ebooks" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><BookCopy size={18} /> Meus Ebooks</Link>
+                  <Link href="/formador/ganhos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><Wallet size={18} /> Meus Ganhos</Link>
+                  <Link href="/formador/perfil" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2 border-b border-blue-800/50 flex items-center gap-2"><User2 size={18} /> Meu Perfil</Link>
+                  <Link href="/#como-funciona" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Como Funciona</Link>
+                  <Link href="/#cursos" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Sobre Produtos</Link>
+                  <Link href="/#mentorias" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Mentorias</Link>
+                  <Link href="/#saque" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">Benefícios</Link>
+                  <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-blue-100 hover:text-white py-2">FAQ</Link>
+                  <button className="text-red-300 bg-white hover:bg-red-200 rounded-lg w-full hover:text-red-100 py-2 border-t border-blue-800/50 mt-4 flex items-center gap-2">
+                    <LogoutButton data-action="logout">
+                      <span className="cursor-pointer w-full flex justify-center items-center text-xs text-red-500">
+                        <LogOut size={18} /> Sair
+                      </span>
+                    </LogoutButton>
+                  </button>
                 </>
               )}
             </nav>
