@@ -26,7 +26,7 @@ export default function PaginatedTable<T>({
       headers.some((header) => {
         const value = item[header.key];
         return value?.toString().toLowerCase().includes(search.toLowerCase());
-      })
+      }) 
     );
   }, [search, data, headers]);
 
