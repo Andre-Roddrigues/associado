@@ -3,7 +3,7 @@
 import { routes } from "@/config/routes";
 import { cookies } from "next/headers";
 
-export async function registerCursoInstrutor(data: any) {
+export async function registerCursoInstrutor(data: any) { // ou defina interface adequada
   const token = cookies().get("auth_token")?.value;
 
   try {

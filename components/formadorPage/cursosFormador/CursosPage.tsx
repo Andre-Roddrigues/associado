@@ -92,13 +92,15 @@ export default function TabelaCursos() {
   }, []);
 
   const filteredCursos = cursos.filter((curso) => {
-    const matchNome = curso.nomeDoCurso.toLowerCase().includes(searchTerm.toLowerCase());
+    const nomeCurso = curso.nomeDoCurso ?? "";
+    const matchNome = nomeCurso.toLowerCase().includes(searchTerm.toLowerCase());
     const matchStatus =
       selectedStatus === "Todos" ||
       (selectedStatus === "Aprovado" && curso.estado) ||
       (selectedStatus === "Rejeitado" && !curso.estado);
     return matchNome && matchStatus;
   });
+
 
   const paginatedCursos = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;

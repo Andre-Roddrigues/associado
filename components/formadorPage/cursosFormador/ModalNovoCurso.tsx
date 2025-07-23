@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { registerCursoInstrutor } from "../actionsFormador/add-new-course";
 import {
   X, ChevronDown, BookOpen, Target, FileText,
   Clock, Monitor, Tag, ImagePlus
 } from "lucide-react";
+import { getInstructorData } from "../actionsFormador/get-user-actions";
 
 interface ModalNovoCursoProps {
   onClose: () => void;
@@ -21,11 +22,30 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
     preco: "",
     modalidade: "",
     duracao: "",
+    idInstructor: "", // será preenchido depois
   });
 
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [imagem, setImagem] = useState<File | null>(null);
+
+  useEffect(() => {
+    const fetchInstructor = async () => {
+      try {
+        const user = await getInstructorData();
+        if (user?.id) {
+          setFormData((prev) => ({
+            ...prev,
+            idInstructor: user.id.toString(),
+          }));
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados do instrutor:", error);
+      }
+    };
+
+    fetchInstructor();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -37,16 +57,14 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
       e.preventDefault();
       const newTag = inputValue.trim();
       if (!tags.includes(newTag)) {
-        const newTags = [...tags, newTag];
-        setTags(newTags);
+        setTags([...tags, newTag]);
         setInputValue("");
       }
     }
   };
 
   const removeTag = (index: number) => {
-    const newTags = tags.filter((_, i) => i !== index);
-    setTags(newTags);
+    setTags(tags.filter((_, i) => i !== index));
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,30 +73,25 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
   };
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const dataToSend = new FormData();
-
-    dataToSend.append("nomeDoCurso", formData.nomeDoCurso);
-    dataToSend.append("idCategoria", String(formData.idCategoria));
-    dataToSend.append("objectivoDoCurso", formData.objectivoDoCurso);
-    dataToSend.append("descricaoDoCurso", formData.descricaoDoCurso);
-    dataToSend.append("preco", String(formData.preco));
-    dataToSend.append("modalidade", formData.modalidade);
-    dataToSend.append("duracao", formData.duracao);
-    dataToSend.append("programaDoCurso", tags.join(", "));
-    tags.forEach((tag, i) => dataToSend.append(`programa[${i}]`, tag));
-    if (imagem) dataToSend.append("imagem", imagem);
-
-    try {
-      const response = await registerCursoInstrutor(dataToSend);
-      onSubmit(response);
-      onClose();
-    } catch (err) {
-      console.error("Erro ao adicionar curso:", err);
-      alert("Erro ao registrar o curso.");
-    }
+  const dataToSend = {
+    ...formData,
+    programaDoCurso: tags.join(", "),
+    programa: tags,
+    imagem: null, // você pode enviar a imagem como `base64` futuramente, se necessário
   };
+
+  try {
+    const response = await registerCursoInstrutor(dataToSend);
+    onSubmit(response);
+    onClose();
+  } catch (err) {
+    console.error("Erro ao adicionar curso:", err);
+    alert("Erro ao registrar o curso.");
+  }
+};
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all duration-300">

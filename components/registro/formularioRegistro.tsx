@@ -120,7 +120,6 @@ const handleSubmit = async (e: FormEvent) => {
       confirmarSenha: "",
     });
 
-    // ✅ Redireciona após o sucesso
     router.push("/login");
   } catch {
     toast.error("Erro ao registrar.");

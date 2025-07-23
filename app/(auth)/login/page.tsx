@@ -91,13 +91,6 @@ export default function LoginPage() {
                   Introduza o seu email e senha e comece já a ganhar connosco!
                 </p>
               </div>
-
-              {error && (
-                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
-                  {error}
-                </div>
-              )}
-
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
                   <div className="relative">
