@@ -76,18 +76,18 @@ export function HeroSection() {
       variants={fadeIn}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="text-center h-screen flex flex-col justify-center items-center py-24 px-6 relative overflow-hidden"
+      className="text-center h-[90vh] flex flex-col justify-center items-center py-24 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/home.jpeg" 
+          src="/images/HomeCTA.jpg" 
           alt="Background"
           fill
           className="object-cover"
           quality={100}
           priority
         />
-        <div className="absolute inset-0 bg-black opacity-70 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black opacity-85 backdrop-blur-sm"></div>
       </div>
 
       {/* Conteúdo */}

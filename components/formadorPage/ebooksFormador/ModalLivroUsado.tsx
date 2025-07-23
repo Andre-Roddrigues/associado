@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getInstructorData } from "../actionsFormador/get-user-actions";
+import toast from "react-hot-toast";
+import { addBookAction } from "../actionsFormador/addBookAction";
 
 export default function ModalLivroUsado({ onClose, onSubmit }: any) {
   const [formData, setFormData] = useState({
@@ -22,7 +25,8 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
     mainImage: null as File | null,
     extraImages: [] as File[]
   });
-
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const extraImagesInputRef = useRef<HTMLInputElement>(null);
 
@@ -55,15 +59,49 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
 
   const triggerFileInput = () => fileInputRef.current?.click();
   const triggerExtraImagesInput = () => extraImagesInputRef.current?.click();
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.mainImage) {
-      alert("Por favor selecione pelo menos a imagem principal do livro.");
+  
+    if (!formData.title || !formData.author || !formData.description || !formData.price) {
+      toast.error("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
-    onSubmit(formData);
-    onClose();
+  
+    setIsUploading(true);
+  
+    try {
+      const user = await getInstructorData();
+  
+      const bookData = {
+        title: formData.title,
+        author: formData.author,
+        description: formData.description,
+        price: formData.price,
+        rating: formData.rating || "0",
+        totalReviews: formData.totalReviews || "0",
+        format: "Livro Usado",
+        pages: formData.pages,
+        publishDate: formData.publishDate,
+        user_id: user.id.toString(),
+      };
+  
+      const result = await addBookAction(bookData);
+  
+      if (result.success) {
+        toast.success("Livro publicado com sucesso!");
+        setUploadProgress(100);
+        setTimeout(() => {
+          onClose();
+        }, 700);
+      } else {
+        toast.error(result.message || "Erro ao publicar o livro.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao obter dados do usuário ou enviar livro.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (

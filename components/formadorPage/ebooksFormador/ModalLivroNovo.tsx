@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import toast from "react-hot-toast";
+import { addBookAction } from "../actionsFormador/addBookAction";
+import { getInstructorData } from "../actionsFormador/get-user-actions";
 
 export default function ModalLivroNovo({ onClose, onSubmit }: any) {
   const [formData, setFormData] = useState({
@@ -21,7 +24,8 @@ export default function ModalLivroNovo({ onClose, onSubmit }: any) {
     user_id: "10",
     imagem: null as File | null
   });
-
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -31,10 +35,49 @@ export default function ModalLivroNovo({ onClose, onSubmit }: any) {
     setFormData(prev => ({ ...prev, imagem: e.target.files?.[0] || null }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
-    onClose();
+  
+    if (!formData.title || !formData.author || !formData.description || !formData.price) {
+      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+  
+    setIsUploading(true);
+  
+    try {
+      const user = await getInstructorData();
+  
+      const bookData = {
+        title: formData.title,
+        author: formData.author,
+        description: formData.description,
+        price: formData.price,
+        rating: formData.rating || "0",
+        totalReviews: formData.totalReviews || "0",
+        format: "Livro Novo",
+        pages: formData.pages,
+        publishDate: formData.publishDate,
+        user_id: user.id.toString(),
+      };
+  
+      const result = await addBookAction(bookData);
+  
+      if (result.success) {
+        toast.success("Livro publicado com sucesso!");
+        setUploadProgress(100);
+        setTimeout(() => {
+          onClose();
+        }, 700);
+      } else {
+        toast.error(result.message || "Erro ao publicar o livro.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao obter dados do usuário ou enviar livro.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -141,7 +184,7 @@ export default function ModalLivroNovo({ onClose, onSubmit }: any) {
                   <Input
                     id="price"
                     name="price"
-                    type="number"
+                    type="text"
                     value={formData.price}
                     onChange={handleChange}
                     className="pl-8 border-gray-300 focus:border-primary focus:ring-primary"

@@ -48,7 +48,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <Toaster position="top-right" />
       <div className="min-h-screen flex bg-white">
         {/* Seção da Imagem */}
         <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-600 to-cyan-500 relative overflow-hidden">

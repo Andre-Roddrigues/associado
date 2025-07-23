@@ -94,7 +94,7 @@ export default function ListaCursos() {
             className={`px-4 py-2 rounded ${
               currentPage === 1
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-orange-500 text-white hover:bg-orange-600"
+                : "bg-gray-500 text-white hover:bg-gray-600"
             }`}
           >
             Anterior
@@ -105,7 +105,7 @@ export default function ListaCursos() {
             className={`px-4 py-2 rounded ${
               currentPage === totalPages
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-orange-500 text-white hover:bg-orange-600"
+                : "bg-gray-500 text-white hover:bg-gray-600"
             }`}
           >
             Próximo

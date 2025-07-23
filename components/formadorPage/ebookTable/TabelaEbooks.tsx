@@ -126,7 +126,7 @@ export default function TabelaEbooks() {
   return (
     <div className="bg-white p-6 rounded-lg shadow mb-8">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="font-semibold text-lg text-gray-700">Lista de Ebooks</h3>
+        <h3 className="font-semibold text-lg text-gray-700">Últimos Livros</h3>
       </div>
 
       <div className="overflow-x-auto rounded-lg border">
@@ -157,7 +157,7 @@ export default function TabelaEbooks() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {ebooks.map((ebook) => (
+            {ebooks.slice(0, 3).map((ebook) => (
               <tr key={ebook.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <img
