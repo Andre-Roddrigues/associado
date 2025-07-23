@@ -78,7 +78,11 @@ export default function PainelFormador() {
     total: (curso.CursoRegistados?.length || 0) * (parseFloat(curso.valor) || 0),
   }));
 
-  const handleConfirmSaque = async (dados: { nome: string; contacto: string; banco: string; nib?: string }) => {
+  const handleConfirmSaque = async (dados: { metodo: string; 
+    accountNumber: string; 
+    nib?: string; 
+    valor: number;
+    fullName?: string; }) => {
     const possuiCursosParaSaque = cursos.some(
       (curso) => curso.status === "Ativo" && curso.CursoRegistados.length > 0
     );
