@@ -10,7 +10,8 @@ import {
   Youtube,
 } from "lucide-react";
 import Link from "next/link";
-
+import Image from "next/image"
+import footerimg from "/images/footerimg.png"
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-gray-300 to-gray-100 text-slate-700 py-12 px-4">
@@ -18,9 +19,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
 
           <div>
-            <h4 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-b from-blue-500 to-blue-900">Unitec</h4>
-            <p className="mb-2">
-              Transformando vidas através da educação de qualidade e formação profissional.
+            <div className="">
+              <Image src="/images/UnitecFooterNew.png" alt="Imagem do radape" width={90} height={90}/>
+            
+            </div>
+            <p className="mb-2 italic text-italic text-gray-500 font-italic py-2">
+              Conectando o Presente ao Futuro
             </p>
             <p className="text-sm text-gray-400 hidden md:block">
               © {new Date().getFullYear()} Unitec. Todos os direitos reservados.
