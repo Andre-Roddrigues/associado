@@ -106,6 +106,23 @@ export default function Footer() {
                 <MapPin className="text-blue-400" size={18} />
                 <span>Av. Salvador Allende Nº 60., Maputo</span>
               </li>
+              <li className="flex items-center gap-2 justify-center md:justify-start">
+              <a
+    href="https://api.whatsapp.com/send?phone=258870088787&text=Ol%C3%A1%2C%20gostaria%20de%20Saber%20mais%20acerca%20da%20Unitec"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-2"
+  >
+    <Image
+      src="/images/whatsapp.svg"
+      className="text-blue-400"
+      alt="fale connosco"
+      width={18}
+      height={18}
+    />
+    <span>Fale Connosco Pelo Whatsapp</span>
+  </a>
+</li>
             </ul>
             <div className="text-sm text-gray-400 mt-6 md:hidden text-center">
               © {new Date().getFullYear()} Unitec Moçambique. Todos os direitos reservados.

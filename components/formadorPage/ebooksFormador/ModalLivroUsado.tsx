@@ -167,7 +167,7 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
         <div className="flex justify-between items-center mb-6">
           <div>
             <h3 className="text-2xl font-bold text-gray-900">Adicionar Livro Usado</h3>
-            <p className="text-sm text-gray-500">Detalhes do livro em segunda mão</p>
+            <p className="text-sm text-gray-500">Detalhes do seu livro usado </p>
           </div>
           <button 
             onClick={onClose} 
@@ -262,8 +262,8 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="pages" className="text-gray-700 font-medium">
+                <div className="space-y-">
+                  <Label htmlFor="pages" className="text-gray-700 font-medium gap-2">
                     Páginas
                   </Label>
                   <Input
@@ -273,6 +273,7 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
                     value={formData.pages}
                     onChange={handleChange}
                     className="border-gray-300 focus:border-primary h-11"
+                    required
                   />
                 </div>
               </div>
@@ -354,7 +355,7 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
                   variant="outline"
                   size="sm"
                   onClick={triggerExtraImagesInput}
-                  className="flex items-center gap-1 h-9"
+                  className="flex items-center gap-1 h-9 text-gray-500"
                 >
                   <Plus className="h-4 w-4" />
                   Adicionar
