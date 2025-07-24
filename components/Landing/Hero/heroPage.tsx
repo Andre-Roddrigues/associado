@@ -87,7 +87,7 @@ export function HeroSection() {
           quality={100}
           priority
         />
-        <div className="absolute inset-0 bg-black opacity-85 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black opacity-75 backdrop-blur-sm"></div>
       </div>
 
       {/* Conteúdo */}

@@ -120,7 +120,7 @@ export default function Footer() {
       width={18}
       height={18}
     />
-    <span>Fale Connosco Pelo Whatsapp</span>
+    <span className="underline-offset-8">Fale Connosco Pelo Whatsapp</span>
   </a>
 </li>
             </ul>
