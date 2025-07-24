@@ -8,6 +8,7 @@ import {
   Instagram,
   Linkedin,
   Youtube,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image"
@@ -26,6 +27,23 @@ export default function Footer() {
             <p className="mb-2 italic text-italic text-gray-500 font-italic py-2">
               Conectando o Presente ao Futuro
             </p>
+            <li className="flex items-center gap-2 justify-center  md:justify-start">
+              <a
+    href="https://api.whatsapp.com/send?phone=258870088787&text=Ol%C3%A1%2C%20gostaria%20de%20Saber%20mais%20acerca%20da%20Unitec"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-2 bg-green-300 text-white py-2 px-2 rounded-lg mb-2"
+  >
+    <Image
+      src="/images/whatsapp.svg"
+      className="text-blue-400"
+      alt="fale connosco"
+      width={18}
+      height={18}
+    />
+    <span className=" flex underline underline-offset-4">Fale Connosco Pelo Whatsapp <ArrowRight/></span>
+  </a>
+</li>
             <p className="text-sm text-gray-400 hidden md:block">
               © {new Date().getFullYear()} Unitec. Todos os direitos reservados.
             </p>
@@ -106,23 +124,7 @@ export default function Footer() {
                 <MapPin className="text-blue-400" size={18} />
                 <span>Av. Salvador Allende Nº 60., Maputo</span>
               </li>
-              <li className="flex items-center gap-2 justify-center md:justify-start">
-              <a
-    href="https://api.whatsapp.com/send?phone=258870088787&text=Ol%C3%A1%2C%20gostaria%20de%20Saber%20mais%20acerca%20da%20Unitec"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-2"
-  >
-    <Image
-      src="/images/whatsapp.svg"
-      className="text-blue-400"
-      alt="fale connosco"
-      width={18}
-      height={18}
-    />
-    <span className="underline-offset-8">Fale Connosco Pelo Whatsapp</span>
-  </a>
-</li>
+              
             </ul>
             <div className="text-sm text-gray-400 mt-6 md:hidden text-center">
               © {new Date().getFullYear()} Unitec Moçambique. Todos os direitos reservados.
