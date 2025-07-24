@@ -36,55 +36,74 @@ export default function MentorshipForm() {
       
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 z-10">
         {/* Left side - Premium showcase */}
-        <div className="hidden lg:flex flex-col  items-start p-12 rounded-3xl bg-gradient-to-br from-blue-800 to-indigo-700 text-white relative overflow-hidden border border-blue-300/20 shadow-2xl">
-          {/* <div className="absolute inset-0 bg-[url('/images/dots-pattern.png')] opacity-10"></div> */}
-          <div className="relative z-10">
-            <h1 className="text-4xl font-bold mb-6 leading-tight">
-              Eleve seu <span className="text-blue-200">Impacto</span> como Mentor
-            </h1>
-            <p className="text-lg text-blue-100 mb-8">
-              Compartilhe seu conhecimento e transforme vidas através de mentorias personalizadas.
-            </p>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
-                  <FaCheckCircle className="text-blue-300 text-xl" />
+        <div className="hidden lg:flex flex-col items-start p-12 rounded-3xl bg-gradient-to-br from-blue-800 to-indigo-700 text-white relative overflow-hidden border border-blue-300/20 shadow-2xl">
+            <div className="relative z-10">
+                <h1 className="text-4xl font-bold mb-6 leading-tight">
+                Eleve seu <span className="text-blue-200">Impacto</span> como Mentor
+                </h1>
+                <p className="text-lg text-blue-100 mb-8">
+                Compartilhe seu conhecimento e transforme vidas através de mentorias personalizadas. Nossa plataforma conecta você com mentees que precisam da sua experiência para crescer pessoal e profissionalmente.
+                </p>
+
+                <div className="space-y-6">
+                <div className="flex items-start">
+                    <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
+                    <FaCheckCircle className="text-blue-300 text-xl" />
+                    </div>
+                    <div className="ml-4">
+                    <h3 className="font-semibold text-blue-50">Visibilidade</h3>
+                    <p className="mt-1 text-sm text-blue-100">
+                        Apareça nos primeiros resultados de busca, com destaque em nossa página inicial para atrair mais mentorandos.
+                    </p>
+                    </div>
                 </div>
-                <div className="ml-4">
-                  <h3 className="font-semibold text-blue-50">Visibilidade Premium</h3>
-                  <p className="mt-1 text-sm text-blue-100">Destaque-se em nossa plataforma exclusiva</p>
+
+                <div className="flex items-start">
+                    <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
+                    <FaCheckCircle className="text-blue-300 text-xl" />
+                    </div>
+                    <div className="ml-4">
+                    <h3 className="font-semibold text-blue-50">Ferramentas Profissionais</h3>
+                    <p className="mt-1 text-sm text-blue-100">
+                        Crie sessões individuais ou em grupo, gerencie sua agenda e envie materiais diretamente pela plataforma.
+                    </p>
+                    </div>
                 </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
-                  <FaCheckCircle className="text-blue-300 text-xl" />
+
+                <div className="flex items-start">
+                    <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
+                    <FaCheckCircle className="text-blue-300 text-xl" />
+                    </div>
+                    <div className="ml-4">
+                    <h3 className="font-semibold text-blue-50">Suporte Prioritário</h3>
+                    <p className="mt-1 text-sm text-blue-100">
+                        Atendimento rápido e personalizado para solucionar dúvidas, problemas técnicos ou otimizar seu perfil.
+                    </p>
+                    </div>
                 </div>
-                <div className="ml-4">
-                  <h3 className="font-semibold text-blue-50">Ferramentas Profissionais</h3>
-                  <p className="mt-1 text-sm text-blue-100">Controle total sobre suas sessões e agenda</p>
+
+                <div className="flex items-start">
+                    <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
+                    <FaCheckCircle className="text-blue-300 text-xl" />
+                    </div>
+                    <div className="ml-4">
+                    <h3 className="font-semibold text-blue-50">Certificação e Avaliações</h3>
+                    <p className="mt-1 text-sm text-blue-100">
+                        Receba feedbacks, colete avaliações positivas e obtenha certificações de mentor destaque.
+                    </p>
+                    </div>
                 </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 bg-blue-500/20 p-2 rounded-lg">
-                  <FaCheckCircle className="text-blue-300 text-xl" />
                 </div>
-                <div className="ml-4">
-                  <h3 className="font-semibold text-blue-50">Suporte Prioritário</h3>
-                  <p className="mt-1 text-sm text-blue-100">Atendimento dedicado para mentores</p>
+
+                
+
+                <div className="mt-12 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-blue-300/20">
+                <p className="text-blue-100 italic">
+                    A mentoria é a ponte entre o potencial e a excelência. Com nossa plataforma, você constrói essa ponte com ferramentas, suporte e visibilidade.
+                </p>
                 </div>
-              </div>
             </div>
-            
-            <div className="mt-12 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-blue-300/20">
-              <p className="text-blue-100 italic">
-                A mentoria é a ponte entre o potencial e a excelência. Nossa plataforma te ajuda a construir essa ponte.
-              </p>
             </div>
-          </div>
-        </div>
 
         
         <form onSubmit={handleSubmit} className="space-y-4 bg-white text-gray-600 p-6 rounded-3xl shadow-lg">
