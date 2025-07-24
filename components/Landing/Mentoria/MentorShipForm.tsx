@@ -80,7 +80,7 @@ export default function MentorshipForm() {
             
             <div className="mt-12 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-blue-300/20">
               <p className="text-blue-100 italic">
-                "A mentoria é a ponte entre o potencial e a excelência. Nossa plataforma te ajuda a construir essa ponte."
+                A mentoria é a ponte entre o potencial e a excelência. Nossa plataforma te ajuda a construir essa ponte.
               </p>
             </div>
           </div>
