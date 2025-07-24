@@ -2,8 +2,9 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { registerCursoInstrutor } from "../actionsFormador/add-new-course";
+import MultiCategorySelect from "./MultiCategorySelect";
 import {
-  X, ChevronDown, BookOpen, Target, FileText,
+  X, BookOpen, Target, FileText,
   Clock, Monitor, Tag, ImagePlus
 } from "lucide-react";
 import { getInstructorData } from "../actionsFormador/get-user-actions";
@@ -16,15 +17,15 @@ interface ModalNovoCursoProps {
 export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProps) {
   const [formData, setFormData] = useState({
     nomeDoCurso: "",
-    idCategoria: "",
     objectivoDoCurso: "",
     descricaoDoCurso: "",
     preco: "",
     modalidade: "",
     duracao: "",
-    idInstructor: "", // será preenchido depois
+    idInstructor: "", // preenchido depois
   });
 
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [imagem, setImagem] = useState<File | null>(null);
@@ -73,25 +74,25 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
   };
 
   const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const dataToSend = {
-    ...formData,
-    programaDoCurso: tags.join(", "),
-    programa: tags,
-    imagem: null, // você pode enviar a imagem como `base64` futuramente, se necessário
+    const dataToSend = {
+      ...formData,
+      idCategoria: selectedCategories.join(","), // enviar ids separados por vírgula
+      programaDoCurso: tags.join(", "),
+      programa: tags,
+      imagem: null, // se quiser, implementar upload base64 depois
+    };
+
+    try {
+      const response = await registerCursoInstrutor(dataToSend);
+      onSubmit(response);
+      onClose();
+    } catch (err) {
+      console.error("Erro ao adicionar curso:", err);
+      alert("Erro ao registrar o curso.");
+    }
   };
-
-  try {
-    const response = await registerCursoInstrutor(dataToSend);
-    onSubmit(response);
-    onClose();
-  } catch (err) {
-    console.error("Erro ao adicionar curso:", err);
-    alert("Erro ao registrar o curso.");
-  }
-};
-
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all duration-300">
@@ -120,24 +121,18 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 value={formData.nomeDoCurso}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
 
-            {/* Categoria */}
-            <div className="space-y-1">
+            {/* Categorias */}
+            <div className="space-y-1 md:col-span-1">
               <label className="flex items-center text-sm font-medium text-gray-700">
-                <ChevronDown className="mr-2 w-4 h-4" />
                 Categoria
               </label>
-              <input
-                type="text"
-                name="idCategoria"
-                placeholder="ID da categoria"
-                value={formData.idCategoria}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              <MultiCategorySelect
+                selectedIds={selectedCategories}
+                onChange={setSelectedCategories}
               />
             </div>
 
@@ -154,7 +149,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 onChange={handleChange}
                 required
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
 
@@ -171,7 +166,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
 
@@ -215,7 +210,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 value={formData.preco}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
 
@@ -230,7 +225,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 value={formData.modalidade}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               >
                 <option value="">Selecione</option>
                 <option value="Online">Online</option>
@@ -249,7 +244,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 value={formData.duracao}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               >
                 <option value="">Selecione</option>
                 <option value="1 Mês">1 Mês</option>
@@ -269,7 +264,7 @@ export default function ModalNovoCurso({ onClose, onSubmit }: ModalNovoCursoProp
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
           </div>

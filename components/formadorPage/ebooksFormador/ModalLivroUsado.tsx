@@ -1,34 +1,41 @@
 "use client";
 import { useState, useRef } from "react";
-import { X, Image as ImageIcon, Plus, Trash2 } from "lucide-react";
+import { X, Image as ImageIcon, Plus, Trash2, BookOpen, User, DollarSign, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getInstructorData } from "../actionsFormador/get-user-actions";
 import toast from "react-hot-toast";
 import { addBookAction } from "../actionsFormador/addBookAction";
+import MultiCategorySelect from "../cursosFormador/MultiCategorySelect";
+import { Progress } from "@/components/ui/progress";
 
 export default function ModalLivroUsado({ onClose, onSubmit }: any) {
   const [formData, setFormData] = useState({
-    title: "Programação",
-    author: "Andre Guambe",
-    description: "teste",
-    price: "122",
+    title: "",
+    author: "",
+    description: "",
+    price: "",
     rating: "0",
     totalReviews: "0",
     format: "Livro Usado",
-    pages: "20",
-    publishDate: "2013-09-01",
-    user_id: "10",
+    pages: "",
+    publishDate: new Date().toISOString().split('T')[0],
+    user_id: "",
     mainImage: null as File | null,
     extraImages: [] as File[]
+  });
+  
+  const [previewImages, setPreviewImages] = useState<{main: string | null, extra: string[]}>({
+    main: null,
+    extra: []
   });
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const extraImagesInputRef = useRef<HTMLInputElement>(null);
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -36,7 +43,17 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
   };
 
   const handleMainImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, mainImage: e.target.files?.[0] || null }));
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      setFormData(prev => ({ ...prev, mainImage: file }));
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImages(prev => ({...prev, main: reader.result as string}));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleAddExtraImages = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +61,22 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
     const remainingSlots = 5 - formData.extraImages.length;
     const newImages = files.slice(0, remainingSlots);
     
+    // Create previews for new images
+    const newPreviews: string[] = [];
+    newImages.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        newPreviews.push(reader.result as string);
+        if (newPreviews.length === newImages.length) {
+          setPreviewImages(prev => ({
+            ...prev,
+            extra: [...prev.extra, ...newPreviews]
+          }));
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
     setFormData(prev => ({
       ...prev,
       extraImages: [...prev.extraImages, ...newImages]
@@ -55,19 +88,41 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
       ...prev,
       extraImages: prev.extraImages.filter((_, i) => i !== index)
     }));
+    setPreviewImages(prev => ({
+      ...prev,
+      extra: prev.extra.filter((_, i) => i !== index)
+    }));
+  };
+
+  const removeMainImage = () => {
+    setFormData(prev => ({ ...prev, mainImage: null }));
+    setPreviewImages(prev => ({...prev, main: null}));
   };
 
   const triggerFileInput = () => fileInputRef.current?.click();
   const triggerExtraImagesInput = () => extraImagesInputRef.current?.click();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    if (!formData.title || !formData.author || !formData.description || !formData.price) {
-      toast.error("Por favor, preencha todos os campos obrigatórios.");
+    if (!formData.title || !formData.author || !formData.description || !formData.price || !formData.mainImage) {
+      toast.error("Por favor, preencha todos os campos obrigatórios e adicione pelo menos a imagem principal.");
       return;
     }
   
     setIsUploading(true);
+    setUploadProgress(0);
+  
+    // Simulate upload progress
+    const interval = setInterval(() => {
+      setUploadProgress(prev => {
+        if (prev >= 90) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 10;
+      });
+    }, 300);
   
     try {
       const user = await getInstructorData();
@@ -83,13 +138,14 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
         pages: formData.pages,
         publishDate: formData.publishDate,
         user_id: user.id.toString(),
+        categories: selectedCategories
       };
   
       const result = await addBookAction(bookData);
   
       if (result.success) {
-        toast.success("Livro publicado com sucesso!");
         setUploadProgress(100);
+        toast.success("Livro usado publicado com sucesso!");
         setTimeout(() => {
           onClose();
         }, 700);
@@ -100,18 +156,23 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
       console.error(error);
       toast.error("Erro ao obter dados do usuário ou enviar livro.");
     } finally {
+      clearInterval(interval);
       setIsUploading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-50">
-      <div className="bg-white p-8 rounded-xl w-[90%] max-w-4xl shadow-2xl border border-gray-100 overflow-y-auto max-h-[90vh]">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-md flex justify-center items-center z-50 p-4">
+      <div className="bg-white p-8 rounded-xl w-full max-w-4xl shadow-xl border border-gray-200 overflow-y-auto max-h-[95vh]">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold text-gray-800">Adicionar Livro Usado</h3>
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900">Adicionar Livro Usado</h3>
+            <p className="text-sm text-gray-500">Detalhes do livro em segunda mão</p>
+          </div>
           <button 
             onClick={onClose} 
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100"
+            disabled={isUploading}
           >
             <X className="h-6 w-6" />
           </button>
@@ -119,142 +180,183 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Book Details */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left Column */}
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="title">Título</Label>
+                <Label htmlFor="title" className="text-gray-700 font-medium flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" /> Título *
+                </Label>
                 <Input
                   id="title"
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
+                  placeholder="Título do livro"
+                  className="border-gray-300 focus:border-primary h-11"
+                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="author">Autor</Label>
+                <Label htmlFor="author" className="text-gray-700 font-medium flex items-center gap-2">
+                  <User className="h-4 w-4" /> Autor *
+                </Label>
                 <Input
                   id="author"
                   name="author"
                   value={formData.author}
                   onChange={handleChange}
+                  placeholder="Autor do livro"
+                  className="border-gray-300 focus:border-primary h-11"
+                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Descrição</Label>
+                <Label className="flex items-center text-sm font-medium text-gray-700 gap-2">
+                  Categorias *
+                </Label>
+                <MultiCategorySelect
+                  selectedIds={selectedCategories}
+                  onChange={setSelectedCategories}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description" className="text-gray-700 font-medium">
+                  Descrição *
+                </Label>
                 <Textarea
                   id="description"
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
                   rows={4}
+                  placeholder="Descreva o estado do livro e outras informações relevantes"
+                  className="border-gray-300 focus:border-primary min-h-[100px]"
+                  required
                 />
               </div>
             </div>
 
+            {/* Right Column */}
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="price">Preço</Label>
-                  <Input
-                    id="price"
-                    name="price"
-                    type="number"
-                    value={formData.price}
-                    onChange={handleChange}
-                  />
+                  <Label htmlFor="price" className="text-gray-700 font-medium flex items-center gap-2">
+                    <DollarSign className="h-4 w-4" /> Preço *
+                  </Label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-3 text-gray-500">$</span>
+                    <Input
+                      id="price"
+                      name="price"
+                      type="number"
+                      value={formData.price}
+                      onChange={handleChange}
+                      placeholder="0.00"
+                      className="pl-8 border-gray-300 focus:border-primary h-11"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="pages">Páginas</Label>
+                  <Label htmlFor="pages" className="text-gray-700 font-medium">
+                    Páginas
+                  </Label>
                   <Input
                     id="pages"
                     name="pages"
                     type="number"
                     value={formData.pages}
                     onChange={handleChange}
+                    className="border-gray-300 focus:border-primary h-11"
                   />
                 </div>
               </div>
 
-              {/* <div className="space-y-2">
-                <Label htmlFor="format">Formato</Label>
-                <Select
-                  value={formData.format}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, format: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o formato" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="book">Livro Físico</SelectItem>
-                    <SelectItem value="used">Usado</SelectItem>
-                    <SelectItem value="rare">Raro/Especial</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div> */}
-
               <div className="space-y-2">
-                <Label htmlFor="publishDate">Data de Publicação</Label>
+                <Label htmlFor="publishDate" className="text-gray-700 font-medium flex items-center gap-2">
+                  <Calendar className="h-4 w-4" /> Data de Publicação
+                </Label>
                 <Input
                   id="publishDate"
                   name="publishDate"
                   type="date"
                   value={formData.publishDate}
                   onChange={handleChange}
+                  className="border-gray-300 focus:border-primary h-11"
                 />
               </div>
-            </div>
-          </div>
 
-          {/* Main Image Upload */}
-          <div className="space-y-2">
-            <Label>Imagem Principal do Livro</Label>
-            <div 
-              onClick={triggerFileInput}
-              className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
-                formData.mainImage ? "border-green-500 bg-green-50" : "border-gray-300 bg-gray-50 hover:bg-gray-100"
-              }`}
-            >
-              {formData.mainImage ? (
-                <div className="flex flex-col items-center">
-                  <ImageIcon className="w-8 h-8 text-green-500 mb-2" />
-                  <p className="text-sm font-medium truncate max-w-full">{formData.mainImage.name}</p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {(formData.mainImage.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
+              {/* Main Image Upload */}
+              <div className="space-y-2">
+                <Label className="text-gray-700 font-medium">
+                  Imagem Principal *
+                </Label>
+                <div 
+                  onClick={triggerFileInput}
+                  className={`relative group border-2 border-dashed rounded-xl overflow-hidden transition-all duration-200 ${
+                    previewImages.main ? 'border-transparent' : 'border-gray-300 hover:border-gray-400'
+                  } cursor-pointer bg-gray-50 h-40`}
+                >
+                  {previewImages.main ? (
+                    <>
+                      <img 
+                        src={previewImages.main} 
+                        alt="Preview" 
+                        className="w-full h-full object-cover object-center"
+                      />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <ImageIcon className="h-8 w-8 text-white" />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center p-8 h-full">
+                      <ImageIcon className="h-10 w-10 text-gray-400 mb-3" />
+                      <p className="text-sm font-medium text-gray-600 mb-1">Clique para enviar</p>
+                      <p className="text-xs text-gray-500">PNG, JPG (MAX. 5MB)</p>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="flex flex-col items-center">
-                  <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
-                  <p className="text-sm text-blue-500">Clique para adicionar imagem principal</p>
-                  <p className="text-xs text-gray-400 mt-1">PNG, JPG (MAX. 5MB)</p>
-                </div>
-              )}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleMainImageChange}
-                className="hidden"
-              />
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleMainImageChange}
+                  className="hidden"
+                  disabled={isUploading}
+                />
+                {previewImages.main && (
+                  <button
+                    type="button"
+                    onClick={removeMainImage}
+                    className="mt-2 text-sm text-red-600 hover:text-red-800 flex items-center"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" /> Remover imagem
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Extra Images Upload */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <Label>Imagens Extras (Máx. 5)</Label>
+              <Label className="text-gray-700 font-medium">
+                Imagens Extras (Máx. 5)
+              </Label>
               {formData.extraImages.length < 5 && (
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={triggerExtraImagesInput}
-                  className="flex items-center gap-1 bg-gradient-to-br from-blue-600 to-blue-400 hover:from-blue-400 hover:to-blue-600"
+                  className="flex items-center gap-1 h-9"
                 >
-                  <Plus className="h-4 w-4 text-white" />
+                  <Plus className="h-4 w-4" />
                   Adicionar
                 </Button>
               )}
@@ -266,17 +368,20 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
               accept="image/*"
               onChange={handleAddExtraImages}
               multiple
-              className="hidden text-gray-500"
+              className="hidden"
+              disabled={isUploading}
             />
 
-            {formData.extraImages.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {formData.extraImages.map((file, index) => (
+            {previewImages.extra.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {previewImages.extra.map((preview, index) => (
                   <div key={index} className="relative group">
-                    <div className="border rounded-lg p-2 h-32 flex flex-col items-center justify-center bg-gray-50">
-                      <ImageIcon className="w-6 h-6 text-blue-500 mb-1" />
-                      <p className="text-xs font-medium truncate w-full text-center text-gray-500">{file.name}</p>
-                      <p className="text-2xs text-gray-500">{(file.size / 1024).toFixed(1)} KB</p>
+                    <div className="aspect-square border rounded-lg overflow-hidden bg-gray-50">
+                      <img 
+                        src={preview} 
+                        alt={`Extra ${index + 1}`} 
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <button
                       type="button"
@@ -287,27 +392,53 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
                     </button>
                   </div>
                 ))}
+                {previewImages.extra.length < 5 && (
+                  <div 
+                    onClick={triggerExtraImagesInput}
+                    className="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors"
+                  >
+                    <Plus className="h-6 w-6 text-gray-400" />
+                  </div>
+                )}
               </div>
             ) : (
-              <div className="border-2 border-dashed rounded-lg p-6 text-center bg-gray-50">
-                <p className="text-sm text-gray-500">Nenhuma imagem extra adicionada</p>
+              <div 
+                onClick={triggerExtraImagesInput}
+                className="border-2 border-dashed rounded-lg p-8 text-center bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors"
+              >
+                <ImageIcon className="h-10 w-10 text-gray-400 mx-auto mb-2" />
+                <p className="text-sm text-gray-500">Clique para adicionar fotos extras</p>
+                <p className="text-xs text-gray-400 mt-1">Mostre detalhes do estado do livro</p>
               </div>
             )}
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4 text-gray-500">
+          {isUploading && (
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-gray-600">
+                <span>Publicando livro...</span>
+                <span>{uploadProgress}%</span>
+              </div>
+              <Progress value={uploadProgress} className="h-2" />
+            </div>
+          )}
+
+          <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
+              className="border-gray-300 text-gray-700 hover:bg-gray-50 h-11 px-6"
+              disabled={isUploading}
             >
               Cancelar
             </Button>
             <Button
               type="submit"
-              className="bg-gradient-to-br from-blue-600 to-blue-400 hover:from-blue-400 hover:to-blue-600 text-white"
+              className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white shadow-sm h-11 px-8"
+              disabled={isUploading || !formData.mainImage}
             >
-              Salvar Livro
+              {isUploading ? "Publicando..." : "Publicar Livro"}
             </Button>
           </div>
         </form>
