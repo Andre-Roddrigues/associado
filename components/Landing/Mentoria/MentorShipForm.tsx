@@ -107,23 +107,25 @@ export default function MentorshipForm() {
 
         
         <form onSubmit={handleSubmit} className="space-y-4 bg-white text-gray-600 p-6 rounded-3xl shadow-lg">
-            <div className="relative">
+          <div className="grid grid-cols-2 gap-4">
+            
+            <div className="relative col-span-1">
               <InputField
                 name="mentorName"
                 required
                 icon={<FaUser className="text-gray-400"/>}
-                label='Seu Nome'
+                label='Nome Completo'
                 placeholder="Nome completo"
                 className="pl-10 w-full rounded-lg py-2 px-3 text-sm"
               />
             </div>
 
-            <div className="relative">
+            <div className="relative col-span-1">
               <InputField
                 type="email"
                 name="email"
                 icon={<FaEnvelope className="text-gray-400"/>}
-                label='Email para contacto'
+                label='Email'
                 required
                 placeholder="seuemail@exemplo.com"
                 className="pl-10 w-full rounded-lg  py-2 px-3  text-sm"
@@ -135,15 +137,14 @@ export default function MentorshipForm() {
               name="title"
               required
               icon={<FaHeading className="text-gray-400"/>}
-                label='Título da Sessão'
-              placeholder="Ex: Estratégias de Negócio para Startups"
+                label='Título da Mentoria'
+              placeholder=""
               className="w-full rounded-lg  py-2 px-3  text-sm"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Data</label>
+              <label className="text-sm font-medium text-gray-700 mb-1  block">Data</label>
               <InputField
                 type="date"
                 name="date"
@@ -161,36 +162,8 @@ export default function MentorshipForm() {
                 className="w-full rounded-lg  py-2 px-3  text-sm"
               />
             </div>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">Modalidade</label>
-            <div className="flex gap-4">
-              <label className="flex items-center gap-2">
-                <input type="radio" name="modality" value="online" defaultChecked onChange={handleModalityChange} /> Online
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="modality" value="presencial" onChange={handleModalityChange} /> Presencial
-              </label>
-            </div>
-          </div>
-
-          {showLocation && (
-            <div>
-              <InputField
-                name="location"
-                type="text"
-                icon={<FaMapMarkerAlt className="text-gray-400"/>}
-                label='Endereço'
-                required={showLocation}
-                placeholder="Endereço da mentoria"
-                className="w-full rounded-lg  py-2 px-3  text-sm"
-              />
-            </div>
-          )}
-
-          <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">Duração (minutos)</label>
+            <div className='col-span-1 mt-2'>
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Duração (minutos)</label>
             <select
               name="duration"
               required
@@ -204,15 +177,43 @@ export default function MentorshipForm() {
               <option value="120">120</option>
             </select>
           </div>
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">Modalidade</label>
+            <div className="flex gap-4">
+              <label className="flex items-center gap-2">
+                <input type="radio" name="modality" value="online" defaultChecked onChange={handleModalityChange} /> Online
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="radio" name="modality" value="presencial" onChange={handleModalityChange} /> Presencial
+              </label>
+            </div>
+          </div>
+
+
+          {showLocation && (
+            <div>
+              <InputField
+                name="location"
+                type="text"
+                icon={<FaMapMarkerAlt className="text-gray-400"/>}
+                label='Local da Mentoria'
+                required={showLocation}
+                placeholder="Endereço da mentoria"
+                className="w-full rounded-lg  py-2 px-3  text-sm"
+              />
+            </div>
+          )}
+
+          
 
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">Valor (R$)</label>
             <InputField
               type="number"
               name="price"
               step="0.01"
                 icon={<FaDollarSign className="text-gray-400"/>}
-
+              label='Preço'
               min="0"
               required
               placeholder="Ex: 150,00"

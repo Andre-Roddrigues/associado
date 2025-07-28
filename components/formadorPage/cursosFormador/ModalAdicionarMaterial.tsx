@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { UploadCloud, X, Video, Loader2, Plus, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
 
 interface Props {
   onClose: () => void;
@@ -104,8 +105,12 @@ export default function ModalAdicionarMaterial({ onClose, onSubmit, idCurso }: P
           body: formData,
         });
 
-        if (!res.ok) {
-          throw new Error(`Erro ao enviar vídeo: ${video.title}`);
+        if (res.ok) {
+          toast.success(`O Vídeo ${video.title} foi enviado com  Sucesso`);
+        } else {
+          console.error(`Erro ao enviar vídeo: ${video.title}`, res.statusText);
+          toast.error(`Erro ao enviar vídeo: ${video.title}`);
+          continue;
         }
 
         const data = await res.json();

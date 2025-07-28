@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { X, Upload, Image as ImageIcon } from "lucide-react";
+import { X, Upload, Image as ImageIcon, NotebookPen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,8 @@ import { toast } from "react-hot-toast";
 import { addBookAction } from "../actionsFormador/addBookAction";
 import { getInstructorData } from "../actionsFormador/get-user-actions";
 import { Progress } from "@/components/ui/progress";
+import MultiCategorySelect from "../cursosFormador/MultiCategorySelect";
+import EditoraSelect from "../cursosFormador/EditoraSelect";
 
 export default function ModalLivroNovo({ onClose, onSubmit }: any) {
   const [formData, setFormData] = useState({
@@ -29,6 +31,8 @@ export default function ModalLivroNovo({ onClose, onSubmit }: any) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [editoraId, setEditoraId] = useState<number | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -186,6 +190,15 @@ export default function ModalLivroNovo({ onClose, onSubmit }: any) {
               </div>
 
               <div className="space-y-4">
+                <div className="space-y-2">
+                                <Label className="flex items-center text-sm font-medium text-gray-700 gap-2">
+                                  Categorias *
+                                </Label>
+                                <MultiCategorySelect
+                                  selectedIds={selectedCategories}
+                                  onChange={setSelectedCategories}
+                                />
+                              </div>
                 <div>
                   <Label htmlFor="pages" className="text-gray-700 font-medium block mb-2">
                     Número de Páginas
@@ -265,6 +278,12 @@ export default function ModalLivroNovo({ onClose, onSubmit }: any) {
                     required
                   />
                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="publishDate" className="text-gray-700 font-medium flex items-center gap-2">
+                  <NotebookPen className="h-4 w-4" /> Editora
+                </Label>
+                      <EditoraSelect selectedId={editoraId ?? undefined} onChange={setEditoraId} />
               </div>
 
               <div>

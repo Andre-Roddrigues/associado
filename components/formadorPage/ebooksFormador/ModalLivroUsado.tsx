@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { X, Image as ImageIcon, Plus, Trash2, BookOpen, User, DollarSign, Calendar } from "lucide-react";
+import { X, Image as ImageIcon, Plus, Trash2, BookOpen, NotebookPen, User, DollarSign, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { addBookAction } from "../actionsFormador/addBookAction";
 import MultiCategorySelect from "../cursosFormador/MultiCategorySelect";
 import { Progress } from "@/components/ui/progress";
+import EditoraSelect from "../cursosFormador/EditoraSelect";
 
 export default function ModalLivroUsado({ onClose, onSubmit }: any) {
   const [formData, setFormData] = useState({
@@ -36,6 +37,8 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const extraImagesInputRef = useRef<HTMLInputElement>(null);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [editoraId, setEditoraId] = useState<number | null>(null);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -291,6 +294,13 @@ export default function ModalLivroUsado({ onClose, onSubmit }: any) {
                   className="border-gray-300 focus:border-primary h-11"
                 />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="publishDate" className="text-gray-700 font-medium flex items-center gap-2">
+                  <NotebookPen className="h-4 w-4" /> Editora
+                </Label>
+                      <EditoraSelect selectedId={editoraId ?? undefined} onChange={setEditoraId} />
+              </div>
+              
 
               {/* Main Image Upload */}
               <div className="space-y-2">

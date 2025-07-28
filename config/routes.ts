@@ -1,5 +1,6 @@
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+const API_ADMINBOOKS_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL_BOOKS || "";
 const LOCAL_SERVER = "http://192.168.43.177:5000";
 const REQUISITOS_URL = process.env.NEXT_PUBLIC_API_REQUISITOS || "";
 const API_MPESA = process.env.NEXT_PUBLIC_API_MPESA || "";
@@ -50,4 +51,7 @@ export const routes = {
   instructor: `${API_BASE_URL}/instructor`,
   getallebook: `${API_BASE_URL}/getallebook`,
   listcourseinstructor: `${API_BASE_URL}/listcourseinstructor`,
+  novacategoria: `${API_ADMINBOOKS_BASE_URL}/create-category`,
+  createpublisher: `${API_ADMINBOOKS_BASE_URL}/create-publisher`,
+  publisherslist: `${API_ADMINBOOKS_BASE_URL}/publishers/list`,
 };
