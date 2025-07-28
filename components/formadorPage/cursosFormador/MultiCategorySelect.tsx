@@ -105,7 +105,7 @@ const filteredCategories = [...localCategories]
           </div>
 
           {loading && <p className="p-4 text-center">Carregando categorias...</p>}
-          {error && <p className="p-4 text-red-500 text-center">{error}</p>}
+          {/* {error && <p className="p-4 text-red-500 text-center">{error}</p>} */}
           {!loading && filteredCategories.length === 0 && (
             <p className="p-4 text-center text-gray-500">Nenhuma categoria encontrada</p>
           )}

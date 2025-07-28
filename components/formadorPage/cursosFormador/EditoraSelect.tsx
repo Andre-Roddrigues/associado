@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { listarEditoras } from "../actionsFormador/listar-editora-actions";
 import { criarEditora } from "../actionsFormador/create-editora-actions";
 import { getInstructorData } from "../actionsFormador/get-user-actions";
+import { Input } from "@/components/ui/input";
 
 interface Editora {
   id: number;
@@ -154,7 +155,7 @@ export default function EditoraSelect({ selectedId, onChange }: Props) {
           <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
             <h2 className="text-lg font-semibold mb-4 text-gray-500">Adicionar Nova Editora</h2>
 
-            <input
+            <Input
               type="text"
               value={newEditora.name}
               onChange={(e) => setNewEditora((prev) => ({ ...prev, name: e.target.value }))}
